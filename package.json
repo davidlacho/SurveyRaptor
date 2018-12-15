@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "server": "nodemon server.js",
+    "dev-start": "cd client && npm run build && cd .. && nodemon server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
@@ -28,6 +28,7 @@
     "pg": "^7.7.1"
   },
   "devDependencies": {
-    "dotenv": "^6.2.0"
+    "dotenv": "^6.2.0",
+    "nodemon": "^1.18.9"
   }
 }
