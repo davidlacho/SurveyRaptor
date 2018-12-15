@@ -1,6 +1,6 @@
 "use strict";
 // Uncomment this line out for local development. Must be commented for Heroku.
-require('dotenv').config();
+// require('dotenv').config();
 
 const PORT = process.env.PORT || 5000;
 const ENV = process.env.ENV || "development";
