@@ -7,11 +7,19 @@ const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const generatePassword = require('password-generator');
 const path = require('path');
+const generatePassword = require('password-generator');
+
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Put all API endpoints under '/api'
 app.get('/api/passwords', (req, res) => {
@@ -31,9 +39,9 @@ app.get('/api/passwords', (req, res) => {
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(PORT);
 
-console.log(`Password generator listening on ${PORT}`);
+console.log(`Server listening on ${PORT}`);
