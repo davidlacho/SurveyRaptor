@@ -1,34 +1,33 @@
 {
-  "name": "surveyraptor2",
-  "version": "0.1.0",
-  "private": true,
+  "name": "surveyraptor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "knexfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon index.js --ignore client",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiveache/SurveyRaptor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fiveache/SurveyRaptor/issues"
+  },
+  "homepage": "https://github.com/fiveache/SurveyRaptor#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "knex": "^0.16.2",
-    "pg": "^7.7.1",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "password-generator": "^2.2.0",
+    "path": "^0.12.7",
+    "pg": "^7.7.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "server.js",
-  "devDependencies": {},
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "dotenv": "^6.2.0"
+  }
 }

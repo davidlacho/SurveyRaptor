@@ -2,24 +2,38 @@
 
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const generatePassword = require('password-generator');
+const path = require('path');
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 
-// Helper functions for querying the database:
+// Put all API endpoints under '/api'
+app.get('/api/passwords', (req, res) => {
+  const count = 5;
 
-// Seperated Routes for each Resource
-// const api = require("./routes/api");
+  // Generate some passwords
+  const passwords = Array.from(Array(count).keys()).map(i =>
+    generatePassword(12, false)
+  )
 
-app.get('/', (req, res) => {
-  res.send('ok');
-})
+  // Return them as json
+  res.json(passwords);
 
-app.listen(PORT, () => {
-  console.log("Express app listening on port " + PORT);
+  console.log(`Sent ${count} passwords`);
 });
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
+
+app.listen(PORT);
+
+console.log(`Password generator listening on ${PORT}`);

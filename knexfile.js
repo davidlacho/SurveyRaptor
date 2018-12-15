@@ -6,12 +6,12 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
-      port: process.env.DB_PORT,
-      ssl: process.env.DB_SSL,
+      host: process.env.DB_DEV_HOST,
+      user: process.env.DB_DEV_USER,
+      password: process.env.DB_DEV_PASS,
+      database: process.env.DB_DEV_NAME,
+      port: process.env.DB_DEV_PORT,
+      ssl: process.env.DB_DEV_SSL,
     },
     migrations: {
       directory: './db/migrations',
