@@ -3,8 +3,9 @@ const generatePassword = require('password-generator');
 
 const router = express.Router();
 
+// API endpoints, do not prefix with '/api'
 module.exports = () => {
-  router.get('/api/passwords', (req, res) => {
+  router.get('/passwords', (req, res) => {
     const count = 5;
 
     // Generate some passwords

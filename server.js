@@ -4,6 +4,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const morgan = require('morgan');
+
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -15,6 +17,8 @@ const knexConfig = require('./knexfile');
 const knex = require('knex')(knexConfig[ENV]);
 
 // Server Config:
+app.use(morgan('dev'));
+
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
@@ -24,10 +28,11 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Routing:
 // Put all API endpoints under '/api'
-app.use('/api', apiRouter);
+app.use('/api', apiRouter());
 
 // The 'catchall' handler: for any request that doesn't
 // match one above, send back React's index.html file.
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/client/build/index.html`));
 });
