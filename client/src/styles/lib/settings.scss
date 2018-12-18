@@ -1,0 +1,41 @@
+// Settings file
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
+
+// Colours
+$color-black: #000000;
+$color-white: #ffffff;
+$color-light-gray: #CFCCD6;
+$color-iguana-green: #69B578;
+$color-suglow: #FFC53A;
+$color-dark-imperial-blue: #0B4F6C;
+$color-maastricht-blue: #011627;
+
+// Font sizes
+$font-body-size-smaller: 14px;
+$font-body-size: 16px;
+$font-medium-size: 20px;
+$font-large-size: 24px;
+$font-larger-size: 28px;
+
+// Spacing
+$space-xxx-small: 0.25rem; // 4px
+$space-xx-small: 0.5rem; // 8px
+$space-x-small: 0.75rem; // 12px
+$space-small: 1rem; // 16px
+$space-medium: 1.25rem; // 20px
+$space-x-medium: 1.5rem; // 24px
+$space-large: 1.75rem; // 28px
+$space-x-large: 2rem; // 32px
+$space-xx-large: 3.125rem; // 50px
+$space-xxx-large: 4.25rem; // 68px
+
+// Breakpoints
+$bp-xs: 375px;
+$bp-smaller: 680px;
+$bp-small: 720px;
+$bp-medium: 860px;
+$bp-large: 1024px;
+$bp-large-home: 1080px;
+$bp-xl: 1280px;

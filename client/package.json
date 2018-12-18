@@ -6,15 +6,18 @@
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "jsonwebtoken": "^8.4.0",
+    "node-sass": "^4.11.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-css": "node-sass src/styles/index.scss src/index.css",
+    "watch-css": "node-sass src/styles/index.scss src/index.css -w"
   },
   "eslintConfig": {
     "extends": "react-app"
