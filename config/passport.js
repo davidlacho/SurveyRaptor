@@ -1,15 +1,14 @@
 require('dotenv').config();
 
-var cookieExtractor = function(req) {
-  var token = null;
-  if (req && req.cookies) token = req.cookies['jwt'];
+const cookieExtractor = (req) => {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies.jwt;
+  }
   return token;
 };
 
 const JwtStrategy = require('passport-jwt').Strategy;
-const {
-  ExtractJwt,
-} = require('passport-jwt');
 
 module.exports = (passport, knex) => {
   const opts = {
