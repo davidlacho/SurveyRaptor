@@ -5,8 +5,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-
-
 // auth endpoints, do not prefix with '/auth'
 module.exports = (knex) => {
   passport.use(new SlackStrategy({
