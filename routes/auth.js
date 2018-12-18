@@ -59,5 +59,13 @@ module.exports = (knex) => {
         });
     });
 
+  router.get('/slackbot/redirect',
+    passport.authorize('slack', {
+      failureRedirect: '/login',
+    }), (req, res) => {
+      console.log(req);
+      res.json('success');
+    });
+
   return router;
 };

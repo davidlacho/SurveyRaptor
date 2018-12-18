@@ -10,13 +10,25 @@ const bot = new SlackBot({
 bot.getUsers()
   .then((users) => {
     users.members.forEach((user) => {
-      console.log(user.profile.real_name, user.profile.image_512);
+      // console.log(user.profile.real_name, user.profile.image_512);
+      console.log(user);
     });
   });
 
+// bot.getChannels()
+//   .then((response) => {
+//     response.channels.forEach((channel) => {
+//       channel.members.forEach((member) => {
+//         bot.getUserById(member)
+//           .then((memberRecord) => {
+//             console.log(`${memberRecord.real_name} is a member of ${channel.name}`);
+//             console.log(memberRecord);
+//           });
+//       });
+//     });
+//   });
 
 bot.on('start', () => {
-  // more information about additional params https://api.slack.com/methods/chat.postMessage
   const params = {
     icon_emoji: ':question:',
   };
