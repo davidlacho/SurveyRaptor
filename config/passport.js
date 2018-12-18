@@ -19,6 +19,7 @@ module.exports = (passport, knex) => {
   passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
     knex.select('*').from('users').where('oauth_id', jwtPayload.oauth_id)
       .then((err, user) => {
+        console.log('err', err, 'user', user);
         if (err) {
           console.log('jwt strategy error');
           return done(err, false);
