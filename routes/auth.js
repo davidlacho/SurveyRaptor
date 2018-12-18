@@ -4,6 +4,7 @@ const SlackStrategy = require('passport-slack').Strategy;
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+const request = require('request');
 
 // auth endpoints, do not prefix with '/auth'
 module.exports = (knex) => {
@@ -59,13 +60,21 @@ module.exports = (knex) => {
         });
     });
 
-  router.get('/slackbot/redirect',
-    passport.authorize('slack', {
-      failureRedirect: '/login',
-    }), (req, res) => {
-      console.log(req);
-      res.json('success');
+  router.get('/slackbot/redirect', (req, res) => {
+    const data = {
+      form: {
+        client_id: process.env.SLACK_BOT_CLIENT_ID,
+        client_secret: process.env.SLACK_BOT_CLIENT_SECRET,
+        code: req.query.code,
+      },
+    };
+    request.post('https://slack.com/api/oauth.access', data, (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        const team = JSON.parse(body).team.domain;
+        res.redirect(`http://${team}.slack.com`);
+      }
     });
+  });
 
   return router;
 };
