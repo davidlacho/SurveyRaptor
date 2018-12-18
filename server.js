@@ -50,8 +50,8 @@ app.use('/auth', authRouter(knex));
 app.get('/testauth', passport.authenticate('jwt', {
   session: false,
 }), (req, res) => {
-  const newString = 'hi there'
-  res.send(newString);
+  const newString = 'hi there';
+  res.json(newString);
 });
 
 // The 'catchall' handler: for any request that doesn't

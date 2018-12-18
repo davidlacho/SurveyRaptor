@@ -22,7 +22,7 @@ module.exports = (knex) => {
     }), (req, res) => {
       const createJWT = (user) => {
         const token = jwt.sign(user[0], process.env.PASSPORT_SECRET, {
-          expiresIn: 604800, // 1 week
+          expiresIn: Date.now() + 604800000, // 1 week
         });
 
         res.cookie('jwt', token);

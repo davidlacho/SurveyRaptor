@@ -20,11 +20,14 @@ module.exports = (passport, knex) => {
     knex.select('*').from('users').where('oauth_id', jwtPayload.oauth_id)
       .then((err, user) => {
         if (err) {
+          console.log('jwt strategy error');
           return done(err, false);
         }
         if (user[0]) {
+          console.log('jwt strategy user[0]');
           return done(null, user[0]);
         }
+        console.log('jwt strategy nothing.')
         return done(null, false);
       });
   }));
