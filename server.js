@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const uuid = require('uuid');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
+app.use(cookieParser(process.env.PASSPORT_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -3,9 +3,8 @@ const router = express.Router();
 const SlackStrategy = require('passport-slack').Strategy;
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-
-// COMMENT BELOW FOR HEROKU DEPLOYMENT:
 require('dotenv').config();
+
 
 // auth endpoints, do not prefix with '/auth'
 module.exports = (knex) => {
@@ -26,15 +25,10 @@ module.exports = (knex) => {
         const token = jwt.sign(user[0], process.env.PASSPORT_SECRET, {
           expiresIn: 604800, // 1 week
         });
-        res.json({
-          success: true,
-          token: `JWT ${token}`,
-          user: {
-            id: user[0].id,
-            name: user[0].name,
-            email: user[0].email,
-          },
-        });
+
+        res.cookie('jwt', token);
+
+        res.redirect('/');
       };
 
       knex

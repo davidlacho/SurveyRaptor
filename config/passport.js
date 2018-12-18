@@ -1,5 +1,11 @@
 require('dotenv').config();
 
+var cookieExtractor = function(req) {
+  var token = null;
+  if (req && req.cookies) token = req.cookies['jwt'];
+  return token;
+};
+
 const JwtStrategy = require('passport-jwt').Strategy;
 const {
   ExtractJwt,
@@ -7,12 +13,12 @@ const {
 
 module.exports = (passport, knex) => {
   const opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+    jwtFromRequest: cookieExtractor,
     secretOrKey: process.env.PASSPORT_SECRET,
   };
 
   passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
-    knex('user').find('*').where('oauth_id', jwtPayload._doc._id)
+    knex.select('*').from('users').where('oauth_id', jwtPayload.oauth_id)
       .then((err, user) => {
         if (err) {
           return done(err, false);
