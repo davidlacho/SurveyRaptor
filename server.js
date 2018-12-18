@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
 const passport = require('passport');
-const session = require('express-session');
-const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 
 const app = express();
