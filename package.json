@@ -29,6 +29,7 @@
     "knex": "^0.16.2",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "passport-slack": "0.0.7",
     "password-generator": "^2.2.0",

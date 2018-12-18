@@ -8,7 +8,6 @@ const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const uuid = require('uuid');
-const SlackStrategy = require('passport-slack').Strategy;
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,14 +20,14 @@ const knex = require('knex')(knexConfig[ENV]);
 // Server Config:
 app.use(morgan('dev'));
 
-//passport's session piggy-backs on express-session
-app.use(session({
-  genid: req => uuid.v4(),
-  secret: process.env.PASSPORT_SECRET,
+app.use(bodyParser.urlencoded({
+  extended: true,
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+require('./config/passport')(passport, knex);
 
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -38,41 +37,23 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Routing:
-// Put all API endpoints under '/api'
-// This will disappear with GraphQL
+// Put all API endpoints under '/api' (This will disappear with GraphQL)
 
 const apiRouter = require('./routes/api');
-
 app.use('/api', apiRouter());
 
-// Passport and Slack Login:
+// Passport Login:
+const authRouter = require('./routes/auth');
+app.use('/auth', authRouter(knex));
 
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
-
-passport.use(new SlackStrategy({
-  clientID: process.env.SLACK_CLIENT_ID,
-  clientSecret: process.env.SLACK_CLIENT_SECRET,
-}, (accessToken, refreshToken, profile, done) => {
-  done(null, profile);
-}));
-
-app.get('/auth/slack', passport.authorize('slack'));
-app.get('/auth/slack/callback',
-  passport.authorize('slack', {
-    failureREdirect: '/login',
-  }), (req, res) => res.redirect('/'));
-
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,
-}));
+app.get('/testauth', passport.authenticate('jwt', {
+  session: false,
+}), (req, res) => {
+  res.send('hi there');
+});
 
 // The 'catchall' handler: for any request that doesn't
 // match one above, send back React's index.html file.
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/client/build/index.html`));
 });
