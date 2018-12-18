@@ -3,7 +3,7 @@ const router = express.Router();
 const SlackStrategy = require('passport-slack').Strategy;
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-// require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 // auth endpoints, do not prefix with '/auth'
 module.exports = (knex) => {
