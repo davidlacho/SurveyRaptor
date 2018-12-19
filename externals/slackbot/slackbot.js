@@ -3,7 +3,7 @@ const SlackBot = require('slackbots');
 
 // create a bot
 const bot = new SlackBot({
-  token: 'xoxb-506040867636-506523827280-sWIdZSlrAGnTTgIlIFU6v5cY', // Add a bot https://my.slack.com/services/new/bot and put the token
+  token: process.env.SLACK_BOT_OAUTH_TOKEN, // Add a bot https://my.slack.com/services/new/bot and put the token
   name: 'Survey Raptor',
 });
 
