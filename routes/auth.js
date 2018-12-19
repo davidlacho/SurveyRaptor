@@ -56,7 +56,7 @@ module.exports = (knex) => {
         name: 'Survey Raptor',
       });
 
-      bot.getUsersById(parsedBody.creator_id)
+      bot.getUserById(parsedBody.creator_id)
         .then((user) => {
           knex
             .select('*')
