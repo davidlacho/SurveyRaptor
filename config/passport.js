@@ -17,7 +17,7 @@ module.exports = (passport, knex) => {
   };
 
   passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
-    knex.select('*').from('slack_bots').where('bot_user_id', jwtPayload.bot_user_id)
+    knex.select('*').from('slack_bots').where('bot_user_id', jwtPayload.bot_user_id).andWhere('creator_id', jwtPayload.creator_id)
       .then((bot) => {
         if (bot[0]) {
           return done(null, bot[0]);
