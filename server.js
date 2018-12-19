@@ -45,13 +45,6 @@ app.use('/api', apiRouter());
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter(knex));
 
-app.get('/testauth', passport.authenticate('jwt', {
-  session: false,
-}), (req, res) => {
-  console.log(req);
-  res.send(`HERE IT IS: ${JSON.stringify(req.user)}`);
-});
-
 // The 'catchall' handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
