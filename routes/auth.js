@@ -78,8 +78,14 @@ module.exports = (knex) => {
       };
 
       const parsedBody = JSON.parse(body);
-      console.log(parsedBody);
-
+      const insertObject = {
+        access_token: parsedBody.access_token,
+        creator_id: parsedBody.user_id,
+        team_name: parsedBody.team_name,
+        bot_user_id: parsedBody.bot.bot_user_id,
+        bot_access_token: parsedBody.bot.bot_access_token,
+      };
+      console.log(insertObject);
       knex
         .select('*')
         .from('slack_bots')
@@ -87,13 +93,7 @@ module.exports = (knex) => {
         .then((record) => {
           if (record.length === 0) {
             knex('slack_bots')
-              .insert({
-                access_token: parsedBody.access_token,
-                creator_id: parsedBody.user_id,
-                team_name: parsedBody.team_name,
-                bot_user_id: parsedBody.bot.bot_user_id,
-                bot_access_token: parsedBody.bot.bot_access_token,
-              })
+              .insert(insertObject)
               .returning('*')
               .then((newRecord) => {
                 createJWT(newRecord);
