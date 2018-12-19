@@ -89,7 +89,7 @@ module.exports = (knex) => {
       knex
         .select('*')
         .from('slack_bots')
-        .where('bot_user_id', parsedBody.bot_user_id)
+        .where('bot_user_id', parsedBody.bot.bot_user_id)
         .then((record) => {
           if (record.length === 0) {
             knex('slack_bots')
