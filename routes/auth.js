@@ -52,7 +52,7 @@ module.exports = (knex) => {
 
       // create a bot
       const bot = new SlackBot({
-        token: process.env.SLACK_BOT_OAUTH_TOKEN, // Add a bot https://my.slack.com/services/new/bot and put the token
+        token: parsedBody.bot.bot_access_token, // Add a bot https://my.slack.com/services/new/bot and put the token
         name: 'Survey Raptor',
       });
 
