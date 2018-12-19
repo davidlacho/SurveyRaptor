@@ -69,9 +69,9 @@ module.exports = (knex) => {
       },
     };
     request.post('https://slack.com/api/oauth.access', data, (error, response, body) => {
+      console.log('!!!error', error, '!!!response', response, '!!!body', body);
       if (!error && response.statusCode === 200) {
-        const team = JSON.parse(body).team.domain;
-        res.redirect(`http://${team}.slack.com`);
+        res.redirect('/');
       }
     });
   });
