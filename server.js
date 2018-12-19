@@ -48,7 +48,7 @@ app.use('/auth', authRouter(knex));
 app.get('/testauth', passport.authenticate('jwt', {
   session: false,
 }), (req, res) => {
-  res.json({
+  res.send({
     message : 'You made it to the secure route',
     user : req.user,
     token : req.query.secret_token,
