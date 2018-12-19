@@ -48,8 +48,12 @@ app.use('/auth', authRouter(knex));
 app.get('/testauth', passport.authenticate('jwt', {
   session: false,
 }), (req, res) => {
-  const newString = 'hi there';
-  res.json(newString);
+  res.json({
+    message : 'You made it to the secure route',
+    user : req.user,
+    token : req.query.secret_token,
+    req: req,
+  });
 });
 
 // The 'catchall' handler: for any request that doesn't
