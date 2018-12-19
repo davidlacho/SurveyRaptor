@@ -17,10 +17,10 @@ module.exports = (passport, knex) => {
   };
 
   passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
-    knex.select('*').from('users').where('oauth_id', jwtPayload.oauth_id)
-      .then((user) => {
-        if (user[0]) {
-          return done(null, user[0]);
+    knex.select('*').from('slack_bots').where('bot_user_id', jwtPayload.bot_user_id)
+      .then((bot) => {
+        if (bot[0]) {
+          return done(null, bot[0]);
         }
         return done(null, false);
       })
