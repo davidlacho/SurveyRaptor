@@ -27,9 +27,10 @@ module.exports = (knex) => {
         });
 
         res.cookie('jwt', token);
-
         res.redirect('/');
       };
+
+      console.log('!!!! REQ.ACCOUNT >>>>!', req.account);
 
       knex
         .select('*')

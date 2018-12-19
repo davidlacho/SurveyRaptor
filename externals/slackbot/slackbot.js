@@ -3,15 +3,15 @@ const SlackBot = require('slackbots');
 
 // create a bot
 const bot = new SlackBot({
-  token: process.env.SLACK_BOT_OAUTH_TOKEN, // Add a bot https://my.slack.com/services/new/bot and put the token
+  token: 'xoxb-506040867636-506523827280-sWIdZSlrAGnTTgIlIFU6v5cY', // Add a bot https://my.slack.com/services/new/bot and put the token
   name: 'Survey Raptor',
 });
 
 bot.getUsers()
   .then((users) => {
     users.members.forEach((user) => {
-      // console.log(user.profile.real_name, user.profile.image_512);
       console.log(user);
+      bot.postMessageToUser(user.real_name, 'meow!', { icon_emoji: ':cat:' });
     });
   });
 
@@ -37,6 +37,6 @@ bot.on('start', () => {
 bot.on('message', (data) => {
   // more information about additional params https://api.slack.com/methods/chat.postMessage
   if (data.type === 'message' && !data.bot_id) {
-    console.log(`  ${data.user} says: ${data.text}.`);
+    console.log(data);
   }
 });
