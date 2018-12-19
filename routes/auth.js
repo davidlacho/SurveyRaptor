@@ -70,6 +70,7 @@ module.exports = (knex) => {
                       slack_id: user.id,
                       team_id: user.team_id,
                       name: user.name,
+                      email: user.profile.email,
                       real_name: user.real_name,
                       image_24: user.profile.image_24,
                       image_32: user.profile.image_32,
