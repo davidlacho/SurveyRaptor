@@ -94,12 +94,12 @@ module.exports = (knex) => {
                 bot_user_id: parsedBody.bot.user_id,
                 bot_access_token: parsedBody.bot.bot_access_token,
               })
-              .catch((err) => {
-                console.log('there was an error: ', err);
-              })
               .returning('*')
               .then((newRecord) => {
                 createJWT(newRecord);
+              })
+              .catch((err) => {
+                console.log('there was an error: ', err);
               });
           } else {
             createJWT(record);
