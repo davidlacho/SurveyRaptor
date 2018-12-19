@@ -49,7 +49,7 @@ app.get('/testauth', passport.authenticate('jwt', {
   session: false,
 }), (req, res) => {
   console.log(req);
-  res.send(`HERE IT IS: ${user}`);
+  res.send(`HERE IT IS: ${JSON.stringify(req.user)}`);
 });
 
 // The 'catchall' handler: for any request that doesn't
