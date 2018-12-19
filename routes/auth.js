@@ -68,10 +68,6 @@ module.exports = (knex) => {
         .catch((err) => {
           console.log('there was an error', err);
         });
-
-      if (!error && response.statusCode === 200) {
-        res.redirect('/');
-      }
     });
   });
 
