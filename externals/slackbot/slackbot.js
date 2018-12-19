@@ -11,7 +11,6 @@ bot.getUsers()
   .then((users) => {
     users.members.forEach((user) => {
       console.log(user);
-      bot.postMessageToUser(user.real_name, 'meow!', { icon_emoji: ':cat:' });
     });
   });
 

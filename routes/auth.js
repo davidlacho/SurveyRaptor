@@ -5,6 +5,8 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 const request = require('request');
+const SlackBot = require('slackbots');
+
 
 // auth endpoints, do not prefix with '/auth'
 module.exports = (knex) => {
@@ -46,6 +48,48 @@ module.exports = (knex) => {
         bot_access_token: parsedBody.bot.bot_access_token,
       };
 
+      // Grab all users from channel and store their info in DB:
+
+      // create a bot
+      const bot = new SlackBot({
+        token: process.env.SLACK_BOT_OAUTH_TOKEN, // Add a bot https://my.slack.com/services/new/bot and put the token
+        name: 'Survey Raptor',
+      });
+
+      bot.getUsers()
+        .then((users) => {
+          users.members.forEach((user) => {
+            knex
+              .select('*')
+              .from('users')
+              .where('slack_id', user.id)
+              .then((record) => {
+                if (record.length === 0) {
+                  knex('users')
+                    .insert({
+                      slack_id: user.id,
+                      team_id: user.team_id,
+                      name: user.name,
+                      real_name: user.real_name,
+                      image_24: user.profile.image_24,
+                      image_32: user.profile.image_32,
+                      image_48: user.profile.image_48,
+                      image_72: user.profile.image_72,
+                      image_192: user.profile.image_192,
+                      image_512: user.profile.image_512,
+                    })
+                    .catch((err) => {
+                      console.log('there was an error: ', err);
+                    });
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+        });
+
+      // Insert bot into database, and create JWT
       knex
         .select('*')
         .from('slack_bots')
