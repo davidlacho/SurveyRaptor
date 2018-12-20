@@ -44,11 +44,12 @@ module.exports = (knex) => {
 
     const insertToQuestionTable = (surveyID) => {
       req.body.questions.forEach((question) => {
-        const questionType = question.possibleAnswers ? 'quantiative' : 'qualitative';
+        const questionType = question.possibleAnswers ? 'quantitative' : 'qualitative';
         knex('questions')
           .insert({
             survey_id: surveyID[0],
             question_type: questionType,
+            question: question.question,
           })
           .returning('id')
           .then((id) => {
