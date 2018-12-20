@@ -19,9 +19,11 @@ module.exports = () => {
   router.post('/buildSurvey', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
-    console.log(req.body);
+    console.log(req.user);
     res.json('you made it.');
-  }); 
+  });
+
+
 
   return router;
 };
