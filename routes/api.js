@@ -28,7 +28,7 @@ module.exports = (knex) => {
     // req.user.bot_access_token
   });
 
-  router.post('buildsurvey', passport.authenticate('jwt', {
+  router.post('/buildsurvey', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     knex('users')
@@ -37,7 +37,6 @@ module.exports = (knex) => {
       .then((record) => {
         console.log(record);
       });
-
   });
 
   return router;
