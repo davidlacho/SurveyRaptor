@@ -55,9 +55,7 @@ module.exports = (knex) => {
         name: 'Survey Raptor',
       });
 
-       console.log('parsedBody.creator_id', parsedBody.creator_id, 'bot', bot, )
-
-      bot.getUserById(parsedBody.creator_id)
+      bot.getUserById(parsedBody.user_id)
         .then((user) => {
           console.log(user);
           knex
