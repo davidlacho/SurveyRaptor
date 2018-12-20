@@ -62,6 +62,7 @@ module.exports = (knex) => {
             .from('users')
             .where('slack_id', user.id)
             .then((record) => {
+              console.log('!!!!!RECORD: ,', record);
               if (record.length === 0) {
                 knex('users')
                   .insert({
@@ -84,7 +85,7 @@ module.exports = (knex) => {
               }
             })
             .catch((err) => {
-              console.log(err);
+              console.log('error found here', err);
             });
         });
 
