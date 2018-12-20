@@ -28,5 +28,17 @@ module.exports = (knex) => {
     // req.user.bot_access_token
   });
 
+  router.post('buildsurvey', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+    knex('users')
+      .select('id')
+      .where('slack_id', req.user.creator_id)
+      .then((record) => {
+        console.log(record);
+      });
+
+  });
+
   return router;
 };
