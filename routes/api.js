@@ -24,7 +24,7 @@ module.exports = (knex) => {
     // req.user.access_token,
     // req.user.creator_id,
     // req.user.team_name,
-    // req.user.bot_user_id,
+    // req.user.bot_userID,
     // req.user.bot_access_token
   });
 
@@ -34,8 +34,23 @@ module.exports = (knex) => {
     knex('users')
       .select('id')
       .where('slack_id', req.user.creator_id)
-      .then((record) => {
-        console.log(record);
+      .then((userID) => {
+        knex('surveys')
+          .insert({
+            user_id: userID[0].id,
+          })
+          .returning('id')
+          .then((surveyID) => {
+            // do something with surveyID!!!!!!!
+            console.log(surveyID);
+            res.json(surveyID);
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
       });
   });
 
