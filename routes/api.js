@@ -41,7 +41,7 @@ module.exports = (knex) => {
           })
           .returning('id')
           .then((surveyID) => {
-            // do something with surveyID!!!!!!!
+            // do something with surveyID[0]!!!!!!!
             console.log(surveyID);
             res.json(surveyID);
           })
