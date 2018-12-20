@@ -1,31 +1,19 @@
 const express = require('express');
-const generatePassword = require('password-generator');
 const passport = require('passport');
 
 const router = express.Router();
 
 // API endpoints, do not prefix with '/api'
 module.exports = (knex) => {
-  router.get('/passwords', (req, res) => {
-    const count = 5;
-
-    // Generate some passwords
-    const passwords = Array.from(Array(count).keys()).map(() => generatePassword(12, false));
-
-    // Return them as json
-    res.json(passwords);
-  });
-
-  router.post('/buildSurvey', passport.authenticate('jwt', {
+  // Serves the logged in user data
+  router.get('/userdata', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-
     knex('users')
       .join('slack_bots', 'slack_bots.creator_id', '=', 'users.slack_id')
-      .select('*')
+      .select('name', 'email', 'image_24', 'image_32', 'image_48', 'image_72', 'image_192', 'image_512', 'team_name')
       .where('slack_id', req.user.creator_id)
       .then((rows) => {
-        console.log(rows);
         res.json(rows);
       })
       .catch((err) => {
