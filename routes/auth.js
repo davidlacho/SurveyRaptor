@@ -55,14 +55,16 @@ module.exports = (knex) => {
         name: 'Survey Raptor',
       });
 
+       console.log('parsedBody.creator_id', parsedBody.creator_id, 'bot', bot, )
+
       bot.getUserById(parsedBody.creator_id)
         .then((user) => {
+          console.log(user);
           knex
             .select('*')
             .from('users')
             .where('slack_id', user.id)
             .then((record) => {
-              console.log('!!!!!RECORD: ,', record);
               if (record.length === 0) {
                 knex('users')
                   .insert({
