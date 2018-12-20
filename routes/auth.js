@@ -13,7 +13,7 @@ module.exports = (knex) => {
   passport.use(new SlackStrategy({
     clientID: process.env.SLACK_BOT_CLIENT_ID,
     clientSecret: process.env.SLACK_BOT_CLIENT_SECRET,
-    scope: ['bot'],
+    scope: ['bot', 'identity.basic'],
   }, (accessToken, refreshToken, profile, done) => {
     done(null, profile);
   }));

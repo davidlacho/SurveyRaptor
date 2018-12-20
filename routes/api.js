@@ -1,5 +1,6 @@
 const express = require('express');
 const generatePassword = require('password-generator');
+const passport = require('passport');
 
 const router = express.Router();
 
@@ -14,6 +15,13 @@ module.exports = () => {
     // Return them as json
     res.json(passwords);
   });
+
+  router.post('/buildSurvey', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    console.log(req.body);
+    res.json('you made it.');
+  }); 
 
   return router;
 };
