@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // Put all API endpoints under '/api' (This will disappear with GraphQL)
 
 const apiRouter = require('./routes/api');
-app.use('/api', apiRouter());
+app.use('/api', apiRouter(knex));
 
 // Passport Login:
 const authRouter = require('./routes/auth');
