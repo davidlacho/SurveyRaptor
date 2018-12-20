@@ -78,6 +78,7 @@ module.exports = (knex) => {
                     image_512: user.profile.image_512,
                   })
                   .catch((err) => {
+                    // HANDLE THIS ERROR BETTER ON THE USER'S SIDE
                     console.log('there was an error: ', err);
                   });
               }
@@ -85,7 +86,6 @@ module.exports = (knex) => {
             .catch((err) => {
               console.log(err);
             });
-
         });
 
       // Insert bot into database, and create JWT
@@ -103,6 +103,7 @@ module.exports = (knex) => {
                 createJWT(newRecord);
               })
               .catch((err) => {
+                // HANDLE THIS ERROR BETTER ON THE USER'S SIDE
                 console.log('there was an error: ', err);
               });
           } else {
@@ -110,6 +111,7 @@ module.exports = (knex) => {
           }
         })
         .catch((err) => {
+          // HANDLE THIS ERROR BETTER ON THE USER'S SIDE
           console.log('there was an error', err);
         });
     });

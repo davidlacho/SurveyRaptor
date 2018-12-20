@@ -19,35 +19,70 @@ module.exports = (knex) => {
       .catch((err) => {
         res.json(err);
       });
-
-    // req.user.id,
-    // req.user.access_token,
-    // req.user.creator_id,
-    // req.user.team_name,
-    // req.user.bot_userID,
-    // req.user.bot_access_token
   });
 
   router.post('/buildsurvey', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-    knex('users')
-      .select('id')
-      .where('slack_id', req.user.creator_id)
-      .then((userID) => {
-        knex('surveys')
+    const insertToQuantitativeAnswers = (questionID, possibleAnswers) => {
+      const insertArray = [];
+      possibleAnswers.forEach((possibleAnswer) => {
+        insertArray.push({
+          question_id: questionID,
+          possible_answers: possibleAnswer,
+        });
+      });
+      knex('quantiative_possible_answers')
+        .insert(insertArray)
+        .then((success) => {
+          res.status(201).json('ok');
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    };
+
+    const insertToQuestionTable = (surveyID) => {
+      req.body.questions.forEach((question) => {
+        const questionType = question.possibleAnswers ? 'quantiative' : 'qualitative';
+        knex('questions')
           .insert({
-            user_id: userID[0].id,
+            survey_id: surveyID[0],
+            question_type: questionType,
           })
           .returning('id')
-          .then((surveyID) => {
-            // do something with surveyID[0]!!!!!!!
-            console.log(surveyID);
-            res.json(surveyID);
+          .then((id) => {
+            if (questionType === 'quantitative') {
+              insertToQuantitativeAnswers(id, question.possibleAnswers);
+            } else {
+              res.status(201).json('ok');
+            }
           })
           .catch((err) => {
             res.status(500).json(err);
           });
+      });
+    };
+
+    const insertToSurveys = (userID) => {
+      knex('surveys')
+        .insert({
+          user_id: userID[0].id,
+        })
+        .returning('id')
+        .then((surveyID) => {
+          insertToQuestionTable(surveyID);
+        })
+        .catch((err) => {
+          res.status(500).json(err);
+        });
+    };
+
+    knex('users')
+      .select('id')
+      .where('slack_id', req.user.creator_id)
+      .then((userID) => {
+        insertToSurveys(userID);
       })
       .catch((err) => {
         res.status(500).json(err);

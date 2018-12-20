@@ -1,11 +1,12 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 const cookieExtractor = (req) => {
-  let token = null;
-  if (req && req.cookies) {
-    token = req.cookies.jwt;
+  if (!req) return undefined;
+  if (req.headers.authorization && req.headers.authorization.indexOf('Bearer ') === 0) {
+    return req.headers.authorization.substring('Bearer '.length);
   }
-  return token;
+
+  return req.cookies.jwt;
 };
 
 const JwtStrategy = require('passport-jwt').Strategy;
