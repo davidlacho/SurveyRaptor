@@ -13,7 +13,7 @@ module.exports = (knex) => {
   passport.use(new SlackStrategy({
     clientID: process.env.SLACK_BOT_CLIENT_ID,
     clientSecret: process.env.SLACK_BOT_CLIENT_SECRET,
-    scope: ['bot', 'identity.basic'],
+    scope: ['bot'],
   }, (accessToken, refreshToken, profile, done) => {
     done(null, profile);
   }));
@@ -29,7 +29,6 @@ module.exports = (knex) => {
       },
     };
     request.post('https://slack.com/api/oauth.access', data, (error, response, body) => {
-
       const createJWT = (slackbot) => {
         const token = jwt.sign(slackbot[0], process.env.PASSPORT_SECRET, {
           expiresIn: Date.now() + 604800000, // 1 week
