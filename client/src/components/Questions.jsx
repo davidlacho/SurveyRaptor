@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 // Components
 import PossibleAnswers from './PossibleAnswers';

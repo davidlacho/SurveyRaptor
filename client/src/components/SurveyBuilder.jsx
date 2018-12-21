@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 // App components
 import Questions from './Questions';
-
+import SurveyForm from './SurveyForm'
 class SurveyBuilder extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +13,7 @@ class SurveyBuilder extends Component {
   render() {
     return (
       <div>
-        <Questions />
+        <SurveyForm />
       </div>
     );
   }
