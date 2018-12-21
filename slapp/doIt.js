@@ -1,4 +1,5 @@
 module.exports = (slapp) => {
+
   // if a user says "do it" in a DM
   slapp.message('do it', 'direct_message', (msg) => {
     var state = {
@@ -11,7 +12,7 @@ module.exports = (slapp) => {
         attachments: [{
           text: 'Are you sure?',
           fallback: 'Are you sure?',
-          callback_id: 'doit_cohernfirm_callback',
+          callback_id: 'doit_confirm_callback',
           actions: [{
               name: 'answer',
               text: 'Yes',
@@ -33,6 +34,7 @@ module.exports = (slapp) => {
   })
 
   slapp.route('handleDoitConfirmation', (msg, state) => {
+    console.log('msg.type: ', msg.type)
     // if they respond with anything other than a button selection,
     // get them back on track
     if (msg.type !== 'action') {
@@ -66,9 +68,9 @@ module.exports = (slapp) => {
 
     // simulate doing some work and send a confirmation.
     setTimeout(() => {
-      msg.say('I "did it"');
-    }, 3000);
-  });
+      msg.say('I "did it"')
+    }, 3000)
+  })
 
   return slapp;
 };

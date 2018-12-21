@@ -33,12 +33,8 @@ module.exports = (app) => {
     .message('fix it', 'ambient', (msg) => {
       msg.say('https://www.youtube.com/watch?v=yo3uxqwTxk0')
     })
-    .message(/.*/, 'ambient', (msg) => {
-      msg.say('I love you, but I am really not sure what is going on... :cry:')
-    })
     .message(/.*/, 'mention', (msg) => {
       msg.say('You really do care about me. :heart:')
     });
-
     return app;
 };
