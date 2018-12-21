@@ -28,14 +28,13 @@ module.exports = (knex) => {
       possibleAnswers.forEach((possibleAnswer) => {
         knex('quantiative_possible_answers')
           .insert({
-            question_id: questionID,
+            question_id: questionID[0],
             possible_answers: possibleAnswer,
           })
           .catch((err) => {
-            console.log(err);
+            res.status(500).json('Error occured when inserting possible answers:', err);
           });
       });
-      res.status(201).json('ok');
     };
 
     const insertToQuestionTable = (surveyID) => {
@@ -51,14 +50,13 @@ module.exports = (knex) => {
           .then((id) => {
             if (questionType === 'quantitative') {
               insertToQuantitativeAnswers(id, question.possibleAnswers);
-            } else {
-              res.status(201).json('ok');
             }
           })
           .catch((err) => {
-            console.log(err);
+            res.status(500).json('Error occured when inserting into question table:', err);
           });
       });
+      res.status(200).json('ok');
     };
 
     const insertToSurveys = (userID) => {
@@ -71,7 +69,7 @@ module.exports = (knex) => {
           insertToQuestionTable(surveyID);
         })
         .catch((err) => {
-          console.log(err);
+          res.status(500).json('Error occured when inserting into survey table:', err);
         });
     };
 
@@ -82,7 +80,7 @@ module.exports = (knex) => {
         insertToSurveys(userID);
       })
       .catch((err) => {
-        console.log(err);
+        res.status(500).json('Error occured when getting user:', err);
       });
   });
 
