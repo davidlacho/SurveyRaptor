@@ -11,7 +11,7 @@ module.exports = (slapp) => {
         attachments: [{
           text: 'Are you sure?',
           fallback: 'Are you sure?',
-          callback_id: 'doit_confirm_callback',
+          callback_id: 'doit_cohernfirm_callback',
           actions: [{
               name: 'answer',
               text: 'Yes',
@@ -69,6 +69,6 @@ module.exports = (slapp) => {
       msg.say('I "did it"')
     }, 3000)
   })
-  
+
   return slapp;
 };
