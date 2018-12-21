@@ -57,7 +57,6 @@ module.exports = (knex) => {
 
       bot.getUserById(parsedBody.user_id)
         .then((user) => {
-          console.log(user);
           knex
             .select('*')
             .from('users')
