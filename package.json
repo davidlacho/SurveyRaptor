@@ -37,7 +37,8 @@
     "pg": "^7.7.1",
     "qs-middleware": "^1.0.3",
     "request": "^2.88.0",
-    "slackbots": "^1.2.0"
+    "slackbots": "^1.2.0",
+    "slapp": "^3.3.0"
   },
   "devDependencies": {
     "dotenv": "^6.2.0",

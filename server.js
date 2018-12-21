@@ -36,6 +36,25 @@ app.use(express.json());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+// SLAP Config:
+
+const Slapp = require('slapp');
+const ContextLookup = require('./slapp/context-lookup');
+
+const slapp = Slapp({
+  context: ContextLookup(knex),
+  verify_token: process.env.SLACK_VERIFY_TOKEN,
+  log: true,
+  colors: true,
+});
+
+const friendbot = require('./slapp/friendbot');
+
+// Handle direct messages that are kinda dumb:
+friendbot(slapp);
+slapp.attachToExpress(app);
+
+
 // Routing:
 // Put all API endpoints under '/api' (This will disappear with GraphQL)
 
