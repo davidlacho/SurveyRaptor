@@ -66,9 +66,9 @@ module.exports = (slapp) => {
 
     // simulate doing some work and send a confirmation.
     setTimeout(() => {
-      msg.say('I "did it"')
-    }, 3000)
-  })
+      msg.say('I "did it"');
+    }, 3000);
+  });
 
   return slapp;
 };
