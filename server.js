@@ -33,7 +33,18 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.json());
-// Serve static files from the React app
+
+// SET VIEW ENGINE TO EJS FOR LANDING PAGE
+app.set('view engine', 'ejs');
+app.set('views');
+app.use(express.static('public'));
+
+
+app.get('/', (req, res) => {
+  res.render('home');
+});
+
+// If it makes it past landing page, serve static files from React:
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // SLAP Config:
@@ -59,9 +70,7 @@ doit(slapp);
 
 slapp.attachToExpress(app);
 
-
 // Routing:
-// Put all API endpoints under '/api' (This will disappear with GraphQL)
 
 const apiRouter = require('./routes/api');
 app.use('/api', apiRouter(knex));
@@ -75,7 +84,7 @@ app.use('/auth', authRouter(knex));
 
 app.get('*', passport.authenticate('jwt', {
   session: false,
-  failureRedirect: '/auth/slack',
+  failureRedirect: '/',
 }), (req, res) => {
   res.sendFile(path.join(`${__dirname}/client/build/index.html`));
 });
