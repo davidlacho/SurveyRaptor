@@ -56,7 +56,7 @@ module.exports = (knex) => {
             res.status(500).json('Error occured when inserting into question table:', err);
           });
       });
-      res.status(200).json('ok');
+      res.status(201).json('ok');
     };
 
     const insertToSurveys = (userID) => {
