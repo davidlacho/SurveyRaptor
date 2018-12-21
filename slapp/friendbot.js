@@ -24,14 +24,17 @@ module.exports = (app) => {
     })
     .message('help', ['direct_message', 'direct_mention'], (msg) => {
       let help = `I will respond to the following messages:
-\`@slapp hi||hello\` for a greeting.
+\`@Survey Raptor hi||hello\` for a greeting.
 \`mention me by name in a message\` to demonstrate detecting a mention.
-\`@slapp help\` to see this again.`
+\`@Survey Raptor help\` to see this again.`
 
       msg.say(help)
     })
     .message('fix it', 'ambient', (msg) => {
       msg.say('https://www.youtube.com/watch?v=yo3uxqwTxk0')
+    })
+    .message(/.*/, 'ambient', (msg) => {
+      msg.say('I love you, but I am really not sure what is going on... :cry:')
     })
     .message(/.*/, 'mention', (msg) => {
       msg.say('You really do care about me. :heart:')

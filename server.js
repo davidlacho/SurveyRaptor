@@ -49,9 +49,14 @@ const slapp = Slapp({
 });
 
 const friendbot = require('./slapp/friendbot');
+const doit = require('./slapp/doit');
+
 
 // Handle direct messages that are kinda dumb:
 friendbot(slapp);
+doit(slapp);
+
+
 slapp.attachToExpress(app);
 
 
