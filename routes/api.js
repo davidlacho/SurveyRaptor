@@ -25,21 +25,17 @@ module.exports = (knex) => {
     session: false,
   }), (req, res) => {
     const insertToQuantitativeAnswers = (questionID, possibleAnswers) => {
-      const insertArray = [];
       possibleAnswers.forEach((possibleAnswer) => {
-        insertArray.push({
-          question_id: questionID,
-          possible_answers: possibleAnswer,
-        });
+        knex('quantiative_possible_answers')
+          .insert({
+            question_id: questionID,
+            possible_answers: possibleAnswer,
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
-      knex('quantiative_possible_answers')
-        .insert(insertArray)
-        .then((success) => {
-          res.status(201).json('ok');
-        })
-        .catch((err) => {
-          res.status(500).json(err);
-        });
+      res.status(201).json('ok');
     };
 
     const insertToQuestionTable = (surveyID) => {
@@ -60,7 +56,7 @@ module.exports = (knex) => {
             }
           })
           .catch((err) => {
-            res.status(500).json(err);
+            console.log(err);
           });
       });
     };
@@ -75,7 +71,7 @@ module.exports = (knex) => {
           insertToQuestionTable(surveyID);
         })
         .catch((err) => {
-          res.status(500).json(err);
+          console.log(err);
         });
     };
 
@@ -86,7 +82,7 @@ module.exports = (knex) => {
         insertToSurveys(userID);
       })
       .catch((err) => {
-        res.status(500).json(err);
+        console.log(err);
       });
   });
 
