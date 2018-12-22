@@ -1,7 +1,6 @@
 import React, {
   Component
 } from 'react';
-// import $ from 'jquery';
 import QuestionField from './QuestionField';
 
 
@@ -13,7 +12,7 @@ class SurveyForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionKey: 0,
+      questionKey: 1,
       questions: {}
     }
     const saveQuestion = this.saveQuestion.bind(this);
@@ -26,34 +25,48 @@ class SurveyForm extends Component {
     this.setState({
       questions: questionObject,
     });
+    console.log(questionObject)
   }
 
   addAQuestionToSurvey = (event) => {
-    this.setState({
-      questionKey : this.state.questionKey + 1,
-    });
+    if(!!this.state.questions[this.state.questionKey - 1]){
+      this.setState({
+        questionKey : this.state.questionKey + 1,
+      });
+    }
   };
 
-  saveAnswer = (key, answer) => {
+  saveAnswer = (questionKey, answerKey, answer) => {
     const questionObject = this.state.questions;
-    if(!questionObject.questions[key].possibleAnswers) {
-      questionObject.questions[key].possibleAnswers = [];
+    if(!questionObject[questionKey]){
+      questionObject[questionKey] = {question: ''}
     }
-    questionObject.questions[key].possibleAnswers.push(answer);
+    if(!questionObject[questionKey].possibleAnswers) {
+      questionObject[questionKey].possibleAnswers = [];
+    }
+    if(!questionObject[questionKey].possibleAnswers[answerKey]) {
+      questionObject[questionKey].possibleAnswers[answerKey] = '';
+    }
+    questionObject[questionKey].possibleAnswers[answerKey] = answer;
     this.setState({
       questions: questionObject,
     });
+    console.log(questionObject)
   }
 
   render() {
     const questionChildren = [];
-    for (var i = 0; i < this.state.questionKey; i += 1) {
-      questionChildren.push(<QuestionField key={i} number={i} />);
+    for (var i = 1; i < this.state.questionKey; i += 1) {
+      questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer}/>);
     };
+    const questionButton =
+    (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <button type="button" onClick={()=>this.addAQuestionToSurvey()}>Add A New Question</button> :'';
+
     return (
       <form >
+        <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer}/>
         {questionChildren}
-        <button type="button" onClick={()=>this.addAQuestionToSurvey()}>Add A New Question</button>
+        {questionButton}
       </form>
     );
   }
