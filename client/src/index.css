@@ -1,4 +1,5 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 .lds-ellipsis {
   display: inline-block;
@@ -49,9 +50,93 @@
   100% {
     transform: translate(19px, 0); } }
 
+.form-container {
+  margin: 2rem; }
+
+.form-row--full-width .form-field {
+  width: 100%; }
+
+.form-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1.5rem 0; }
+  @media screen and (max-width: 1023px) {
+    .form-row {
+      justify-content: space-between; } }
+  .form-row .form-field {
+    width: 24%;
+    margin-right: 0.75rem; }
+    .form-row .form-field:last-child {
+      margin-right: 0; }
+    @media screen and (max-width: 719px) {
+      .form-row .form-field {
+        width: 100%; } }
+    @media screen and (max-width: 1023px) {
+      .form-row .form-field {
+        width: 48%;
+        margin-right: 0; } }
+
+.form-button {
+  display: block; }
+  @media screen and (max-width: 719px) {
+    .form-button {
+      width: 100%; } }
+
+.form-button--answer {
+  margin-right: auto !important; }
+
+.form-header {
+  display: block;
+  width: 100%; }
+
 body {
   margin: 0;
   padding: 0; }
 
 .App {
   width: 100%; }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: rgba(0, 12, 13, 0.03);
+  border-bottom: 1px solid rgba(0, 12, 13, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 12, 13, 0.15); }
+  @media screen and (max-width: 374px) {
+    .site-header {
+      display: block; } }
+
+.header-link {
+  display: inline-block;
+  margin-right: 2rem;
+  color: #0078cf;
+  text-decoration: none;
+  transition: 0.2s ease; }
+
+.logo {
+  display: inline-block;
+  margin: 0;
+  font-size: 28px; }
+  .logo a {
+    display: inline-block;
+    color: #0B364A;
+    text-decoration: none;
+    transition: 0.2s ease; }
+    .logo a:hover {
+      color: #000000; }
+  @media screen and (max-width: 374px) {
+    .logo {
+      margin-bottom: 1rem; } }
+
+.site-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #f0f0f0; }
+
+.site-footer p {
+  padding: 0.5rem 2rem; }

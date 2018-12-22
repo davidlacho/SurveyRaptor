@@ -1,6 +1,7 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
+
+// Material-UI Components
+import TextField from '@material-ui/core/TextField';
 
 // TODO: Remove after getting cookie
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
@@ -8,25 +9,26 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 class PossibleAnswerField extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       value: '',
-    }
+    };
   }
 
-  updateValue = (evt) => {
+  updateValue = (event) => {
     this.setState({
-      value: evt.target.value,
-    })
-    this.props.updatePossibleAnswers(this.props.number, evt.target.value)
-    this.props.saveAnswer(this.props.questionKey, this.props.number, evt.target.value)
+      value: event.target.value,
+    });
+
+    this.props.updatePossibleAnswers(this.props.number, event.target.value);
+    this.props.saveAnswer(this.props.questionKey, this.props.number, event.target.value);
   }
 
   render() {
     return (
-      <fragment>
-        <label htmlFor={`question-${this.props.questionKey + 1}-option-${this.props.number + 1}`}>Option {this.props.number +1}:</label>
-        <input className={`question-option question-option-${this.props.number + 1}`} onKeyUp={this.updateValue} name={`question-${this.props.questionKey + 1}-option-${this.props.number + 1}`}/>
-      </fragment>
+      <React.Fragment>
+        <TextField name={`question-${this.props.questionKey + 1}-option-${this.props.number + 1}`} label={`Option ${this.props.number +1}`} className={`form-field question-option-${this.props.number + 1}`} variant="outlined" margin="dense" onKeyUp={this.updateValue} />
+      </React.Fragment>
     );
   }
 }

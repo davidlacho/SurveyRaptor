@@ -1,0 +1,57 @@
+// Forms
+
+.form-container {
+  margin: $space-x-large;
+}
+
+.form-row--full-width {
+  .form-field {
+    width: 100%;
+  }
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: $space-x-medium 0;
+
+  @include media($max: $bp-large) {
+    justify-content: space-between;
+  }
+
+  .form-field {
+    width: 24%;
+    margin-right: $space-x-small;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include media($max: $bp-small) {
+      width: 100%;
+    }
+
+    @include media($max: $bp-large) {
+      width: 48%;
+      margin-right: 0;
+    }
+  }
+}
+
+.form-button {
+  display: block;
+
+  @include media($max: $bp-small) {
+    width: 100%;
+  }
+}
+
+.form-button--answer {
+  margin-right: auto !important;
+}
+
+.form-header {
+  display: block;
+  width: 100%;
+}
