@@ -1,0 +1,129 @@
+/* Import Open Sans Google Font */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+/* Normalize */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: rgba(0,12,13,0.03);
+  border-bottom: 1px solid rgba(0, 12, 13, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 12, 13, 0.15);
+}
+
+.header-link {
+  display: inline-block;
+  margin-right: 2rem;
+  color: rgb(0, 120, 207);
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.logo {
+  display: inline-block;
+  margin: 0;
+  font-size: 3rem;
+}
+
+.logo a {
+  display: inline-block;
+  color: #0B364A;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.logo a:hover {
+  color: #000000;
+}
+
+.slack-button {
+  max-width: 139px;
+  max-height: 40px;
+  transition: 0.2s ease;
+}
+
+.slack-button:hover {
+  transform: scale(1.1);
+}
+
+.site-header--nav {
+  display: flex;
+  align-items: center;
+}
+
+.content-container {
+  padding: 2rem;
+}
+
+.content--home-hero {
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  background-image: url('/home-hero.jpeg');
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.content--home-hero--info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 3rem;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.default-link a:hover,
+.header-link:hover {
+  color: rgb(2, 63, 107);
+}
+
+.default-link {
+  display: block;
+  margin-top: 2rem;
+  color: rgb(0, 120, 207);
+}
+
+.site-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #f0f0f0;
+}
+
+.site-footer p {
+  padding: 0.5rem 2rem;
+}
+
+@media screen and (max-width: 769px) {
+  .content--home-hero--info {
+    width: 100%;
+  }
+
+  .content--home-hero--info h2,
+  .content--home-hero--info p {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .site-header {
+    display: block;
+  }
+
+  .logo {
+    margin-bottom: 1rem;
+  }
+}
