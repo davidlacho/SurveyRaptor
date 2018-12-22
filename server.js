@@ -40,8 +40,12 @@ app.set('views');
 app.use(express.static('public'));
 
 
-app.get('/', (req, res) => {
-  res.render('home');
+app.get('/', (req, res, next) => {
+  if (req.user) {
+    res.render('home');
+  } else {
+    next();
+  }
 });
 
 // If it makes it past landing page, serve static files from React:
