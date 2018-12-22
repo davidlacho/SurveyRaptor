@@ -46,6 +46,20 @@ const slapp = Slapp({
   colors: true,
 });
 
+//
+// slapp.use((msg, next) => {
+//   console.log(msg)
+//   next()
+// })
+
+app.get('*',
+  passport.authenticate('jwt', {
+    session: false,
+  }),
+  (req, res, next) => {
+    user = req.user;
+    next();
+  })
 
 const friendbot = require('./slapp/friendbot');
 const doit = require('./slapp/justdoit');
@@ -88,6 +102,7 @@ app.get('*', passport.authenticate('jwt', {
 }), (req, res, next) => {
   next();
 });
+
 
 // The 'catchall' handler: for any request that doesn't
 // match one above, send back React's index.html file.

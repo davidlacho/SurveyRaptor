@@ -1,4 +1,17 @@
+const SlackBot = require('slackbots');
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+
+const bot = new SlackBot({
+  token: process.env.SLACK_BOT_TEST_TOKEN,
+  name: 'Survey Raptor',
+});
+
 module.exports = (slapp) => {
+
+  // Make sure to pass in users later:
+  const users = ['david.lacho', 'DavidTest'];
+
+  // Make sure to pass in questions later:
   const questions = [{
     question: 'first question',
     possibleAnswers: ['A', 'B', 'C', 'D'],
@@ -11,11 +24,11 @@ module.exports = (slapp) => {
 
   const createMessage = (question, i) => {
     const questionObject = {
-      text: question.question,
+      text: 'Hey there! I have a survey for you:',
       attachments: [{
-        text: '',
+        text: question.question,
         fallback: 'Yes or No?',
-        callback_id: `yesno_callback/${i}`,
+        callback_id: `question_callback/${i}`,
         actions: [],
       }],
     };
@@ -29,21 +42,13 @@ module.exports = (slapp) => {
         value: possibleAnswer,
       });
     });
-
     questionObject.attachments[0].actions = actions;
     return questionObject;
   };
 
-  const sendMessage = (arrayIndex, message) => {
-    slapp.message(`yesno${arrayIndex}`, (msg) => {
-      msg.say(message);
-    });
-  }
-
-
   const messageArray = questions.map((question, i) => createMessage(question, i));
 
-  slapp.action(`yesno_callback/:arrayIndex`, 'answer', (msg, value) => {
+  slapp.action('question_callback/:arrayIndex', 'answer', (msg, value) => {
     const currentarrayIndex = Number(msg.body.callback_id.split('/')[1]);
     if (messageArray[currentarrayIndex + 1]) {
       msg.respond(msg.body.response_url, messageArray[currentarrayIndex + 1]);
@@ -52,7 +57,19 @@ module.exports = (slapp) => {
     }
   });
 
-  sendMessage(0, messageArray[0]);
+  users.forEach((user) => {
+    bot.postMessageToUser(user, '', messageArray[0]);
+  });
+
+  // bot.getUsers()
+  // .then((users) => {
+  //   console.log(users);
+  // })
+
+  bot.getUser('david.lacho')
+  .then((user) => {
+    console.log(user);
+  })
 
   return slapp;
 };
