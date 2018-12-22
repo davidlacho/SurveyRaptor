@@ -34,11 +34,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.json());
 
-// SET VIEW ENGINE TO EJS FOR LANDING PAGE
-app.set('view engine', 'ejs');
-app.set('views');
-app.use(express.static('public'));
-
 // SLAP Config:
 
 const Slapp = require('slapp');
@@ -54,15 +49,18 @@ const slapp = Slapp({
 const friendbot = require('./slapp/friendbot');
 // const doit = require('./slapp/justdoit');
 
-
 // Handle direct messages that are kinda dumb:
 friendbot(slapp);
 // doit(slapp);
 
-
 slapp.attachToExpress(app);
 
 // Routing:
+
+// SET VIEW ENGINE TO EJS FOR LANDING PAGE
+app.set('view engine', 'ejs');
+app.set('views');
+app.use(express.static('public'));
 
 app.get('/login', (req, res, next) => {
   res.render('home');
