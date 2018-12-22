@@ -40,12 +40,8 @@ app.set('views');
 app.use(express.static('public'));
 
 
-app.get('/', (req, res, next) => {
-  if (req.user) {
-    res.render('home');
-  } else {
-    next();
-  }
+app.get('/login', (req, res, next) => {
+  res.render('home');
 });
 
 // If it makes it past landing page, serve static files from React:
@@ -88,7 +84,7 @@ app.use('/auth', authRouter(knex));
 
 app.get('*', passport.authenticate('jwt', {
   session: false,
-  failureRedirect: '/',
+  failureRedirect: '/login',
 }), (req, res) => {
   res.sendFile(path.join(`${__dirname}/client/build/index.html`));
 });
