@@ -1,0 +1,42 @@
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-x-large;
+  background: rgba(0,12,13,0.03);
+  border-bottom: 1px solid rgba(0, 12, 13, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 12, 13, 0.15);
+
+  @include media($max: $bp-xs) {
+    display: block;
+  }
+}
+
+.header-link {
+  display: inline-block;
+  margin-right: $space-x-large;
+  color: rgb(0, 120, 207);
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.logo {
+  display: inline-block;
+  margin: 0;
+  font-size: $font-larger-size;
+
+  a {
+    display: inline-block;
+    color: #0B364A;
+    text-decoration: none;
+    transition: 0.2s ease;
+
+    &:hover {
+      color: $color-black;
+    }
+  }
+
+  @include media($max: $bp-xs) {
+    margin-bottom: $space-small;
+  }
+}

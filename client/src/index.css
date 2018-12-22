@@ -83,3 +83,47 @@ body {
 
 .App {
   width: 100%; }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: rgba(0, 12, 13, 0.03);
+  border-bottom: 1px solid rgba(0, 12, 13, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 12, 13, 0.15); }
+  @media screen and (max-width: 374px) {
+    .site-header {
+      display: block; } }
+
+.header-link {
+  display: inline-block;
+  margin-right: 2rem;
+  color: #0078cf;
+  text-decoration: none;
+  transition: 0.2s ease; }
+
+.logo {
+  display: inline-block;
+  margin: 0;
+  font-size: 28px; }
+  .logo a {
+    display: inline-block;
+    color: #0B364A;
+    text-decoration: none;
+    transition: 0.2s ease; }
+    .logo a:hover {
+      color: #000000; }
+  @media screen and (max-width: 374px) {
+    .logo {
+      margin-bottom: 1rem; } }
+
+.site-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #f0f0f0; }
+
+.site-footer p {
+  padding: 0.5rem 2rem; }
