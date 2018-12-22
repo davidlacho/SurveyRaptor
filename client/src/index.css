@@ -1,4 +1,5 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 .lds-ellipsis {
   display: inline-block;
@@ -48,6 +49,33 @@
     transform: translate(0, 0); }
   100% {
     transform: translate(19px, 0); } }
+
+.form-container {
+  margin: 2rem; }
+
+.form-row--full-width .form-field {
+  width: 100%; }
+
+.form-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1.5rem 0; }
+  .form-row .form-field {
+    width: 24%; }
+    @media screen and (max-width: 719px) {
+      .form-row .form-field {
+        width: 100%; } }
+    @media screen and (max-width: 1023px) {
+      .form-row .form-field {
+        width: 48%; } }
+
+.form-button {
+  display: block; }
+  @media screen and (max-width: 719px) {
+    .form-button {
+      width: 100%; } }
 
 body {
   margin: 0;

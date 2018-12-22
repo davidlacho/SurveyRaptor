@@ -1,0 +1,39 @@
+// Styles for forms
+
+.form-container {
+  margin: $space-x-large;
+}
+
+.form-row--full-width {
+  .form-field {
+    width: 100%;
+  }
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: $space-x-medium 0;
+
+  .form-field {
+    width: 24%;
+
+    @include media($max: $bp-small) {
+      width: 100%;
+    }
+
+    @include media($max: $bp-large) {
+      width: 48%;
+    }
+  }
+}
+
+.form-button {
+  display: block;
+
+  @include media($max: $bp-small) {
+    width: 100%;
+  }
+}

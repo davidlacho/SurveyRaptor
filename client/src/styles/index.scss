@@ -1,10 +1,12 @@
-// Normalize
+// Imports
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 // Lib
 @import 'lib/settings';
 @import 'lib/mixins';
 @import 'lib/loader';
+@import 'lib/forms';
 
 // Base
 @import 'base';
