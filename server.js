@@ -39,14 +39,6 @@ app.set('view engine', 'ejs');
 app.set('views');
 app.use(express.static('public'));
 
-
-app.get('/login', (req, res, next) => {
-  res.render('home');
-});
-
-// If it makes it past landing page, serve static files from React:
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 // SLAP Config:
 
 const Slapp = require('slapp');
@@ -72,6 +64,10 @@ slapp.attachToExpress(app);
 
 // Routing:
 
+app.get('/login', (req, res, next) => {
+  res.render('home');
+});
+
 const apiRouter = require('./routes/api');
 app.use('/api', apiRouter(knex));
 
@@ -79,9 +75,18 @@ app.use('/api', apiRouter(knex));
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter(knex));
 
+// The 'catchall' handler for authenticating requests
+app.get('*', passport.authenticate('jwt', {
+  session: false,
+  failureRedirect: '/login',
+}), (req, res, next) => {
+  next();
+});
+
 // The 'catchall' handler: for any request that doesn't
 // match one above, send back React's index.html file.
-
+// If it makes it past landing page, serve static files from React:
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', passport.authenticate('jwt', {
   session: false,
   failureRedirect: '/login',
