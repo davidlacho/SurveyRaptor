@@ -63,7 +63,6 @@ class SurveyForm extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {

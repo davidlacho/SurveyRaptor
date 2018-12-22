@@ -60,22 +60,35 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin: 1.5rem 0; }
+  @media screen and (max-width: 1023px) {
+    .form-row {
+      justify-content: space-between; } }
   .form-row .form-field {
-    width: 24%; }
+    width: 24%;
+    margin-right: 0.75rem; }
+    .form-row .form-field:last-child {
+      margin-right: 0; }
     @media screen and (max-width: 719px) {
       .form-row .form-field {
         width: 100%; } }
     @media screen and (max-width: 1023px) {
       .form-row .form-field {
-        width: 48%; } }
+        width: 48%;
+        margin-right: 0; } }
 
 .form-button {
   display: block; }
   @media screen and (max-width: 719px) {
     .form-button {
       width: 100%; } }
+
+.form-button--answer {
+  margin-right: auto !important; }
+
+.form-header {
+  display: block;
+  width: 100%; }
 
 body {
   margin: 0;

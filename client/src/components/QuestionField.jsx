@@ -47,13 +47,14 @@ class QuestionField extends Component {
   }
 
   render() {
-    const answerChildren = [];
+    const answerHeader = !!this.state.value ? <h3 className="form-header">Possible Answers</h3> : undefined;
 
+    const answerChildren = [];
     for (var i = 0; i < this.state.answerKey; i += 1) {
       answerChildren.push(<PossibleAnswerField key={i} number={i} saveAnswer={this.props.saveAnswer} questionKey={this.props.number} updatePossibleAnswers={this.updatePossibleAnswers} />);
     };
 
-    const answerButton = !!this.state.value && this.state.answerKey <= 3 && (!this.state.answerKey - 1  === 0 || !!this.state.possibleAnswers[this.state.answerKey -1]) ? <IconButton aria-label="Add an option" onClick={() => this.addAnAnswerToQuestion()}><Icon>add_circle</Icon></IconButton> : undefined;
+    const answerButton = !!this.state.value && this.state.answerKey <= 3 && (!this.state.answerKey - 1  === 0 || !!this.state.possibleAnswers[this.state.answerKey -1]) ? <IconButton className="form-button--answer" aria-label="Add an option" onClick={() => this.addAnAnswerToQuestion()}><Icon>add_circle</Icon></IconButton> : undefined;
 
     return (
       <React.Fragment>
@@ -62,6 +63,7 @@ class QuestionField extends Component {
         </div>
 
         <div className="form-row">
+          {answerHeader}
           {answerChildren}
           {answerButton}
         </div>
