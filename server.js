@@ -68,6 +68,11 @@ app.get('/login', (req, res, next) => {
   res.render('home');
 });
 
+app.get('/logout', (req, res, next) => {
+  res.clearCookie('jwt');
+  res.redirect('/login');
+});
+
 const apiRouter = require('./routes/api');
 app.use('/api', apiRouter(knex));
 
