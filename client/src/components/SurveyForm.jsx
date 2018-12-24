@@ -6,6 +6,8 @@ import cookie from 'react-cookies';
 import axios from 'axios';
 // Material-UI Components
 import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+
 
 // TODO: Remove after getting cookie
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
@@ -18,6 +20,7 @@ class SurveyForm extends Component {
       questionKey: 1,
       questions: {},
       jwt: '',
+      submitted: false,
     }
 
     const saveQuestion = this.saveQuestion.bind(this);
@@ -42,7 +45,6 @@ class SurveyForm extends Component {
       questions: questionObject,
     });
 
-    console.log(questionObject);
   }
 
   addAQuestionToSurvey = (event) => {
@@ -74,12 +76,9 @@ class SurveyForm extends Component {
     this.setState({
       questions: questionObject,
     });
-
-    console.log(questionObject);
   }
 
   submitQuestions = () => {
-    console.log('submitting!')
     axios.post('/api/buildsurvey',
         this.state.questions, {
           headers: {
@@ -88,13 +87,14 @@ class SurveyForm extends Component {
           }
         })
       .then(res => {
-        console.log(res);
+        this.setState({
+          submitted: true,
+        })
       })
 
   }
 
   render() {
-    console.log(this.state.questions)
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {
@@ -103,14 +103,20 @@ class SurveyForm extends Component {
 
     const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={()=>this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
 
+    const submitButton = (this.state.questions[this.state.questionKey - 1]) ?  <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send<Icon>send</Icon>
+      </Button> : '';
 
     return (
-      <form className="form-container" autoComplete="off">
+      !this.state.submitted ?
+      (<form className="form-container" autoComplete="off">
         <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} />
         {questionChildren}
         {questionButton}
-        <Button onClick={this.submitQuestions}>Submit</Button>
+        {submitButton}
       </form>
+      )
+      :
+      <p>Submitted!</p>
     );
   }
 }
