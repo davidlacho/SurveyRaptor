@@ -83,8 +83,8 @@ app.get('/login', (req, res, next) => {
   res.render('home');
 });
 
-app.get('/logout', (req, res) => {
-  res.cookie('jwt', undefined);
+app.get('/logout', (req, res, next) => {
+  res.clearCookie('jwt');
   res.redirect('/login');
 });
 

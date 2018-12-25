@@ -9,6 +9,7 @@ module.exports = (knex) => {
   router.get('/userdata', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
+
     knex('users')
       .join('slack_bots', 'slack_bots.creator_id', '=', 'users.slack_id')
       .select('name', 'email', 'image_24', 'image_32', 'image_48', 'image_72', 'image_192', 'image_512', 'team_name')
@@ -24,6 +25,14 @@ module.exports = (knex) => {
   router.post('/buildsurvey', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
+
+
+    const questionArray = [];
+
+    for (const keys in req.body) {
+      questionArray.push(req.body[keys]);
+    }
+
     const insertToQuantitativeAnswers = (questionID, possibleAnswers) => {
       possibleAnswers.forEach((possibleAnswer) => {
         knex('quantiative_possible_answers')
@@ -38,7 +47,7 @@ module.exports = (knex) => {
     };
 
     const insertToQuestionTable = (surveyID) => {
-      req.body.questions.forEach((question) => {
+      questionArray.forEach((question) => {
         const questionType = question.possibleAnswers ? 'quantitative' : 'qualitative';
         knex('questions')
           .insert({
@@ -56,7 +65,7 @@ module.exports = (knex) => {
             res.status(500).json('Error occured when inserting into question table:', err);
           });
       });
-      res.status(201).json('ok');
+      res.status(201).json(`{message: 'ok!', surveyID: ${surveyID}}`);
     };
 
     const insertToSurveys = (userID) => {
