@@ -44,7 +44,9 @@ module.exports = (knex) => {
 
       const parsedBody = JSON.parse(body);
 
-      if (parsedBody.bot.bot_user_id) {
+      if (!parsedBody.bot.bot_user_id) {
+        res.redirect('/');
+      } else {
         const insertObject = {
           access_token: parsedBody.access_token,
           creator_id: parsedBody.user_id,
@@ -119,9 +121,6 @@ module.exports = (knex) => {
             // HANDLE THIS ERROR BETTER ON THE USER'S SIDE
             console.log('there was an error', err);
           });
-      } else {
-        // Redirect to homepage if there is no response from server (aka cookie cleared by user);
-        res.redirect('/');
       }
     });
   });
