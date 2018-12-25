@@ -43,14 +43,13 @@ module.exports = (knex) => {
       };
 
       const parsedBody = JSON.parse(body);
-      const botUserId = parsedBody.bot.bot_user_id;
 
-      if (botUserId) {
+      if (parsedBody.bot.bot_user_id) {
         const insertObject = {
           access_token: parsedBody.access_token,
           creator_id: parsedBody.user_id,
           team_name: parsedBody.team_name,
-          bot_user_id: botUserId,
+          bot_user_id: parsedBody.bot.bot_user_id,
           bot_access_token: parsedBody.bot.bot_access_token,
         };
 
