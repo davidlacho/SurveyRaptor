@@ -20,6 +20,9 @@ module.exports = (slapp) => {
     question: 'Who is the coolest?',
     possibleAnswers: ['David', 'Jess', 'Andy', 'Jack'],
   },
+  {
+    question: 'Why am I alone?',
+  },
 ];
 
   const createMessage = (question, i) => {
@@ -34,14 +37,16 @@ module.exports = (slapp) => {
     };
 
     const actions = [];
-    question.possibleAnswers.forEach((possibleAnswer) => {
-      actions.push({
-        name: 'answer',
-        text: possibleAnswer,
-        type: 'button',
-        value: possibleAnswer,
+    if (question.possibleAnswers) {
+      question.possibleAnswers.forEach((possibleAnswer) => {
+        actions.push({
+          name: 'answer',
+          text: possibleAnswer,
+          type: 'button',
+          value: possibleAnswer,
+        });
       });
-    });
+    }
     questionObject.attachments[0].actions = actions;
     return questionObject;
   };
@@ -60,16 +65,6 @@ module.exports = (slapp) => {
   users.forEach((user) => {
     bot.postMessageToUser(user, '', messageArray[0]);
   });
-
-  // bot.getUsers()
-  // .then((users) => {
-  //   console.log(users);
-  // })
-
-  bot.getUser('david.lacho')
-  .then((user) => {
-    console.log(user);
-  })
 
   return slapp;
 };
