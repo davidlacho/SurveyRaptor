@@ -39,39 +39,6 @@ app.use(express.json());
 const Slapp = require('slapp');
 const ContextLookup = require('./slapp/context-lookup');
 
-const slapp = Slapp({
-  context: ContextLookup(knex),
-  verify_token: process.env.SLACK_VERIFY_TOKEN,
-  log: true,
-  colors: true,
-});
-
-//
-// slapp.use((msg, next) => {
-//   console.log(msg)
-//   next()
-// })
-
-app.get('*',
-  passport.authenticate('jwt', {
-    session: false,
-  }),
-  (req, res, next) => {
-    user = req.user;
-    next();
-  })
-
-const friendbot = require('./slapp/friendbot');
-const doit = require('./slapp/justdoit');
-const yesno = require('./slapp/yesno');
-
-// Handle direct messages that are kinda dumb:
-friendbot(slapp);
-doit(slapp);
-yesno(slapp);
-
-slapp.attachToExpress(app);
-
 // Routing:
 
 // SET VIEW ENGINE TO EJS FOR LANDING PAGE
@@ -94,6 +61,33 @@ app.use('/api', apiRouter(knex));
 // Passport Login:
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter(knex));
+
+const slapp = Slapp({
+  context: ContextLookup(knex),
+  verify_token: process.env.SLACK_VERIFY_TOKEN,
+  log: true,
+  colors: true,
+});
+
+app.get('*',
+  passport.authenticate('jwt', {
+    session: false,
+  }),
+  (req, res, next) => {
+    user = req.user;
+    next();
+  })
+
+const friendbot = require('./slapp/friendbot');
+const doit = require('./slapp/justdoit');
+const yesno = require('./slapp/yesno');
+
+// Handle direct messages that are kinda dumb:
+friendbot(slapp);
+doit(slapp);
+yesno(slapp);
+
+slapp.attachToExpress(app);
 
 // The 'catchall' handler for authenticating requests
 app.get('*', passport.authenticate('jwt', {
