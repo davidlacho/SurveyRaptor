@@ -39,7 +39,8 @@
     "qs-middleware": "^1.0.3",
     "request": "^2.88.0",
     "slackbots": "^1.2.0",
-    "slapp": "^3.3.0"
+    "slapp": "^3.3.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "dotenv": "^6.2.0",
