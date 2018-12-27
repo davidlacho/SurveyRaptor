@@ -1,13 +1,11 @@
 // Slapp context middleware function
 // Looks up team info from knex and enriches request
 module.exports = knex => (req, res, next) => {
-  teamId = req.user.team_id;
-  console.log('team_id', teamId);
   knex('slack_bots')
     .join('users', 'slack_bots.creator_id', '=', 'users.slack_id')
     .select('access_token', 'bot_access_token', 'bot_user_id', 'team_name')
     .where({
-      team_id: teamId,
+      bot_user_id: req.user.bot_user_id,
     })
     .then((record) => {
       console.log(record);
