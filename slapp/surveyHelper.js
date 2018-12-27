@@ -5,17 +5,11 @@ const ENV = process.env.ENV || 'development';
 const knexConfig = require('../knexfile');
 const knex = require('knex')(knexConfig[ENV]);
 
-// questionArray has a bunch of objects that look like this:
-// questionObject = {
-//   survey_id: 'SomeID',
-//   question_type: 'quantitative' or 'qualitative',
-//   question: '',
-//   question_id: 'someid'
-//   possibleAnswers: [],
-// }
-
 module.exports = (user, questionArray, recipientUserNames, slapp) => {
 
+  const uniqueCallback = uuidv4();
+
+  console.log(questionArray);
   const bot = new SlackBot({
     token: user.bot_access_token,
     name: 'Survey Raptor',
@@ -32,7 +26,7 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
       attachments: [{
         text: question.question,
         fallback: 'Yes or No?',
-        callback_id: `question_callback/${i}`,
+        callback_id: `${uniqueCallback}/${i}`,
         actions: [],
       }],
     };
@@ -77,7 +71,7 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
     });
   };
 
-  slapp.action('question_callback/:arrayIndex', 'answer', (msg, value) => {
+  slapp.action(`${uniqueCallback}/:arrayIndex`, 'answer', (msg, value) => {
     console.log('THE USERS RESPONSE: ', value);
     const arrIndex = Number(msg.body.callback_id.split('/')[1]);
     const dbQuestionID = questionArray[arrIndex].question_id;
