@@ -47,6 +47,7 @@ module.exports = (knex) => {
           team_name: parsedBody.team_name,
           bot_user_id: parsedBody.bot.bot_user_id,
           bot_access_token: parsedBody.bot.bot_access_token,
+          // team_id: parsedBody.team_id,
         };
 
         // Grab user info from channel and store their info in DB:
