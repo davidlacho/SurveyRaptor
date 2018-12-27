@@ -39,6 +39,7 @@ module.exports = (knex) => {
       };
 
       const parsedBody = JSON.parse(body);
+      console.log(parsedBody);
       if (parsedBody.ok) {
         const insertObject = {
           access_token: parsedBody.access_token,
