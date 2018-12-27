@@ -69,15 +69,6 @@ const slapp = Slapp({
   colors: true,
 });
 
-app.get('*',
-  passport.authenticate('jwt', {
-    session: false,
-  }),
-  (req, res, next) => {
-    user = req.user;
-    next();
-  })
-
 const friendbot = require('./slapp/friendbot');
 const doit = require('./slapp/justdoit');
 const yesno = require('./slapp/yesno');
