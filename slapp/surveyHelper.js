@@ -6,6 +6,9 @@ const knexConfig = require('../knexfile');
 const knex = require('knex')(knexConfig[ENV]);
 
 module.exports = (user, questionArray, recipientUserNames, slapp) => {
+
+  console.log(slapp.meta);
+
   const bot = new SlackBot({
     token: user.bot_access_token,
     name: 'Survey Raptor',
