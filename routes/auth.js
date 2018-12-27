@@ -64,6 +64,7 @@ module.exports = (knex) => {
               .where('slack_id', user.id)
               .then((record) => {
                 if (record.length === 0) {
+                  console.log('inserting new user');
                   knex('users')
                     .insert({
                       slack_id: user.id,

@@ -5,21 +5,13 @@ const ENV = process.env.ENV || 'development';
 const knexConfig = require('../knexfile');
 const knex = require('knex')(knexConfig[ENV]);
 
-// questionArray has a bunch of objects that look like this:
-// questionObject = {
-//   survey_id: 'SomeID',
-//   question_type: 'quantitative' or 'qualitative',
-//   question: '',
-//   question_id: 'someid'
-//   possibleAnswers: [],
-// }
-
 module.exports = (user, questionArray, recipientUserNames, slapp) => {
-
   const bot = new SlackBot({
     token: user.bot_access_token,
     name: 'Survey Raptor',
   });
+
+  console.log(bot);
 
   questionArray.unshift({
     question: 'Click to start',
@@ -96,11 +88,6 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
       msg.respond(msg.body.response_url, "That's all! Thanks!");
     }
   });
-
-
-  // messageArray.forEach((message) => {
-  //   console.log(message);
-  // });
 
   recipientUserNames.forEach((recipient) => {
     bot.postMessageToUser(recipient, '', messageArray[0]);
