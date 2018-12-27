@@ -11,8 +11,6 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
     name: 'Survey Raptor',
   });
 
-  console.log(bot);
-
   questionArray.unshift({
     question: 'Click to start',
     possibleAnswers: ['Start'],
@@ -88,6 +86,8 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
       msg.respond(msg.body.response_url, "That's all! Thanks!");
     }
   });
+
+  console.log('USERS WILL BE ASKED: ', messageArray);
 
   recipientUserNames.forEach((recipient) => {
     bot.postMessageToUser(recipient, '', messageArray[0]);
