@@ -64,8 +64,8 @@ module.exports = (knex, slapp) => {
               questionObject.possibleAnswers = question.possibleAnswers;
             }
             deploymentArray.push(questionObject);
-            if (questionArray.length === i + 1) {
-              deploySurvey(req.user, deploymentArray, ['david.lacho'], slapp)
+            if (questionArray.length === deploymentArray.length) {
+              deploySurvey(req.user, deploymentArray, ['david.lacho'], slapp);
               res.status(201).json(`{message: 'ok!', surveyID: ${surveyID}}`);
             }
           })
