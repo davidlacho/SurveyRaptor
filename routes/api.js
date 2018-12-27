@@ -45,9 +45,9 @@ module.exports = (knex, slapp) => {
       });
     };
 
-    const deploymentArray = [];
     const insertToQuestionTable = (surveyID) => {
-      questionArray.forEach((question) => {
+      const deploymentArray = [];
+      questionArray.forEach((question, i) => {
         const questionType = question.possibleAnswers ? 'quantitative' : 'qualitative';
         const questionObject = {
           survey_id: surveyID[0],
@@ -58,21 +58,20 @@ module.exports = (knex, slapp) => {
           .insert(questionObject)
           .returning('id')
           .then((id) => {
-            questionObject.question_id = id;
+            questionObject.question_id = id[0];
             if (questionType === 'quantitative') {
               insertToQuantitativeAnswers(id, question.possibleAnswers);
               questionObject.possibleAnswers = question.possibleAnswers;
             }
             deploymentArray.push(questionObject);
+            if (questionArray.length === i + 1) {
+              deploySurvey(req.user, deploymentArray, ['david.lacho'], slapp)
+              res.status(201).json(`{message: 'ok!', surveyID: ${surveyID}}`);
+            }
           })
           .catch((err) => {
             res.status(500).json('Error occured when inserting into question table:', err);
           });
-      });
-      res.status(201).json(`{message: 'ok!', surveyID: ${surveyID}}`);
-      console.log('deploy survey!!!!!');
-      deploySurvey(req.user, deploymentArray, ['david.lacho', 'DavidTest'], slapp, (err, results) => {
-        console.log(err, results);
       });
     };
 

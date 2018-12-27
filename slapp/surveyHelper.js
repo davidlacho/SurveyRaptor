@@ -14,12 +14,16 @@ const knex = require('knex')(knexConfig[ENV]);
 //   possibleAnswers: [],
 // }
 
-module.exports = (user, questionArray, recipientUserNames, slapp, callback) => {
-  console.log('!!questionArray: ', questionArray);
+module.exports = (user, questionArray, recipientUserNames, slapp) => {
 
   const bot = new SlackBot({
     token: user.bot_access_token,
     name: 'Survey Raptor',
+  });
+
+  questionArray.unshift({
+    question: 'Click to start',
+    possibleAnswers: ['Start'],
   });
 
   const createMessage = (question, i) => {
@@ -55,9 +59,10 @@ module.exports = (user, questionArray, recipientUserNames, slapp, callback) => {
       const newCurrentArray = arrIndex + 1;
       const usersResponse = message.body.event && message.body.event.text;
       console.log('THE USERS RESPONSE: ', usersResponse);
-      const dbQuestionID = questionArray[arrIndex].question_id;
-      const dbSurveyID = questionArray[arrIndex].survey_id;
+      const dbQuestionID = questionArray[arrIndex + 1].question_id;
+      const dbSurveyID = questionArray[arrIndex + 1].survey_id;
       console.log('dbQuestionID', dbQuestionID, 'dbSurveyID', dbSurveyID);
+
       if (messageArray[newCurrentArray + 1]) {
         if (messageArray[newCurrentArray + 1].attachments[0].actions.length >= 1) {
           message.say(messageArray[newCurrentArray + 1]);
@@ -66,7 +71,8 @@ module.exports = (user, questionArray, recipientUserNames, slapp, callback) => {
           message.say(messageArray[newCurrentArray + 1]).route(newRandom);
           createNewRoute(newRandom, newCurrentArray);
         }
-        message.respond(message.body.response_url, "That's all! Thanks!");
+      } else {
+        message.say("That's all! Thanks!");
       }
     });
   };
@@ -90,6 +96,11 @@ module.exports = (user, questionArray, recipientUserNames, slapp, callback) => {
       msg.respond(msg.body.response_url, "That's all! Thanks!");
     }
   });
+
+
+  // messageArray.forEach((message) => {
+  //   console.log(message);
+  // });
 
   recipientUserNames.forEach((recipient) => {
     bot.postMessageToUser(recipient, '', messageArray[0]);
