@@ -1,15 +1,16 @@
 const express = require('express');
 const passport = require('passport');
 
+const deploySurvey = require('../slapp/surveyHelper');
+
 const router = express.Router();
 
 // API endpoints, do not prefix with '/api'
-module.exports = (knex) => {
+module.exports = (knex, slapp) => {
   // Serves the logged in user data
   router.get('/userdata', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-
     knex('users')
       .join('slack_bots', 'slack_bots.creator_id', '=', 'users.slack_id')
       .select('name', 'email', 'image_24', 'image_32', 'image_48', 'image_72', 'image_192', 'image_512', 'team_name')
@@ -25,8 +26,6 @@ module.exports = (knex) => {
   router.post('/buildsurvey', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-
-
     const questionArray = [];
 
     for (const keys in req.body) {
@@ -46,26 +45,35 @@ module.exports = (knex) => {
       });
     };
 
+    const deploymentArray = [];
     const insertToQuestionTable = (surveyID) => {
       questionArray.forEach((question) => {
         const questionType = question.possibleAnswers ? 'quantitative' : 'qualitative';
+        const questionObject = {
+          survey_id: surveyID[0],
+          question_type: questionType,
+          question: question.question,
+        };
         knex('questions')
-          .insert({
-            survey_id: surveyID[0],
-            question_type: questionType,
-            question: question.question,
-          })
+          .insert(questionObject)
           .returning('id')
           .then((id) => {
+            questionObject.question_id = id;
             if (questionType === 'quantitative') {
               insertToQuantitativeAnswers(id, question.possibleAnswers);
+              questionObject.possibleAnswers = question.possibleAnswers;
             }
+            deploymentArray.push(questionObject);
           })
           .catch((err) => {
             res.status(500).json('Error occured when inserting into question table:', err);
           });
       });
       res.status(201).json(`{message: 'ok!', surveyID: ${surveyID}}`);
+      console.log('deploy survey!!!!!');
+      deploySurvey(req.user, deploymentArray, ['david.lacho', 'DavidTest'], slapp, (err, results) => {
+        console.log(err, results);
+      });
     };
 
     const insertToSurveys = (userID) => {
