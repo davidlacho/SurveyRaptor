@@ -128,6 +128,7 @@ class SurveyForm extends Component {
     return (
       !this.state.submitted ?
       ( <form className="form-container" autoComplete="off">
+          <h2 className="form-header">SurveyBuilder</h2>
           <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} />
 
           {questionChildren}
