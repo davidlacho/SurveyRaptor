@@ -7,6 +7,8 @@ import axios from 'axios';
 // Material-UI Components
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import DeploymentOptions from './DeploymentOptions.jsx';
+
 
 
 // TODO: Remove after getting cookie
@@ -21,11 +23,13 @@ class SurveyForm extends Component {
       questions: {},
       jwt: '',
       submitted: false,
+      selectedUsers : [],
     }
 
     const saveQuestion = this.saveQuestion.bind(this);
     const saveAnswer = this.saveAnswer.bind(this);
     const submitQuestions = this.submitQuestions.bind(this);
+    const toggleSelectedUsers = this.toggleSelectedUsers.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +37,22 @@ class SurveyForm extends Component {
       jwt: cookie.load('jwt'),
     });
 
+  }
+
+  toggleSelectedUsers = (name) => {
+    const selectedUsers = this.state.selectedUsers;
+    const indexOfName = selectedUsers.indexOf(name);
+    if (indexOfName === -1) {
+      selectedUsers.push(name);
+      this.setState({
+        selectedUsers : selectedUsers,
+      })
+    } else {
+      selectedUsers.splice(indexOfName, 1);
+      this.setState({
+        selectedUsers : selectedUsers,
+      })
+    }
   }
 
   saveQuestion = (key, question) => {
@@ -95,6 +115,7 @@ class SurveyForm extends Component {
   }
 
   render() {
+
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {
@@ -103,7 +124,7 @@ class SurveyForm extends Component {
 
     const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={()=>this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
 
-    const submitButton = (this.state.questions[this.state.questionKey - 1]) ?  <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send<Icon>send</Icon>
+    const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length>=1) ?  <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send<Icon>send</Icon>
       </Button> : '';
 
     return (
@@ -112,6 +133,7 @@ class SurveyForm extends Component {
         <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} />
         {questionChildren}
         {questionButton}
+        <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers}/>
         {submitButton}
       </form>
       )

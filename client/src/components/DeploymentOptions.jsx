@@ -16,24 +16,7 @@ class DeploymentOptions extends Component {
     super(props);
     this.state = {
       team: [],
-      selectedUsers: [],
     };
-  }
-
-  handleClick(name) {
-    const selectedUsers = this.state.selectedUsers;
-    const indexOfName = selectedUsers.indexOf(name);
-    if (indexOfName === -1) {
-      selectedUsers.push(name);
-      this.setState({
-        selectedUsers : selectedUsers,
-      })
-    } else {
-      selectedUsers.splice(indexOfName, 1);
-      this.setState({
-        selectedUsers : selectedUsers,
-      })
-    }
   }
 
 
@@ -58,14 +41,14 @@ class DeploymentOptions extends Component {
   render() {
     const team = this.state.team;
     const selectableUsers = team.map((user) => {
-      console.log(user.profile);
+
       if (user.deleted) {
         return
       }
 
-      const deleteIcon = this.state.selectedUsers.includes(user.name) ? null : <DoneIcon />;
+      const deleteIcon = this.props.selectedUsers.includes(user.name) ? null : <DoneIcon />;
 
-      const variantFill = this.state.selectedUsers.includes(user.name) ? null : "outlined"
+      const variantFill = this.props.selectedUsers.includes(user.name) ? null : "outlined"
 
       return (
         <Chip
@@ -74,8 +57,8 @@ class DeploymentOptions extends Component {
           label={user.name}
           color="primary"
           variant={variantFill}
-          onClick={()=> this.handleClick(user.name)}
-          onDelete={() => this.handleClick(user.name)}
+          onClick={()=> this.props.toggleSelectedUsers(user.name)}
+          onDelete={() => this.props.toggleSelectedUsers(user.name)}
           deleteIcon={deleteIcon}
         />
         )
