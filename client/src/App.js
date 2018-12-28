@@ -10,6 +10,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <SurveyBuilder />
+        <DeploymentOptions />
         <Footer />
       </div>
     );
