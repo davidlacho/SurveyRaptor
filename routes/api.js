@@ -1,5 +1,7 @@
 const express = require('express');
 const passport = require('passport');
+const SlackBot = require('slackbots');
+
 
 const deploySurvey = require('../slapp/surveyHelper');
 
@@ -97,6 +99,22 @@ module.exports = (knex, slapp) => {
       })
       .catch((err) => {
         res.status(500).json('Error occured when getting user:', err);
+      });
+  });
+
+  router.get('/team', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+    const bot = new SlackBot({
+      token: req.user.bot_access_token,
+      name: 'Survey Raptor',
+    });
+    bot.getUsers()
+      .then((users) => {
+        res.status(200).json(users.members);
+      })
+      .catch((err) => {
+        res.status(500).json('Error occured when getting list of users from Slack:', err);
       });
   });
 
