@@ -7,9 +7,10 @@ const knex = require('knex')(knexConfig[ENV]);
 
 module.exports = (user, questionArray, recipientUserNames, slapp) => {
 
+  questionArray.sort((a, b) => a.index - b.index);
+
   const uniqueCallback = uuidv4();
 
-  console.log(questionArray);
   const bot = new SlackBot({
     token: user.bot_access_token,
     name: 'Survey Raptor',
@@ -66,7 +67,7 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
           createNewRoute(newRandom, newCurrentArray);
         }
       } else {
-        message.say("That's all! Thanks!");
+        message.say("That's all! Thanks! :smile:");
       }
     });
   };
@@ -79,8 +80,8 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
     console.log('dbQuestionID', dbQuestionID, 'dbSurveyID', dbSurveyID);
     if (messageArray[arrIndex + 1]) {
       const randomRoute = uuidv4();
-      if (messageArray[arrIndex + 1]
-        && messageArray[arrIndex + 1].attachments[0].actions.length >= 1) {
+      if (messageArray[arrIndex + 1] &&
+        messageArray[arrIndex + 1].attachments[0].actions.length >= 1) {
         msg.respond(msg.body.response_url, messageArray[arrIndex + 1]);
       } else {
         msg.respond(messageArray[arrIndex + 1]).route(randomRoute);
@@ -90,8 +91,6 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
       msg.respond(msg.body.response_url, "That's all! Thanks!");
     }
   });
-
-  console.log('USERS WILL BE ASKED: ', messageArray);
 
   recipientUserNames.forEach((recipient) => {
     bot.postMessageToUser(recipient, '', messageArray[0]);

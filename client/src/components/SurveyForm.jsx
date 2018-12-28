@@ -23,7 +23,7 @@ class SurveyForm extends Component {
       questions: {},
       jwt: '',
       submitted: false,
-      selectedUsers : [],
+      selectedUsers: [],
     }
 
     const saveQuestion = this.saveQuestion.bind(this);
@@ -45,12 +45,12 @@ class SurveyForm extends Component {
     if (indexOfName === -1) {
       selectedUsers.push(name);
       this.setState({
-        selectedUsers : selectedUsers,
+        selectedUsers: selectedUsers,
       })
     } else {
       selectedUsers.splice(indexOfName, 1);
       this.setState({
-        selectedUsers : selectedUsers,
+        selectedUsers: selectedUsers,
       })
     }
   }
@@ -99,13 +99,15 @@ class SurveyForm extends Component {
   }
 
   submitQuestions = () => {
-    axios.post('/api/buildsurvey',
-        this.state.questions, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.state.jwt}`
-          }
-        })
+    axios.post('/api/buildsurvey', {
+        questions: this.state.questions,
+        users: this.state.selectedUsers,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.state.jwt}`
+        }
+      })
       .then(res => {
         this.setState({
           submitted: true,
@@ -119,28 +121,73 @@ class SurveyForm extends Component {
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {
-      questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer}/>);
-    };
+      questionChildren.push( < QuestionField key = {
+          i
+        }
+        number = {
+          i
+        }
+        saveQuestion = {
+          this.saveQuestion
+        }
+        saveAnswer = {
+          this.saveAnswer
+        }
+        />);
+      };
 
-    const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={()=>this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
+      const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? < Button className = "form-button"
+      color = "primary"
+      variant = "contained"
+      onClick = {
+        () => this.addAQuestionToSurvey()
+      } > Add A New Question < /Button> : '';
 
-    const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length>=1) ?  <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send<Icon>send</Icon>
-      </Button> : '';
+      const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) ? < Button className = "form-button"
+      color = "primary"
+      variant = "contained"
+      onClick = {
+          this.submitQuestions
+        } > Send < Icon > send < /Icon> <
+        /Button> : '';
 
-    return (
-      !this.state.submitted ?
-      (<form className="form-container" autoComplete="off">
-        <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} />
-        {questionChildren}
-        {questionButton}
-        <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers}/>
-        {submitButton}
-      </form>
-      )
-      :
-      <p>Submitted!</p>
-    );
+      return (
+        !this.state.submitted ?
+        ( < form className = "form-container"
+          autoComplete = "off" >
+          <
+          QuestionField key = {
+            0
+          }
+          number = {
+            0
+          }
+          saveQuestion = {
+            this.saveQuestion
+          }
+          saveAnswer = {
+            this.saveAnswer
+          }
+          /> {
+            questionChildren
+          } {
+            questionButton
+          } <
+          DeploymentOptions toggleSelectedUsers = {
+            this.toggleSelectedUsers
+          }
+          selectedUsers = {
+            this.state.selectedUsers
+          }
+          /> {
+            submitButton
+          } <
+          /form>
+        ) :
+        <
+        p > Submitted! < /p>
+      );
+    }
   }
-}
 
-export default SurveyForm;
+  export default SurveyForm;

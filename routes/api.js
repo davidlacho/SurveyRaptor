@@ -30,8 +30,8 @@ module.exports = (knex, slapp) => {
   }), (req, res) => {
     const questionArray = [];
 
-    for (const keys in req.body) {
-      questionArray.push(req.body[keys]);
+    for (const keys in req.body.questions) {
+      questionArray.push(req.body.questions[keys]);
     }
 
     const insertToQuantitativeAnswers = (questionID, possibleAnswers) => {
@@ -60,6 +60,7 @@ module.exports = (knex, slapp) => {
           .insert(questionObject)
           .returning('id')
           .then((id) => {
+            questionObject.index = i;
             questionObject.question_id = id[0];
             if (questionType === 'quantitative') {
               insertToQuantitativeAnswers(id, question.possibleAnswers);
@@ -67,7 +68,7 @@ module.exports = (knex, slapp) => {
             }
             deploymentArray.push(questionObject);
             if (questionArray.length === deploymentArray.length) {
-              deploySurvey(req.user, deploymentArray, ['david.lacho'], slapp);
+              deploySurvey(req.user, deploymentArray, req.body.users, slapp);
               res.status(201).json(`{message: 'ok!', surveyID: ${surveyID}}`);
             }
           })
