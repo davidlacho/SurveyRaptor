@@ -5,7 +5,6 @@ import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer.jsx';
 import SurveyList from './components/SurveyList.jsx';
 import SurveyBuilder from './components/SurveyBuilder.jsx';
-import DeploymentOptions from './components/DeploymentOptions.jsx';
 import NotFound from './components/NotFound';
 
 const App = () => (

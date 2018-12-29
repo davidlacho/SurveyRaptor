@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import DeploymentOptions from './DeploymentOptions.jsx';
 
-
 // TODO: Remove after getting cookie
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -39,16 +38,19 @@ class SurveyForm extends Component {
   toggleSelectedUsers = (name) => {
     const selectedUsers = this.state.selectedUsers;
     const indexOfName = selectedUsers.indexOf(name);
+
     if (indexOfName === -1) {
       selectedUsers.push(name);
+
       this.setState({
         selectedUsers: selectedUsers,
-      })
+      });
     } else {
       selectedUsers.splice(indexOfName, 1);
+
       this.setState({
         selectedUsers: selectedUsers,
-      })
+      });
     }
   }
 
@@ -61,7 +63,6 @@ class SurveyForm extends Component {
     this.setState({
       questions: questionObject,
     });
-
   }
 
   addAQuestionToSurvey = (event) => {
@@ -70,7 +71,7 @@ class SurveyForm extends Component {
         questionKey: this.state.questionKey + 1,
       });
     }
-  };
+  }
 
   saveAnswer = (questionKey, answerKey, answer) => {
     const questionObject = this.state.questions;
@@ -99,7 +100,8 @@ class SurveyForm extends Component {
     axios.post('/api/buildsurvey', {
         questions: this.state.questions,
         users: this.state.selectedUsers,
-      }, {
+      },
+      {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.state.jwt}`
@@ -109,82 +111,35 @@ class SurveyForm extends Component {
         this.setState({
           submitted: true,
         })
-      })
-
+      });
   }
 
   render() {
-
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {
-      questionChildren.push( < QuestionField key = {
-          i
-        }
-        number = {
-          i
-        }
-        saveQuestion = {
-          this.saveQuestion
-        }
-        saveAnswer = {
-          this.saveAnswer
-        }
-        />);
-      };
+      questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} />);
+    };
 
-      const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? < Button className = "form-button"
-      color = "primary"
-      variant = "contained"
-      onClick = {
-        () => this.addAQuestionToSurvey()
-      } > Add A New Question < /Button> : '';
+    const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={() => this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
 
-      const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) ? < Button className = "form-button"
-      color = "primary"
-      variant = "contained"
-      onClick = {
-          this.submitQuestions
-        } > Send < Icon > send < /Icon> <
-        /Button> : '';
+    const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) ? <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send <Icon>send</Icon></Button> : '';
 
-      return (
-        !this.state.submitted ?
-        ( < form className = "form-container"
-          autoComplete = "off" >
-          <
-          QuestionField key = {
-            0
-          }
-          number = {
-            0
-          }
-          saveQuestion = {
-            this.saveQuestion
-          }
-          saveAnswer = {
-            this.saveAnswer
-          }
-          /> {
-            questionChildren
-          } {
-            questionButton
-          } <
-          DeploymentOptions toggleSelectedUsers = {
-            this.toggleSelectedUsers
-          }
-          selectedUsers = {
-            this.state.selectedUsers
-          }
-          /> {
-            submitButton
-          } <
-          /form>
-        ) :
-        <
-        p > Submitted! < /p>
-      );
-    }
+    return (
+      !this.state.submitted ?
+      ( <form className="form-container" autoComplete="off">
+          <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} />
+
+          {questionChildren}
+          {questionButton}
+
+          <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers} />
+          {submitButton}
+        </form>
+      ) :
+      <p> Submitted! </p>
+    );
   }
+}
 
-  export default SurveyForm;
+export default SurveyForm;
