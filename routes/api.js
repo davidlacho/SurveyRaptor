@@ -82,6 +82,7 @@ module.exports = (knex, slapp) => {
       knex('surveys')
         .insert({
           user_id: userID[0].id,
+          name: req.body.name,
         })
         .returning('id')
         .then((surveyID) => {

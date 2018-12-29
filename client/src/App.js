@@ -16,7 +16,7 @@ const App = () => (
         <Route exact path="/build-survey" component={SurveyBuilder} />
         <Route component={NotFound} />
       </Switch>
-      <Footer />
+
     </div>
   </BrowserRouter>
 );

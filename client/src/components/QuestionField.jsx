@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import PossibleAnswerField from './PossibleAnswerField';
 
 // Material-UI Components
@@ -16,7 +18,7 @@ class QuestionField extends Component {
 
     this.state = {
       answerKey: 0,
-      value: '',
+      value: this.props.value || '',
       possibleAnswers: ['', '', '', ''],
     };
 
@@ -25,9 +27,15 @@ class QuestionField extends Component {
   }
 
   addAnAnswerToQuestion = (event) => {
-    this.setState({
-      answerKey : this.state.answerKey + 1,
-    });
+    if (this.state.answerKey === 0) {
+      this.setState({
+        answerKey: this.state.answerKey + 2,
+      });
+    } else {
+      this.setState({
+        answerKey: this.state.answerKey + 1,
+      });
+    }
   };
 
   updateValue = (event) => {
@@ -43,7 +51,7 @@ class QuestionField extends Component {
     possibleAnswers[possibleAnswerKey] = value;
 
     this.setState({
-      possibleAnswers : possibleAnswers,
+      possibleAnswers: possibleAnswers,
     });
   }
 
@@ -60,7 +68,7 @@ class QuestionField extends Component {
     return (
       <React.Fragment>
         <div className="form-row--full-width">
-          <TextField name={`question-${this.props.number + 1}`} label={`Question ${this.props.number + 1}`} className={`form-field question-${this.props.number + 1}`} variant="outlined" margin="dense" onKeyUp={this.updateValue} />
+          <TextField name={`question-${this.props.number + 1}`} label={`Question ${this.props.number + 1}`} className={`form-field question-${this.props.number + 1}`} variant="outlined" margin="dense" onChange={this.updateValue} value={this.state.value}/>
         </div>
 
         <div className="form-row">
@@ -70,6 +78,7 @@ class QuestionField extends Component {
       </React.Fragment>
     );
   }
+  
 }
 
 export default QuestionField;
