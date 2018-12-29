@@ -10,7 +10,7 @@ const router = express.Router();
 // API endpoints, do not prefix with '/api'
 module.exports = (knex, slapp) => {
   // Serves the logged in user data
-  router.get('/userdata', passport.authenticate('jwt', {
+  router.get('/user', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     knex('users')
@@ -116,6 +116,40 @@ module.exports = (knex, slapp) => {
       })
       .catch((err) => {
         res.status(500).json('Error occured when getting list of users from Slack:', err);
+      });
+  });
+
+  router.get('/user/surveys', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+    knex('surveys')
+      .select('surveys.id', 'surveys.created_at')
+      .join('users', 'surveys.user_id', 'users.id')
+      .where('slack_id', req.user.creator_id)
+      .then((resp) => {
+        const returnArray = [];
+        resp.forEach((response, i) => {
+          knex('respondents')
+            .select('*')
+            .where('survey_id', response.id)
+            .then((respondents) => {
+              returnArray[i] = {
+                surveyID: response.id,
+                name: response.name,
+                createdAt: response.created_at,
+                respondentCount: respondents.length,
+              };
+              if (returnArray.length === resp.length) {
+                res.status(200).json(returnArray);
+              }
+            })
+            .catch((err) => {
+              return err;
+            });
+        });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
       });
   });
 
