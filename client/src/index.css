@@ -90,11 +90,18 @@
   display: block;
   width: 100%; }
 
-.table-container th:not(:first-child) {
-  text-align: right; }
-
-.table-container td {
-  text-align: right; }
+.table-container {
+  margin: 2rem 0; }
+  .table-container thead {
+    background-color: #011627; }
+  .table-container th {
+    color: #ffffff; }
+    .table-container th:not(:first-child) {
+      text-align: right; }
+  .table-container tr:nth-of-type(even) {
+    background-color: #F4F4F4; }
+  .table-container td:not(:first-child) {
+    text-align: right; }
 
 body {
   margin: 0;

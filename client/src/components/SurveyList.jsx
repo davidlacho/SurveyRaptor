@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import cookie from 'react-cookies';
 
 // Material-UI Components
 import Button from '@material-ui/core/Button';
@@ -14,23 +16,44 @@ class SurveyList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      surveys: [],
+    };
+  }
+
+  componentDidMount() {
+    axios.get('/api/user/surveys', {}, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookie.load('jwt')}`
+        }
+      })
+      .then(res => {
+        this.setState({
+          surveys: res.data,
+        });
+      })
+      .catch((err) => {
+        console.error(`There was an error retrieving surveys: ${err}`)
+      })
   }
 
   render() {
-    let id = 0;
-    function createData(name, date, respondents) {
-      id += 1;
-      return { id, name, date, respondents };
-    }
+    const surveys = this.state.surveys;
+    const surveysList = surveys.map((list) => {
+      if (!list) {
+        return false;
+      }
 
-    const rows = [
-      createData('Frozen yoghurt', `12-09-18`, 10),
-      createData('Ice cream sandwich', `12-09-18`, 22),
-      createData('Eclair', `12-09-18`, 56),
-      createData('Cupcake', `12-09-18`, 23),
-      createData('Gingerbread', `12-09-18`, 12),
-    ];
+      return (
+        <TableRow key={list.surveyID}>
+          <TableCell>{list.surveyID}</TableCell>
+          <TableCell>{list.name || 'No name'}</TableCell>
+          <TableCell>{list.respondentCount}</TableCell>
+          <TableCell>{list.createdAt}</TableCell>
+        </TableRow>
+      )
+    });
 
     return (
       <div className="site-content">
@@ -39,24 +62,13 @@ class SurveyList extends Component {
             <TableHead>
               <TableRow>
                 <TableCell>Survey ID</TableCell>
-                <TableCell>Survey Name</TableCell>
-                <TableCell>Survey Respondents</TableCell>
-                <TableCell>Survey Date</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Respondents</TableCell>
+                <TableCell>Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => {
-                return (
-                  <TableRow key={row.id}>
-                    <TableCell component="th" scope="row">
-                      {row.id}
-                    </TableCell>
-                    <TableCell>{row.name}</TableCell>
-                    <TableCell>{row.respondents}</TableCell>
-                    <TableCell>{row.date}</TableCell>
-                  </TableRow>
-                );
-              })}
+              {surveysList}
             </TableBody>
           </Table>
         </Paper>

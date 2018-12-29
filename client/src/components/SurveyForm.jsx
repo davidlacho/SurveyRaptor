@@ -25,10 +25,10 @@ class SurveyForm extends Component {
       surveyName: '',
     }
 
-    const saveQuestion = this.saveQuestion.bind(this);
-    const saveAnswer = this.saveAnswer.bind(this);
-    const submitQuestions = this.submitQuestions.bind(this);
-    const toggleSelectedUsers = this.toggleSelectedUsers.bind(this);
+    this.saveQuestion = this.saveQuestion.bind(this);
+    this.saveAnswer = this.saveAnswer.bind(this);
+    this.submitQuestions = this.submitQuestions.bind(this);
+    this.toggleSelectedUsers = this.toggleSelectedUsers.bind(this);
   }
 
   componentDidMount() {

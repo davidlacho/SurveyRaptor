@@ -1,11 +1,29 @@
 // Tables
 
 .table-container {
-  th:not(:first-child) {
-    text-align: right;
+  margin: $space-x-large 0;
+
+  thead {
+    background-color: $color-maastricht-blue;
+  }
+
+  th {
+    color: $color-white;
+
+    &:not(:first-child) {
+      text-align: right;
+    }
+  }
+
+  tr {
+    &:nth-of-type(even) {
+      background-color: $color-light-gray;
+    }
   }
 
   td {
-    text-align: right;
+    &:not(:first-child) {
+      text-align: right;
+    }
   }
 }
