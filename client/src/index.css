@@ -97,6 +97,25 @@ body {
 .App {
   width: 100%; }
 
+.site-content {
+  padding: 2rem; }
+
+.not-found {
+  text-align: center; }
+  .not-found img {
+    display: block;
+    max-width: 100%;
+    margin: 3.125rem auto; }
+
+.not-found--title {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.icon-error {
+  margin-right: 0.5rem;
+  color: #DE0E53; }
+
 .site-header {
   display: flex;
   align-items: center;

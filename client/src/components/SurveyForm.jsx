@@ -1,14 +1,12 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import QuestionField from './QuestionField';
 import cookie from 'react-cookies';
 import axios from 'axios';
+
 // Material-UI Components
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import DeploymentOptions from './DeploymentOptions.jsx';
-
 
 
 // TODO: Remove after getting cookie
@@ -36,7 +34,6 @@ class SurveyForm extends Component {
     this.setState({
       jwt: cookie.load('jwt'),
     });
-
   }
 
   toggleSelectedUsers = (name) => {

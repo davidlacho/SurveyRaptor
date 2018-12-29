@@ -1,0 +1,20 @@
+.not-found {
+  text-align: center;
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin: $space-xx-large auto;
+  }
+}
+
+.not-found--title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-error {
+  margin-right: $space-xx-small;
+  color: $color-red;
+}

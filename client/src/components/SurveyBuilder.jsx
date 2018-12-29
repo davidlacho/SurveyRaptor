@@ -10,7 +10,7 @@ class SurveyBuilder extends Component {
 
   render() {
     return (
-      <div>
+      <div className="site-content">
         <SurveyForm />
       </div>
     );
