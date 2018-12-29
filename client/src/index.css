@@ -90,6 +90,12 @@
   display: block;
   width: 100%; }
 
+.table-container th:not(:first-child) {
+  text-align: right; }
+
+.table-container td {
+  text-align: right; }
+
 body {
   margin: 0;
   padding: 0; }

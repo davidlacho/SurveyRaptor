@@ -1,0 +1,11 @@
+// Tables
+
+.table-container {
+  th:not(:first-child) {
+    text-align: right;
+  }
+
+  td {
+    text-align: right;
+  }
+}
