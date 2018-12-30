@@ -106,8 +106,6 @@ class SurveyForm extends Component {
       questionObject[questionKey].possibleAnswers = removeEmpties;
     }
 
-    console.log(questionObject);
-
 
     this.setState({
       questions: questionObject,
