@@ -13,38 +13,40 @@ body {
 }
 
 .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: calc(100% - 4rem);
   padding: 1rem 2rem;
-  background: rgba(0,12,13,0.03);
-  border-bottom: 1px solid rgba(0, 12, 13, 0.15);
-  box-shadow: 0 2px 8px rgba(0, 12, 13, 0.15);
-}
-
-.header-link {
-  display: inline-block;
-  margin-right: 2rem;
-  color: rgb(0, 120, 207);
-  text-decoration: none;
-  transition: 0.2s ease;
 }
 
 .logo {
-  display: inline-block;
+  padding: 0.5rem;
   margin: 0;
-  font-size: 3rem;
+  font-size: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #C7CACD;
+  border-radius: 4px;
+  transition: 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
 }
 
 .logo a {
   display: inline-block;
-  color: #0B364A;
+  color: #008552;
   text-decoration: none;
   transition: 0.2s ease;
 }
 
 .logo a:hover {
-  color: #000000;
+  color: #9ebd13;
 }
 
 .slack-button {
@@ -58,8 +60,7 @@ body {
 }
 
 .site-header--nav {
-  display: flex;
-  align-items: center;
+  max-height: 40px;
 }
 
 .content-container {
@@ -79,13 +80,14 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  padding: 3rem;
+  padding: 2rem;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
+  border: 4px solid #7560c9;
+  border-radius: 4px;
 }
 
-.default-link a:hover,
-.header-link:hover {
+.default-link a:hover {
   color: rgb(2, 63, 107);
 }
 
@@ -100,30 +102,21 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid #daa250;
+  background: linear-gradient(90deg, #ffd700 0%, #3ad59f 100%);
 }
 
 .site-footer p {
   padding: 0.5rem 2rem;
-}
-
-@media screen and (max-width: 769px) {
-  .content--home-hero--info {
-    width: 100%;
-  }
-
-  .content--home-hero--info h2,
-  .content--home-hero--info p {
-    padding: 1rem;
-  }
+  font-size: 0.75rem;
 }
 
 @media screen and (max-width: 376px) {
-  .site-header {
-    display: block;
+  .logo {
+    font-size: 1rem;
   }
 
-  .logo {
-    margin-bottom: 1rem;
+  .content--home-hero--info {
+    padding: 1rem;
   }
 }
