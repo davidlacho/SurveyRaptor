@@ -1,0 +1,73 @@
+// Tables
+
+.table-container {
+  margin: $space-x-large 0;
+
+  @include media($max: $bp-small) {
+    margin: $space-small 0;
+  }
+
+  thead {
+    background-color: $color-maastricht-blue;
+  }
+
+  th {
+    color: $color-white;
+
+    &:not(:first-child) {
+      text-align: right;
+    }
+  }
+
+  tr {
+    @include media($min: $bp-small) {
+      &:nth-of-type(even) {
+        background-color: $color-light-gray;
+      }
+    }
+  }
+
+  td {
+    &:not(:first-child) {
+      text-align: right;
+    }
+  }
+
+  @include media($max: $bp-small) {
+    thead {
+      display: none;
+    }
+
+    tr {
+      display: block;
+      height: 100%;
+      margin-bottom: $space-small;
+      border: 1px solid $color-medium-gray;
+      border-bottom: 3px solid $color-medium-gray;
+    }
+
+    td {
+      display: block;
+      padding-right: $space-x-medium;
+      text-align: right;
+      border-bottom: 1px solid $color-medium-gray;
+
+      &:before {
+        float: left;
+        font-weight: 700;
+        text-transform: uppercase;
+        content: attr(data-table-label);
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+.table-wrapper {
+  @include media($max: $bp-small) {
+    box-shadow: none !important;
+  }
+}

@@ -22,8 +22,8 @@ class QuestionField extends Component {
       possibleAnswers: this.props.possibleAnswers,
     };
 
-    const addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
-    const updatePossibleAnswers = this.updatePossibleAnswers.bind(this);
+    this.addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
+    this.updatePossibleAnswers = this.updatePossibleAnswers.bind(this);
   }
 
   addAnAnswerToQuestion = (event) => {

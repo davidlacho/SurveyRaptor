@@ -25,10 +25,10 @@ class SurveyForm extends Component {
       surveyName: '',
     }
 
-    const saveQuestion = this.saveQuestion.bind(this);
-    const saveAnswer = this.saveAnswer.bind(this);
-    const submitQuestions = this.submitQuestions.bind(this);
-    const toggleSelectedUsers = this.toggleSelectedUsers.bind(this);
+    this.saveQuestion = this.saveQuestion.bind(this);
+    this.saveAnswer = this.saveAnswer.bind(this);
+    this.submitQuestions = this.submitQuestions.bind(this);
+    this.toggleSelectedUsers = this.toggleSelectedUsers.bind(this);
   }
 
   componentDidMount() {
@@ -126,6 +126,7 @@ class SurveyForm extends Component {
 
   render() {
     const questionChildren = [];
+
     for (var i = 1; i < this.state.questionKey; i += 1) {
       questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[i] ? this.state.questions[i].question : ''} />);
     };
@@ -136,35 +137,34 @@ class SurveyForm extends Component {
 
     const firstQuestionField = <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''}/>;
 
-
     return (
       !this.state.submitted ?
       (
         <form className="form-container" autoComplete="off">
-          <h2 className="form-header">SurveyBuilder</h2>
+          <h2>SurveyBuilder</h2>
           <TextField
-              label="Survey Name"
-              style={{ margin: 8 }}
-              placeholder="Survey Name"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onKeyUp={this.setSurveyName}
-            />
+            label="Survey Name"
+            style={{ margin: 8 }}
+            placeholder="Survey Name"
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onKeyUp={this.setSurveyName}
+          />
 
-            {firstQuestionField}
-            {questionChildren}
-            {questionButton}
-            <h3 className="form-header">Deploy to:</h3>
-            <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers} />
-            {submitButton}
+          {firstQuestionField}
+          {questionChildren}
+          {questionButton}
 
+          <h3>Deploy to:</h3>
+          <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers} />
+          {submitButton}
         </form>
       ) :
-      <p> Submitted! </p>
+      <p>Submitted!</p>
     );
   }
 }
