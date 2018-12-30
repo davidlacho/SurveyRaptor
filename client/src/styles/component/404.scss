@@ -4,7 +4,16 @@
   img {
     display: block;
     max-width: 100%;
-    margin: $space-xx-large auto;
+    margin: $space-large auto;
+
+    @include media($min: $bp-small) {
+      width: 50%;
+      margin: $space-xx-large auto;
+    }
+
+    @include media($min: $bp-large) {
+      width: 25%;
+    }
   }
 }
 

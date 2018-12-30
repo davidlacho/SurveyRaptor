@@ -6,8 +6,10 @@
 
 body {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   min-height: 100vh;
-  margin: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
 }
@@ -49,6 +51,7 @@ body {
 }
 
 .content-container {
+  flex: 1 0 auto;
   padding: 2rem;
 }
 
@@ -104,7 +107,7 @@ body {
 .content--home-alternating-second {
   position: relative;
   width: 100%;
-  margin: 4rem 0;
+  margin: 4rem 0 2rem;
 }
 
 .content--home-alternating-second:after {
@@ -146,9 +149,7 @@ body {
 }
 
 .site-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  flex-shrink: 0;
   width: 100%;
   border-top: 1px solid #daa250;
   background: linear-gradient(90deg, #ffd700 0%, #3ad59f 100%);

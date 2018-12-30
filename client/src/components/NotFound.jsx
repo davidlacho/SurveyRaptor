@@ -7,10 +7,11 @@ import Button from '@material-ui/core/Button';
 const NotFound = () => (
   <div className="site-content not-found">
     <h2 className="not-found--title">
-      <i className="material-icons icon-error">error_outline</i> Page Not Found
+      <i className="material-icons icon-error">error_outline</i> 404 - Page Not Found
     </h2>
 
-    <img src="https://media.giphy.com/media/CXijLuAwu955u/giphy.gif" alt="404 Not Found" />
+    <p>Well, we weren't expecting this...</p>
+    <img src="/banana-cactus.jpeg" alt="404 Not Found" />
     <Button className="form-button" color="primary" variant="contained" component={Link} to="/">Go build a survey</Button>
   </div>
 );
