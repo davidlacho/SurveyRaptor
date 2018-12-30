@@ -81,17 +81,18 @@ module.exports = (user, questionArray, recipientUserNames, slapp) => {
   });
 
   questionArray.unshift({
-    question: 'Click to start',
+    question: 'Hey there! I have a few questions for you.',
     possibleAnswers: ['Start'],
   });
 
   const createMessage = (question, i) => {
     const questionObject = {
-      text: 'Hey there! I have a few questions for you:',
+      text: question.question,
       attachments: [{
-        text: question.question,
+        // text: question.question,
         fallback: 'Yes or No?',
         callback_id: `${uniqueCallback}/${i}`,
+        color: 'good',
         actions: [],
       }],
     };
