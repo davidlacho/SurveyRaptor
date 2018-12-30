@@ -41,9 +41,11 @@ class DeploymentOptions extends Component {
   render() {
     const team = this.state.team;
     const selectableUsers = team.map((user) => {
-
+      if (user.name === 'slackbot' || user.name === 'survey_raptor') {
+        return;
+      }
       if (user.deleted) {
-        return
+        return;
       }
 
       const deleteIcon = this.props.selectedUsers.includes(user.name) ? null : <DoneIcon />;
