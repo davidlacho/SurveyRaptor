@@ -25,28 +25,13 @@ body {
 }
 
 .logo {
-  padding: 0.5rem;
-  margin: 0;
-  font-size: 1.5rem;
-  background: #ffffff;
-  border: 1px solid #C7CACD;
-  border-radius: 4px;
+  transform: scaleX(-1);
   transition: 0.2s ease;
 }
 
 .logo:hover {
-  transform: scale(1.1);
-}
-
-.logo a {
-  display: inline-block;
-  color: #008552;
-  text-decoration: none;
-  transition: 0.2s ease;
-}
-
-.logo a:hover {
-  color: #9ebd13;
+  fill: #008552;
+  transform: scale(-1.2, 1.2);
 }
 
 .slack-button {
@@ -70,7 +55,7 @@ body {
 .content--home-hero {
   position: relative;
   width: 100%;
-  min-height: 50vh;
+  min-height: 100vh;
   background-image: url('/home-hero.jpeg');
   background-position: 50% 50%;
   background-size: cover;
@@ -112,11 +97,13 @@ body {
 }
 
 @media screen and (max-width: 376px) {
-  .logo {
-    font-size: 1rem;
+  .site-header {
+    width: calc(100% - 2rem);
+    padding: 1rem;
   }
 
   .content--home-hero--info {
+    width: calc(100% - 4rem);
     padding: 1rem;
   }
 }

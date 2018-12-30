@@ -5,13 +5,14 @@
   <head>
     <title>SurveyRaptor</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
   </head>
   <body>
 
   <header class="site-header">
-    <h1 class="logo">
-      <a href="/">SurveyRaptor</a>
-    </h1>
+    <a class="logo" href="/">
+      <% include _logo %>
+    </a>
 
     <div class="site-header--nav">
       <a href="/auth/slack">
