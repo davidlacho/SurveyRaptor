@@ -11,15 +11,11 @@ class PossibleAnswerField extends Component {
     super(props);
 
     this.state = {
-      value: '',
+      value: this.props.value,
     };
   }
 
   updateValue = (event) => {
-    this.setState({
-      value: event.target.value,
-    });
-
     this.props.updatePossibleAnswers(this.props.number, event.target.value);
     this.props.saveAnswer(this.props.questionKey, this.props.number, event.target.value);
   }
@@ -27,7 +23,9 @@ class PossibleAnswerField extends Component {
   render() {
     return (
       <React.Fragment>
-        <TextField name={`question-${this.props.questionKey + 1}-option-${this.props.number + 1}`} label={`Option ${this.props.number +1}`} className={`form-field question-option-${this.props.number + 1}`} variant="outlined" margin="dense" onKeyUp={this.updateValue} />
+        <TextField name={`question-${this.props.questionKey + 1}-option-${this.props.number + 1}`} label={`Option ${this.props.number +1}`} className={`form-field question-option-${this.props.number + 1}`} variant="outlined" margin="dense" onChange={this.updateValue} value={this.props.value} InputLabelProps={{
+          shrink: true,
+        }}/>
       </React.Fragment>
     );
   }

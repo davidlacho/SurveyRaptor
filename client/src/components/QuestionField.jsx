@@ -18,12 +18,12 @@ class QuestionField extends Component {
 
     this.state = {
       answerKey: 0,
-      value: this.props.value || '',
+      value: this.props.value,
       possibleAnswers: this.props.possibleAnswers,
     };
 
-    this.addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
-    this.updatePossibleAnswers = this.updatePossibleAnswers.bind(this);
+    const addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
+    const updatePossibleAnswers = this.updatePossibleAnswers.bind(this);
   }
 
   addAnAnswerToQuestion = (event) => {
@@ -47,20 +47,20 @@ class QuestionField extends Component {
   }
 
   updatePossibleAnswers = (possibleAnswerKey, value) => {
-    const possibleAnswers = this.state.possibleAnswers;
+    const possibleAnswers = this.props.possibleAnswers;
     possibleAnswers[possibleAnswerKey] = value;
-
+    const removeEmpties = possibleAnswers.filter((el) => el !== '');
+    const answerKey = Math.max(2, removeEmpties.length);
     this.setState({
-      possibleAnswers: possibleAnswers,
+      possibleAnswers: removeEmpties,
+      answerKey: answerKey,
     });
   }
 
   render() {
-    // const answerHeader = !!this.state.value ? <h3 className="form-header">Possible Answers</h3> : undefined;
-
     const answerChildren = [];
     for (var i = 0; i < this.state.answerKey; i += 1) {
-      answerChildren.push(<PossibleAnswerField key={i} number={i} saveAnswer={this.props.saveAnswer} questionKey={this.props.number} updatePossibleAnswers={this.updatePossibleAnswers} />);
+      answerChildren.push(<PossibleAnswerField key={i} number={i} saveAnswer={this.props.saveAnswer} questionKey={this.props.number} updatePossibleAnswers={this.updatePossibleAnswers}  value={this.state.possibleAnswers[i] || ''}/>);
     };
 
     const answerButton = !!this.state.value && this.state.answerKey <= 3 && (!this.state.answerKey - 1  === 0 || (!!this.state.possibleAnswers[this.state.answerKey -1] && !!this.state.possibleAnswers[0] && !!this.state.possibleAnswers[1])) ? <IconButton className="form-button--answer" aria-label="Add an option" onClick={() => this.addAnAnswerToQuestion()}><Tooltip title="add an option" aria-label="add an option"><Icon>add_circle</Icon></Tooltip></IconButton> : undefined;

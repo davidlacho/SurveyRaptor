@@ -83,6 +83,7 @@ class SurveyForm extends Component {
   }
 
   saveAnswer = (questionKey, answerKey, answer) => {
+
     const questionObject = this.state.questions;
     if (!questionObject[questionKey]) {
       questionObject[questionKey] = {
@@ -99,6 +100,10 @@ class SurveyForm extends Component {
     }
 
     questionObject[questionKey].possibleAnswers[answerKey] = answer;
+
+    const removeEmpties = questionObject[questionKey].possibleAnswers.filter((el) => el !== '');
+
+    questionObject[questionKey].possibleAnswers = removeEmpties;
 
     this.setState({
       questions: questionObject,
@@ -128,14 +133,21 @@ class SurveyForm extends Component {
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {
-      questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[i] ? this.state.questions[i].question : ''} />);
+      questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[i] ? this.state.questions[i].question : ''} possibleAnswers={this.state.questions[i] ?
+        this.state.questions[i].possibleAnswers ?
+        this.state.questions[i].possibleAnswers : []
+        : []}/>);
     };
 
     const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={() => this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
 
     const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) && this.state.surveyName ? <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send <Icon>send</Icon></Button> : '';
 
-    const firstQuestionField = <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''}/>;
+    const firstQuestionField = <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''} possibleAnswers={this.state.questions[0] ?
+      this.state.questions[0].possibleAnswers ?
+      this.state.questions[0].possibleAnswers : []
+      : []}/>;
+
 
     return (
       !this.state.submitted ?
