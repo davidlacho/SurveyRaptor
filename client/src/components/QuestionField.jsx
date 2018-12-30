@@ -49,12 +49,20 @@ class QuestionField extends Component {
   updatePossibleAnswers = (possibleAnswerKey, value) => {
     const possibleAnswers = this.props.possibleAnswers;
     possibleAnswers[possibleAnswerKey] = value;
-    const removeEmpties = possibleAnswers.filter((el) => el !== '');
-    const answerKey = Math.max(2, removeEmpties.length);
-    this.setState({
-      possibleAnswers: removeEmpties,
-      answerKey: answerKey,
-    });
+
+   if(possibleAnswerKey === 1 && !possibleAnswers[0]) {
+      this.setState({
+        possibleAnswers: possibleAnswers,
+        answerKey: 2,
+      })
+    } else {
+      const removeEmpties = possibleAnswers.filter((el) => el !== '');
+      const answerKey = Math.max(2, removeEmpties.length);
+      this.setState({
+        possibleAnswers: removeEmpties,
+        answerKey: answerKey,
+      });
+    }
   }
 
   render() {

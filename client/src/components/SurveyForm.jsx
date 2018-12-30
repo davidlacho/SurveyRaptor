@@ -101,9 +101,13 @@ class SurveyForm extends Component {
 
     questionObject[questionKey].possibleAnswers[answerKey] = answer;
 
-    const removeEmpties = questionObject[questionKey].possibleAnswers.filter((el) => el !== '');
+    if (!(answerKey === 1 && !questionObject[questionKey].possibleAnswers[0])){
+      const removeEmpties = questionObject[questionKey].possibleAnswers.filter((el) => el !== '');
+      questionObject[questionKey].possibleAnswers = removeEmpties;
+    }
 
-    questionObject[questionKey].possibleAnswers = removeEmpties;
+    console.log(questionObject);
+
 
     this.setState({
       questions: questionObject,
