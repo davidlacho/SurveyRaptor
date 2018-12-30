@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <footer className="site-footer">
         <p className="copyright">
-          &copy; <script>new Date().getFullYear()>2010&&document.write(new Date().getFullYear());</script> SurveyRaptor
+          <span className="copyright-char">&copy;</span> <script>new Date().getFullYear()>2010&&document.write(new Date().getFullYear());</script> surVeyrAptor
         </p>
       </footer>
     );

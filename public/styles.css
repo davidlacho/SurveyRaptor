@@ -1,7 +1,7 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
 
 /* Normalize */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css');
@@ -175,9 +175,14 @@ p {
   background: linear-gradient(90deg, #ffd700 0%, #3ad59f 100%);
 }
 
-.site-footer p {
+.copyright {
   padding: 0.5rem 2rem;
+  font-family: 'Major Mono Display', monospace;
   font-size: 0.75rem;
+}
+
+.copyright-char {
+  font-family: 'Open Sans', sans-serif;
 }
 
 @media screen and (max-width: 720px) {

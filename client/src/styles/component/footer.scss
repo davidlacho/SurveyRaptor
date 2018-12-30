@@ -3,9 +3,14 @@
   width: 100%;
   border-top: 1px solid $color-goldenrod;
   background: linear-gradient(90deg, $color-gold 0%, $color-green 100%);
+}
 
-  p {
-    padding: $space-xx-small $space-x-large;
-    font-size: $font-large-size / 2;
-  }
+.copyright {
+  padding: $space-xx-small $space-x-large;
+  font-family: $font-fun;
+  font-size: $font-large-size / 2;
+}
+
+.copyright-char {
+  font-family: $font-body;
 }
