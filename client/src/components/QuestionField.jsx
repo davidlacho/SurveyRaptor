@@ -19,7 +19,7 @@ class QuestionField extends Component {
     this.state = {
       answerKey: 0,
       value: this.props.value || '',
-      possibleAnswers: ['', '', '', ''],
+      possibleAnswers: this.props.possibleAnswers,
     };
 
     const addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
@@ -63,7 +63,7 @@ class QuestionField extends Component {
       answerChildren.push(<PossibleAnswerField key={i} number={i} saveAnswer={this.props.saveAnswer} questionKey={this.props.number} updatePossibleAnswers={this.updatePossibleAnswers} />);
     };
 
-    const answerButton = !!this.state.value && this.state.answerKey <= 3 && (!this.state.answerKey - 1  === 0 || !!this.state.possibleAnswers[this.state.answerKey -1]) ? <IconButton className="form-button--answer" aria-label="Add an option" onClick={() => this.addAnAnswerToQuestion()}><Tooltip title="add an option" aria-label="add an option"><Icon>add_circle</Icon></Tooltip></IconButton> : undefined;
+    const answerButton = !!this.state.value && this.state.answerKey <= 3 && (!this.state.answerKey - 1  === 0 || (!!this.state.possibleAnswers[this.state.answerKey -1] && !!this.state.possibleAnswers[0] && !!this.state.possibleAnswers[1])) ? <IconButton className="form-button--answer" aria-label="Add an option" onClick={() => this.addAnAnswerToQuestion()}><Tooltip title="add an option" aria-label="add an option"><Icon>add_circle</Icon></Tooltip></IconButton> : undefined;
 
     return (
       <React.Fragment>
@@ -78,7 +78,7 @@ class QuestionField extends Component {
       </React.Fragment>
     );
   }
-  
+
 }
 
 export default QuestionField;
