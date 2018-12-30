@@ -37,6 +37,7 @@ class DeploymentOptions extends Component {
 
   render() {
     const team = this.state.team;
+
     const selectableUsers = team.map((user) => {
       if (user.name === 'slackbot' || user.name === 'survey_raptor') {
         return false;
@@ -64,7 +65,11 @@ class DeploymentOptions extends Component {
     });
 
     return(
-      <div>{selectableUsers}</div>
+      <div>
+        <h3>Deploy to:</h3>
+
+        {selectableUsers}
+      </div>
     );
   }
 }

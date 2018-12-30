@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import PossibleAnswerField from './PossibleAnswerField';
 
 // Material-UI Components
@@ -22,8 +20,8 @@ class QuestionField extends Component {
       possibleAnswers: this.props.possibleAnswers,
     };
 
-    const addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
-    const updatePossibleAnswers = this.updatePossibleAnswers.bind(this);
+    this.addAnAnswerToQuestion = this.addAnAnswerToQuestion.bind(this);
+    this.updatePossibleAnswers = this.updatePossibleAnswers.bind(this);
   }
 
   addAnAnswerToQuestion = (event) => {
@@ -50,7 +48,7 @@ class QuestionField extends Component {
     const possibleAnswers = this.props.possibleAnswers;
     possibleAnswers[possibleAnswerKey] = value;
 
-   if(possibleAnswerKey === 1 && !possibleAnswers[0]) {
+  if (possibleAnswerKey === 1 && !possibleAnswers[0]) {
       this.setState({
         possibleAnswers: possibleAnswers,
         answerKey: 2,
@@ -58,6 +56,7 @@ class QuestionField extends Component {
     } else {
       const removeEmpties = possibleAnswers.filter((el) => el !== '');
       const answerKey = Math.max(2, removeEmpties.length);
+
       this.setState({
         possibleAnswers: removeEmpties,
         answerKey: answerKey,
@@ -67,6 +66,7 @@ class QuestionField extends Component {
 
   render() {
     const answerChildren = [];
+
     for (var i = 0; i < this.state.answerKey; i += 1) {
       answerChildren.push(<PossibleAnswerField key={i} number={i} saveAnswer={this.props.saveAnswer} questionKey={this.props.number} updatePossibleAnswers={this.updatePossibleAnswers}  value={this.state.possibleAnswers[i] || ''}/>);
     };

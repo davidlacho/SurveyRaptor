@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
+import Logo from './Logo';
 
 class Header extends Component {
   render() {
     return (
       <header className="site-header">
-        <h1 className="logo">
-          <a href="/">SurveyRaptor</a>
-        </h1>
+        <a className="logo" href="/">
+          <Logo />
+        </a>
 
         <div className="site-header--nav">
-          <a href="/about" className="header-link">
-            About
-          </a>
-
           <a href="/logout" className="header-link">
             Logout
           </a>

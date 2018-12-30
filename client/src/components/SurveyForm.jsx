@@ -145,11 +145,11 @@ class SurveyForm extends Component {
 
     const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) && this.state.surveyName ? <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send <Icon>send</Icon></Button> : '';
 
-    const firstQuestionField = <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''} possibleAnswers={this.state.questions[0] ?
+    const firstQuestionField =
+      <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''} possibleAnswers={this.state.questions[0] ?
       this.state.questions[0].possibleAnswers ?
       this.state.questions[0].possibleAnswers : []
       : []}/>;
-
 
     return (
       !this.state.submitted ?
@@ -158,7 +158,6 @@ class SurveyForm extends Component {
           <h2>SurveyBuilder</h2>
           <TextField
             label="Survey Name"
-            style={{ margin: 8 }}
             placeholder="Survey Name"
             fullWidth
             margin="normal"
@@ -173,8 +172,8 @@ class SurveyForm extends Component {
           {questionChildren}
           {questionButton}
 
-          <h3>Deploy to:</h3>
           <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers} />
+
           {submitButton}
         </form>
       ) :

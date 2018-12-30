@@ -2,32 +2,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $space-small $space-x-large;
-  background: rgba(0,12,13,0.03);
-  border-bottom: 1px solid rgba(0, 12, 13, 0.15);
-  box-shadow: 0 2px 8px rgba(0, 12, 13, 0.15);
-
-  @include media($max: $bp-xs) {
-    display: block;
-  }
+  width: calc(100% - #{$space-x-large * 2});
+  padding: 0 $space-x-large;
+  background-image: linear-gradient(135deg, $color-light-green 10%, $color-dark-blue 100%);
+  border-bottom: 1px solid $color-dark-green;
 }
 
 .logo {
-  margin: 0;
-  font-size: $font-larger-size;
+  transform: scaleX(-1);
+  transition: 0.2s ease;
 
-  a {
-    display: inline-block;
-    color: #0B364A;
-    text-decoration: none;
-    transition: 0.2s ease;
-
-    &:hover {
-      color: $color-black;
-    }
+  &:hover {
+    fill: $color-dark-green;
+    transform: scale(-1.2, 1.2);
   }
+}
 
-  @include media($max: $bp-xs) {
-    margin-bottom: $space-small;
+.header-link {
+  display: block;
+  color: $color-green;
+  text-decoration: none;
+  transition: 0.2s ease;
+
+  &:hover {
+    color: $color-dark-green;
   }
 }
