@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
+  background: #FFFDF9;
 }
 
 .site-header {
