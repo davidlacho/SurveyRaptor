@@ -41,6 +41,11 @@
 
 .form-button {
   display: block;
+  background: $color-dark-green !important;
+
+  &:hover {
+    background: lighten($color-dark-green, 10%) !important;
+  }
 
   @include media($max: $bp-small) {
     width: 100%;

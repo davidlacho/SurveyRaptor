@@ -80,7 +80,10 @@
         margin-right: 0; } }
 
 .form-button {
-  display: block; }
+  display: block;
+  background: #008552 !important; }
+  .form-button:hover {
+    background: #00b871 !important; }
   @media screen and (max-width: 719px) {
     .form-button {
       width: 100%; } }
