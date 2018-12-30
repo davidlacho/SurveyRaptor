@@ -5,6 +5,7 @@
     display: block;
     max-width: 100%;
     margin: $space-large auto;
+    border-radius: $space-x-small;
 
     @include media($min: $bp-small) {
       width: 50%;
