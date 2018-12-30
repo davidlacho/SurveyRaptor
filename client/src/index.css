@@ -86,22 +86,47 @@
 .form-button--answer {
   margin-right: auto !important; }
 
-.form-header {
-  display: block;
-  width: 100%; }
-
 .table-container {
   margin: 2rem 0; }
+  @media screen and (max-width: 719px) {
+    .table-container {
+      margin: 1rem 0; } }
   .table-container thead {
     background-color: #011627; }
   .table-container th {
     color: #ffffff; }
     .table-container th:not(:first-child) {
       text-align: right; }
-  .table-container tr:nth-of-type(even) {
-    background-color: #F4F4F4; }
+  @media screen and (min-width: 720px) {
+    .table-container tr:nth-of-type(even) {
+      background-color: #F4F4F4; } }
   .table-container td:not(:first-child) {
     text-align: right; }
+  @media screen and (max-width: 719px) {
+    .table-container thead {
+      display: none; }
+    .table-container tr {
+      display: block;
+      height: 100%;
+      margin-bottom: 1rem;
+      border: 1px solid #DDDDDD;
+      border-bottom: 3px solid #DDDDDD; }
+    .table-container td {
+      display: block;
+      padding-right: 1.5rem;
+      text-align: right;
+      border-bottom: 1px solid #DDDDDD; }
+      .table-container td:before {
+        float: left;
+        font-weight: 700;
+        text-transform: uppercase;
+        content: attr(data-table-label); }
+      .table-container td:last-child {
+        border-bottom: 0; } }
+
+@media screen and (max-width: 719px) {
+  .table-wrapper {
+    box-shadow: none !important; } }
 
 body {
   margin: 0;
@@ -112,6 +137,21 @@ body {
 
 .site-content {
   padding: 2rem; }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  display: block;
+  width: 100%; }
+  @media screen and (max-width: 719px) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      text-align: center; } }
 
 .not-found {
   text-align: center; }

@@ -5,12 +5,12 @@ import cookie from 'react-cookies';
 
 // Material-UI Components
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 class SurveyList extends Component {
   constructor(props) {
@@ -45,19 +45,24 @@ class SurveyList extends Component {
         return false;
       }
 
+      // Remove time from the created at date value
+      const listDate = list.createdAt.split('T')[0];
+
       return (
         <TableRow key={list.surveyID}>
-          <TableCell>{list.surveyID}</TableCell>
-          <TableCell>{list.name || 'No name'}</TableCell>
-          <TableCell>{list.respondentCount}</TableCell>
-          <TableCell>{list.createdAt}</TableCell>
+          <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
+          <TableCell data-table-label="Name">{list.name || 'No name'}</TableCell>
+          <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
+          <TableCell data-table-label="Date">{listDate}</TableCell>
         </TableRow>
       )
     });
 
     return (
       <div className="site-content">
-        <Paper>
+        <h2>SurveyList</h2>
+
+        <Paper className="table-wrapper">
           <Table className="table-container">
             <TableHead>
               <TableRow>

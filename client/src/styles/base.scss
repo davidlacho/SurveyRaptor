@@ -10,3 +10,16 @@ body {
 .site-content {
   padding: $space-x-large;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  display: block;
+  width: 100%;
+
+  @include media($max: $bp-small) {
+    text-align: center;
+  }
+}
