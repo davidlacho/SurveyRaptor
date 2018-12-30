@@ -23,8 +23,8 @@ h2,
 h3,
 h4,
 h5 {
-  display: block;
   width: 100%;
+  font-family: $font-heading;
 
   @include media($max: $bp-small) {
     text-align: center;

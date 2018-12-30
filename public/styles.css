@@ -1,8 +1,10 @@
-/* Import Open Sans Google Font */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 /* Normalize */
-@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css');
 
 body {
   position: relative;
@@ -13,6 +15,19 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   background: #FFFDF9;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  width: 100%;
+  font-family: 'Merriweather', serif;
+}
+
+p {
+  line-height: 1.4;
 }
 
 .site-header {
@@ -74,6 +89,10 @@ body {
   background: rgba(255, 255, 255, 0.8);
   border: 0.25rem solid #7560c9;
   border-radius: 0.75rem;
+}
+
+.content--home-hero--info h2 {
+  font-family: 'Major Mono Display', monospace;
 }
 
 .emphasized-text {
