@@ -18,7 +18,6 @@ body {
   left: 0;
   z-index: 1;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   width: calc(100% - 4rem);
   padding: 1rem 2rem;
@@ -46,6 +45,7 @@ body {
 
 .site-header--nav {
   max-height: 40px;
+  margin-top: 0.75rem;
 }
 
 .content-container {
@@ -70,6 +70,69 @@ body {
   background: rgba(255, 255, 255, 0.8);
   border: 4px solid #7560c9;
   border-radius: 4px;
+}
+
+.emphasized-text {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.content--home-alternating-first {
+  position: relative;
+  width: 100%;
+}
+
+.content--home-alternating-first img {
+  display: inline-block;
+  width: 65%;
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.content--home-alternating--info-first {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: inline-block;
+  width: calc(50% - 4rem);
+  padding: 2rem 0 2rem 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  transform: translate(0, -50%);
+}
+
+.content--home-alternating-second {
+  position: relative;
+  width: 100%;
+  margin: 4rem 0;
+}
+
+.content--home-alternating-second:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.content--home-alternating-second img {
+  position: relative;
+  z-index: -1;
+  float: right;
+  width: 75%;
+  max-width: 100%;
+  border-radius: 4px;
+  transform: scaleX(-1);
+}
+
+.content--home-alternating--info-second {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: inline-block;
+  width: calc(50% - 4rem);
+  padding: 2rem 2rem 2rem 0;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  transform: translate(0, -50%);
 }
 
 .default-link a:hover {
@@ -105,5 +168,22 @@ body {
   .content--home-hero--info {
     width: calc(100% - 4rem);
     padding: 1rem;
+  }
+
+  .content--home-alternating-second {
+    margin-top: 0;
+  }
+
+  .content--home-alternating--info-first,
+  .content--home-alternating--info-second {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    transform: none;
+  }
+
+  .content--home-alternating-first img,
+  .content--home-alternating-second img {
+    width: 100%;
   }
 }
