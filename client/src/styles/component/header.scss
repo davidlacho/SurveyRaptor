@@ -21,17 +21,15 @@
 .header-link {
   display: block;
   padding: $space-x-small;
-  color: $color-light-green;
+  color: $color-green;
   font-weight: 600;
   text-decoration: none;
-  background: $color-dark-green;
-  border: 1px solid $color-light-green;
+  border: 1px solid $color-green;
   border-radius: $space-xxx-small;
   transition: 0.2s ease;
 
   &:hover {
-    color: $color-dark-green;
-    background: $color-light-green;
-    border-color: $color-dark-green;
+    color: $color-light-green;
+    border-color: $color-light-green;
   }
 }

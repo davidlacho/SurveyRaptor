@@ -205,17 +205,15 @@ h5 {
 .header-link {
   display: block;
   padding: 0.75rem;
-  color: #92FFC0;
+  color: #3AD59F;
   font-weight: 600;
   text-decoration: none;
-  background: #008552;
-  border: 1px solid #92FFC0;
+  border: 1px solid #3AD59F;
   border-radius: 0.25rem;
   transition: 0.2s ease; }
   .header-link:hover {
-    color: #008552;
-    background: #92FFC0;
-    border-color: #008552; }
+    color: #92FFC0;
+    border-color: #92FFC0; }
 
 .site-footer {
   flex-shrink: 0;
