@@ -51,7 +51,7 @@ class SurveyList extends Component {
       return (
         <TableRow key={list.surveyID}>
           <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
-          <TableCell data-table-label="Name">{list.name || 'No name'}</TableCell>
+          <TableCell data-table-label="Name">{list.name}</TableCell>
           <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
           <TableCell data-table-label="Date">{listDate}</TableCell>
         </TableRow>
