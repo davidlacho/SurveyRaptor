@@ -124,7 +124,7 @@ module.exports = (knex, slapp) => {
     session: false,
   }), (req, res) => {
     knex('surveys')
-      .select('surveys.id', 'surveys.created_at')
+      .select('surveys.id', 'surveys.created_at', 'surveys.name')
       .join('users', 'surveys.user_id', 'users.id')
       .where('slack_id', req.user.creator_id)
       .then((resp) => {
@@ -152,6 +152,57 @@ module.exports = (knex, slapp) => {
       .catch((err) => {
         res.status(500).json(err);
       });
+  });
+
+  router.get('/user/surveys/:id/', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+
+    const getQualitativeAnswers = () => {
+      return knex('qualitative_answers')
+        .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
+        .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
+        .where('questions.survey_id', req.params.id)
+        .then((data) => {
+          return data;
+        });
+    }
+
+    const getQuantitativeAnswers = () => {
+      return knex('quantiative_answers')
+        .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
+        .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
+        .where('questions.survey_id', req.params.id)
+        .then((data) => {
+          return data;
+        });
+    }
+
+    Promise.all([getQualitativeAnswers(), getQuantitativeAnswers()])
+      .then((values) => {
+        if (values[0].length === 0 && values[1].length === 0) {
+          res.status(404).json('Record not found');
+        } else {
+          const answerObject = {}
+          values[0].forEach((answer) => {
+            if (!answerObject[answer.question_id]) {
+              answerObject[answer.question_id] = [];
+            }
+            answerObject[answer.question_id].push(answer);
+          })
+          values[1].forEach((answer) => {
+            if (!answerObject[answer.question_id]) {
+              answerObject[answer.question_id] = [];
+            }
+            answerObject[answer.question_id].push(answer);
+          })
+
+          res.status(200).json(answerObject);
+        }
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      })
   });
 
   return router;
