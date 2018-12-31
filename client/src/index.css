@@ -80,7 +80,7 @@
         margin-right: 0; } }
 
 .form-row--users {
-  margin-bottom: 1rem; }
+  margin: 3.125rem 0 1rem; }
 
 .form-row--user-select {
   margin-right: 0.75rem; }
@@ -93,6 +93,8 @@
   @media screen and (max-width: 719px) {
     .form-button {
       width: 100%; } }
+  .form-button .material-icons {
+    margin-left: 0.5rem; }
 
 .form-button--answer {
   margin-right: auto !important; }
@@ -211,9 +213,14 @@ h5 {
     fill: #008552;
     transform: scale(-1.2, 1.2); }
 
+.site-header--nav {
+  display: flex;
+  align-items: center; }
+
 .header-link {
   display: block;
   padding: 0.75rem;
+  font-size: 14px;
   color: #3AD59F;
   font-weight: 600;
   text-decoration: none;
@@ -223,6 +230,11 @@ h5 {
   .header-link:hover {
     color: #92FFC0;
     border-color: #92FFC0; }
+  .header-link:first-child {
+    margin-right: 0.75rem; }
+    @media screen and (max-width: 679px) {
+      .header-link:first-child {
+        display: none; } }
 
 .site-footer {
   flex-shrink: 0;

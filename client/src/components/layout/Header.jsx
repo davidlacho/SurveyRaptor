@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import Logo from './Logo';
 
 class Header extends Component {
@@ -10,6 +11,10 @@ class Header extends Component {
         </a>
 
         <div className="site-header--nav">
+          <NavLink className="header-link" to="/build-survey">
+            Build Survey
+          </NavLink>
+
           <a href="/logout" className="header-link">
             Logout
           </a>

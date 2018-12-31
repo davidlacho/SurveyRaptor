@@ -40,7 +40,7 @@
 }
 
 .form-row--users {
-  margin-bottom: $space-small;
+  margin: $space-xx-large 0 $space-small;
 }
 
 .form-row--user-select {
@@ -57,6 +57,10 @@
 
   @include media($max: $bp-small) {
     width: 100%;
+  }
+
+  .material-icons {
+    margin-left: $space-xx-small;
   }
 }
 

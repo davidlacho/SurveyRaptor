@@ -5,12 +5,25 @@ import QuestionField from './QuestionField';
 import DeploymentOptions from './DeploymentOptions.jsx';
 
 // Material-UI Components
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 
 // TODO: Remove after getting cookie
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#008552',
+    },
+    secondary: {
+      main: '#512DA8',
+    }
+  },
+  typography: { useNextVariants: true },
+});
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -36,7 +49,6 @@ class SurveyForm extends Component {
       jwt: cookie.load('jwt'),
     });
   }
-
 
   setSurveyName = (event) => {
     this.setState({
@@ -114,31 +126,31 @@ class SurveyForm extends Component {
 
   submitQuestions = () => {
     axios.post('/api/buildsurvey', {
-        questions: this.state.questions,
-        users: this.state.selectedUsers,
-        name: this.state.surveyName,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.state.jwt}`
-        }
+      questions: this.state.questions,
+      users: this.state.selectedUsers,
+      name: this.state.surveyName,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.state.jwt}`
+      }
+    })
+    .then(res => {
+      this.setState({
+        submitted: true,
       })
-      .then(res => {
-        this.setState({
-          submitted: true,
-        })
-      });
+    });
   }
 
   render() {
     const questionChildren = [];
 
     for (var i = 1; i < this.state.questionKey; i += 1) {
-      questionChildren.push(<QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[i] ? this.state.questions[i].question : ''} possibleAnswers={this.state.questions[i] ?
+      questionChildren.push(<MuiThemeProvider theme={theme}><QuestionField key={i} number={i} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[i] ? this.state.questions[i].question : ''} possibleAnswers={this.state.questions[i] ?
         this.state.questions[i].possibleAnswers ?
         this.state.questions[i].possibleAnswers : []
-        : []}/>);
+        : []}/></MuiThemeProvider>);
     };
 
     const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={() => this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
@@ -146,34 +158,38 @@ class SurveyForm extends Component {
     const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) && this.state.surveyName ? <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send <Icon>send</Icon></Button> : '';
 
     const firstQuestionField =
-      <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''} possibleAnswers={this.state.questions[0] ?
+      <MuiThemeProvider theme={theme}><QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''} possibleAnswers={this.state.questions[0] ?
       this.state.questions[0].possibleAnswers ?
       this.state.questions[0].possibleAnswers : []
-      : []}/>;
+      : []}/></MuiThemeProvider>;
 
     return (
       !this.state.submitted ?
       (
         <form className="form-container" autoComplete="off">
           <h2>SurveyBuilder</h2>
-          <TextField
-            label="Survey Name"
-            placeholder="Survey Name"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps={{ maxLength: 60 }}
-            onKeyUp={this.setSurveyName}
-          />
+          <MuiThemeProvider theme={theme}>
+            <TextField
+              label="Survey name"
+              placeholder="Survey name"
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ maxLength: 60 }}
+              onKeyUp={this.setSurveyName}
+            />
+          </MuiThemeProvider>
 
           {firstQuestionField}
           {questionChildren}
           {questionButton}
 
-          <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers} />
+          <MuiThemeProvider theme={theme}>
+            <DeploymentOptions toggleSelectedUsers={this.toggleSelectedUsers} selectedUsers={this.state.selectedUsers} />
+          </MuiThemeProvider>
 
           {submitButton}
         </form>

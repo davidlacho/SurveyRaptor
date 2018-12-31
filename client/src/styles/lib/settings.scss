@@ -9,6 +9,13 @@ $font-body: 'Open Sans', sans-serif;
 $font-heading: 'Roboto Mono', monospace;
 $font-fun: 'Major Mono Display', monospace;
 
+// Font sizes
+$font-body-size-smaller: 14px;
+$font-body-size: 16px;
+$font-medium-size: 20px;
+$font-large-size: 24px;
+$font-larger-size: 28px;
+
 // Colours
 $color-black: #000000;
 $color-white: #ffffff;
@@ -22,13 +29,6 @@ $color-gold: #FFD700;
 $color-goldenrod: #DAA250;
 $color-dark-blue: #002661;
 $color-red: #DE0E53;
-
-// Font sizes
-$font-body-size-smaller: 14px;
-$font-body-size: 16px;
-$font-medium-size: 20px;
-$font-large-size: 24px;
-$font-larger-size: 28px;
 
 // Spacing
 $space-xxx-small: 0.25rem; // 4px
