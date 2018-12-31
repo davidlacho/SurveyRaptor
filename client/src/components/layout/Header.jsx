@@ -11,7 +11,7 @@ class Header extends Component {
         </a>
 
         <div className="site-header--nav">
-          <NavLink className="header-link" to="/">
+          <NavLink className="header-link" to="/build-survey">
             Build Survey
           </NavLink>
 
