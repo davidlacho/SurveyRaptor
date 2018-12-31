@@ -320,5 +320,9 @@ module.exports = (knex, slapp) => {
       })
   });
 
+  router.get('*', (req, res) => {
+    res.status(404).send('Not Found');
+  })
+
   return router;
 };
