@@ -10,20 +10,6 @@ const router = express.Router();
 // API endpoints, do not prefix with '/api'
 module.exports = (knex, slapp) => {
   // Serves the logged in user data
-  router.get('/user', passport.authenticate('jwt', {
-    session: false,
-  }), (req, res) => {
-    knex('users')
-      .join('slack_bots', 'slack_bots.creator_id', '=', 'users.slack_id')
-      .select('name', 'email', 'image_24', 'image_32', 'image_48', 'image_72', 'image_192', 'image_512', 'team_name')
-      .where('slack_id', req.user.creator_id)
-      .then((rows) => {
-        res.json(rows);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  });
 
   router.post('/buildsurvey', passport.authenticate('jwt', {
     session: false,
@@ -42,7 +28,7 @@ module.exports = (knex, slapp) => {
             possible_answers: possibleAnswer,
           })
           .catch((err) => {
-            res.status(500).json('Error occured when inserting possible answers:', err);
+            res.status(500).send('Error occured when inserting possible answers:', err);
           });
       });
     };
@@ -73,7 +59,7 @@ module.exports = (knex, slapp) => {
             }
           })
           .catch((err) => {
-            res.status(500).json('Error occured when inserting into question table:', err);
+            res.status(500).send('Error occured when inserting into question table:', err);
           });
       });
     };
@@ -89,7 +75,7 @@ module.exports = (knex, slapp) => {
           insertToQuestionTable(surveyID);
         })
         .catch((err) => {
-          res.status(500).json('Error occured when inserting into survey table:', err);
+          res.status(500).send('Error occured when inserting into survey table:', err);
         });
     };
 
@@ -100,7 +86,7 @@ module.exports = (knex, slapp) => {
         insertToSurveys(userID);
       })
       .catch((err) => {
-        res.status(500).json('Error occured when getting user:', err);
+        res.status(500).send('Error occured when getting user:', err);
       });
   });
 
@@ -116,7 +102,22 @@ module.exports = (knex, slapp) => {
         res.status(200).json(users.members);
       })
       .catch((err) => {
-        res.status(500).json('Error occured when getting list of users from Slack:', err);
+        res.status(500).send('Error occured when getting list of users from Slack:', err);
+      });
+  });
+
+  router.get('/user', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+    knex('users')
+      .join('slack_bots', 'slack_bots.creator_id', '=', 'users.slack_id')
+      .select('name', 'email', 'image_24', 'image_32', 'image_48', 'image_72', 'image_192', 'image_512', 'team_name')
+      .where('slack_id', req.user.creator_id)
+      .then((rows) => {
+        res.json(rows);
+      })
+      .catch((err) => {
+        res.json(err);
       });
   });
 
@@ -145,7 +146,7 @@ module.exports = (knex, slapp) => {
               }
             })
             .catch((err) => {
-              return err;
+              res.status(500).json(err);
             });
         });
       })
@@ -154,54 +155,168 @@ module.exports = (knex, slapp) => {
       });
   });
 
-  router.get('/user/surveys/:id/', passport.authenticate('jwt', {
+  router.get('/user/surveys/:id', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-
-    const getQualitativeAnswers = () => {
-      return knex('qualitative_answers')
-        .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
-        .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
-        .where('questions.survey_id', req.params.id)
-        .then((data) => {
-          return data;
-        });
-    }
-
-    const getQuantitativeAnswers = () => {
-      return knex('quantiative_answers')
-        .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
-        .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
-        .where('questions.survey_id', req.params.id)
-        .then((data) => {
-          return data;
-        });
-    }
-
-    Promise.all([getQualitativeAnswers(), getQuantitativeAnswers()])
-      .then((values) => {
-        if (values[0].length === 0 && values[1].length === 0) {
-          res.status(404).json('Record not found');
+    knex('surveys')
+      .select('surveys.id', 'surveys.created_at', 'surveys.name')
+      .join('users', 'surveys.user_id', 'users.id')
+      .where('slack_id', req.user.creator_id)
+      .andWhere('surveys.id', req.params.id)
+      .then((resp) => {
+        if (resp.length === 0) {
+          res.status(403).send('Unauthorized');
         } else {
-          const answerObject = {}
-          values[0].forEach((answer) => {
-            if (!answerObject[answer.question_id]) {
-              answerObject[answer.question_id] = [];
-            }
-            answerObject[answer.question_id].push(answer);
-          })
-          values[1].forEach((answer) => {
-            if (!answerObject[answer.question_id]) {
-              answerObject[answer.question_id] = [];
-            }
-            answerObject[answer.question_id].push(answer);
-          })
-
-          res.status(200).json(answerObject);
+          const returnArray = [];
+          resp.forEach((response, i) => {
+            knex('respondents')
+              .select('*')
+              .where('survey_id', response.id)
+              .then((respondents) => {
+                returnArray[i] = {
+                  surveyID: response.id,
+                  name: response.name,
+                  createdAt: response.created_at,
+                  respondentCount: respondents.length,
+                };
+                if (returnArray.length === resp.length) {
+                  res.status(200).json(returnArray);
+                }
+              })
+              .catch((err) => {
+                res.status(500).json(err);
+              });
+          });
         }
+
       })
       .catch((err) => {
         res.status(500).json(err);
+      });
+  });
+
+  router.get('/user/surveys/:id/responses', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+
+    knex('surveys')
+      .select('surveys.id', 'surveys.created_at', 'surveys.name')
+      .join('users', 'surveys.user_id', 'users.id')
+      .where('slack_id', req.user.creator_id)
+      .andWhere('surveys.id', req.params.id)
+      .then((resp) => {
+        if (resp.length >= 1) {
+          const getQualitativeAnswers = () => {
+            return knex('qualitative_answers')
+              .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
+              .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
+              .where('questions.survey_id', req.params.id)
+              .then((data) => {
+                return data;
+              });
+          }
+          const getQuantitativeAnswers = () => {
+            return knex('quantiative_answers')
+              .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
+              .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
+              .where('questions.survey_id', req.params.id)
+              .then((data) => {
+                return data;
+              });
+          }
+
+          Promise.all([getQualitativeAnswers(), getQuantitativeAnswers()])
+            .then((values) => {
+              if (values[0].length === 0 && values[1].length === 0) {
+                res.status(403).send('Unauthorized');
+              } else {
+                const answerObject = {}
+                values[0].forEach((answer) => {
+                  if (!answerObject[answer.question_id]) {
+                    answerObject[answer.question_id] = [];
+                  }
+                  answerObject[answer.question_id].push(answer);
+                })
+                values[1].forEach((answer) => {
+                  if (!answerObject[answer.question_id]) {
+                    answerObject[answer.question_id] = [];
+                  }
+                  answerObject[answer.question_id].push(answer);
+                })
+
+                res.status(200).json(answerObject);
+              }
+            })
+            .catch((err) => {
+              res.status(500).json(err);
+            })
+        } else {
+          res.status(403).send('Unauthorized');
+        }
+      })
+
+
+  });
+
+  router.get('/user/surveys/:id/responses/:questionid', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+
+    knex('surveys')
+      .select('surveys.id', 'surveys.created_at', 'surveys.name')
+      .join('users', 'surveys.user_id', 'users.id')
+      .where('slack_id', req.user.creator_id)
+      .andWhere('surveys.id', req.params.id)
+      .then((resp) => {
+        if (resp.length >= 1) {
+          const getQualitativeAnswers = () => {
+            return knex('qualitative_answers')
+              .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
+              .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
+              .where('questions.id', req.params.questionid)
+              .then((data) => {
+                return data;
+              });
+          }
+
+          const getQuantitativeAnswers = () => {
+            return knex('quantiative_answers')
+              .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
+              .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
+              .where('questions.id', req.params.questionid)
+              .then((data) => {
+                return data;
+              });
+          }
+
+          Promise.all([getQualitativeAnswers(), getQuantitativeAnswers()])
+            .then((values) => {
+              if (values[0].length === 0 && values[1].length === 0) {
+                res.status(403).send('Unauthorized');
+              } else {
+                const answerObject = {}
+                values[0].forEach((answer) => {
+                  if (!answerObject[answer.question_id]) {
+                    answerObject[answer.question_id] = [];
+                  }
+                  answerObject[answer.question_id].push(answer);
+                })
+                values[1].forEach((answer) => {
+                  if (!answerObject[answer.question_id]) {
+                    answerObject[answer.question_id] = [];
+                  }
+                  answerObject[answer.question_id].push(answer);
+                })
+
+                res.status(200).json(answerObject);
+              }
+            })
+            .catch((err) => {
+              res.status(500).json(err);
+            })
+        } else {
+          res.status(403).send('Unauthorized');
+        }
       })
   });
 

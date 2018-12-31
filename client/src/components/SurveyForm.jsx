@@ -165,6 +165,7 @@ class SurveyForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            inputProps={{ maxLength: 60 }}
             onKeyUp={this.setSurveyName}
           />
 
