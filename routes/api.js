@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const SlackBot = require('slackbots');
+const personality = require('../externals/watson/personality');
 
 
 const deploySurvey = require('../slapp/surveyHelper');
@@ -104,6 +105,16 @@ module.exports = (knex, slapp) => {
       .catch((err) => {
         res.status(500).send('Error occured when getting list of users from Slack:', err);
       });
+  });
+
+  router.get('/users/personality/:slackID', (req, res) => {
+    personality(knex, req.params.slackID, (err, resp) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).json(resp);
+      }
+    });
   });
 
   router.get('/user', passport.authenticate('jwt', {

@@ -8,15 +8,20 @@
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "cookie-parser": "^1.4.3",
+    "echarts": "^4.2.0-rc.2",
+    "echarts-for-react": "^2.0.15-beta.0",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.4.0",
     "node-sass": "^4.11.0",
+    "personality-text-summary": "^2.2.0",
     "react": "^16.6.3",
     "react-axios": "^2.0.3",
     "react-cookies": "^0.1.0",
     "react-dom": "^16.6.3",
+    "react-fontawesome": "^1.6.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "reactstrap": "^7.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
