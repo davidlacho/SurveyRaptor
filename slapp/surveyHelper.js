@@ -4,69 +4,77 @@ const uuidv4 = require('uuid/v4');
 const ENV = process.env.ENV || 'development';
 const knexConfig = require('../knexfile');
 const knex = require('knex')(knexConfig[ENV]);
+const tone = require('../externals/watson/tone');
 
 const addResponseToDB = (slackID, userName, response, responseType, questionID, surveyID) => {
   if (questionID && surveyID) {
-    knex('respondents')
-      .select('*')
-      .where('survey_id', surveyID)
-      .andWhere('slack_id', slackID)
-      .then((rows) => {
-        if (rows.length === 0) {
-          return knex('respondents')
-            .insert({
-              slack_id: slackID,
-              survey_id: surveyID,
-              name: userName,
-            })
-            .returning('*');
-        }
-        return rows;
-      })
-      .then((respondentRows) => {
-        if (responseType === 'qualitative') {
-          knex('qualitative_answers')
-            .insert({
-              question_id: questionID,
-              respondent_id: respondentRows[0].id,
-              answer: response,
-            })
-            .returning('*')
-            .then((resp) => {
-              console.log(resp);
-            })
-            .catch((err) => {
-              console.log('there was an err inserting into qualitative_answers', err);
-            });
-        } else {
-          knex('quantiative_possible_answers')
-            .select('id')
-            .where('question_id', questionID)
-            .andWhere('possible_answers', response)
-            .then((id) => {
-              knex('quantiative_answers')
-                .insert({
-                  question_id: questionID,
-                  respondent_id: respondentRows[0].id,
-                  answer: response,
-                  quantiative_possible_answers_id: id[0].id,
-                })
-                .returning('*')
-                .then((resp) => {
-                  console.log(resp);
-                })
-                .catch((err) => {
-                  console.log('there was an err inserting into quantiative_answers', err);
-                });
-            })
-            .catch((err) => {
-              console.log('there was an err in getting quantiative_possible_answers', err);
-            });
-        }
-      })
-      .catch((err) => {
-        console.log('error putting into respondents', err);
-      });
+    tone(response, (err, resp) => {
+      if (err) {
+        console.log('there was an err receiving tone of response: ', err);
+      }
+      knex('respondents')
+        .select('*')
+        .where('survey_id', surveyID)
+        .andWhere('slack_id', slackID)
+        .then((rows) => {
+          if (rows.length === 0) {
+            return knex('respondents')
+              .insert({
+                slack_id: slackID,
+                survey_id: surveyID,
+                name: userName,
+              })
+              .returning('*');
+          }
+          return rows;
+        })
+        .then((respondentRows) => {
+          if (responseType === 'qualitative') {
+            knex('qualitative_answers')
+              .insert({
+                question_id: questionID,
+                respondent_id: respondentRows[0].id,
+                answer: response,
+                tone: resp.document_tone || '',
+              })
+              .returning('*')
+              .then((resp) => {
+                console.log(resp);
+              })
+              .catch((err) => {
+                console.log('there was an err inserting into qualitative_answers', err);
+              });
+          } else {
+            knex('quantiative_possible_answers')
+              .select('id')
+              .where('question_id', questionID)
+              .andWhere('possible_answers', response)
+              .then((id) => {
+                knex('quantiative_answers')
+                  .insert({
+                    question_id: questionID,
+                    respondent_id: respondentRows[0].id,
+                    answer: response,
+                    quantiative_possible_answers_id: id[0].id,
+                    tone: resp.document_tone,
+                  })
+                  .returning('*')
+                  .then((resp) => {
+                    console.log(resp);
+                  })
+                  .catch((err) => {
+                    console.log('there was an err inserting into quantiative_answers', err);
+                  });
+              })
+              .catch((err) => {
+                console.log('there was an err in getting quantiative_possible_answers', err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log('error putting into respondents', err);
+        });
+    });
   }
 };
 
