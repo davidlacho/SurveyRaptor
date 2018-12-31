@@ -195,6 +195,34 @@ module.exports = (knex, slapp) => {
       });
   });
 
+  router.get('/user/surveys/:id/questions', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+    knex('surveys')
+      .select('surveys.id', 'surveys.created_at', 'surveys.name')
+      .join('users', 'surveys.user_id', 'users.id')
+      .where('slack_id', req.user.creator_id)
+      .andWhere('surveys.id', req.params.id)
+      .then((resp) => {
+        if (resp.length >= 1) {
+          knex('questions')
+            .select('*')
+            .where('survey_id', req.params.id)
+            .then((resp) => {
+              res.status(200).json(resp);
+            })
+            .catch((err) => {
+              res.status(500).json(err);
+            });
+        } else {
+          res.status(403).send('Unauthorized');
+        }
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  });
+
   router.get('/user/surveys/:id/responses', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
