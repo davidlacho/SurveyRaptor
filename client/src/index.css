@@ -79,6 +79,12 @@
         width: 48%;
         margin-right: 0; } }
 
+.form-row--users {
+  margin-bottom: 1rem; }
+
+.form-row--user-select {
+  margin-right: 0.75rem; }
+
 .form-button {
   display: block;
   background: #008552 !important; }
