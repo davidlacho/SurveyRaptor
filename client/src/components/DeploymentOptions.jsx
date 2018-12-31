@@ -55,6 +55,7 @@ class DeploymentOptions extends Component {
           key={user.id}
           avatar={<Avatar alt={user.name} src={user.profile.image_192} />}
           label={user.name}
+          className="form-row--user-select"
           color="primary"
           variant={variantFill}
           onClick={()=> this.props.toggleSelectedUsers(user.name)}
@@ -65,7 +66,7 @@ class DeploymentOptions extends Component {
     });
 
     return(
-      <div>
+      <div className="form-row--users">
         <h3>Deploy to:</h3>
 
         {selectableUsers}

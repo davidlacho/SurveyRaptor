@@ -39,6 +39,14 @@
   }
 }
 
+.form-row--users {
+  margin-bottom: $space-small;
+}
+
+.form-row--user-select {
+  margin-right: $space-x-small;
+}
+
 .form-button {
   display: block;
   background: $color-dark-green !important;

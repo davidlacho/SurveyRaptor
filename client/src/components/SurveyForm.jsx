@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import QuestionField from './QuestionField';
 import cookie from 'react-cookies';
 import axios from 'axios';
+import QuestionField from './QuestionField';
+import DeploymentOptions from './DeploymentOptions.jsx';
 
 // Material-UI Components
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import DeploymentOptions from './DeploymentOptions.jsx';
 import TextField from '@material-ui/core/TextField';
 
 // TODO: Remove after getting cookie
