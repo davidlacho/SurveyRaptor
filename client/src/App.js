@@ -8,6 +8,7 @@ import SurveyBuilder from './components/SurveyBuilder.jsx';
 import NotFound from './components/NotFound';
 import Results from './components/result_components/Results.js'
 
+
 const App = () => (
   <BrowserRouter>
     <div className="App">
@@ -15,10 +16,10 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={SurveyList} />
         <Route exact path="/build-survey" component={SurveyBuilder} />
+        <Route exact path="/personality" component={ Results } />
         <Route component={NotFound} />
       </Switch>
       <Footer />
-      <Results />
     </div>
   </BrowserRouter>
 );

@@ -4,9 +4,18 @@ import ResultsBigFive from "./ResultsBigFive";
 import ResultsNeeds from "./ResultsNeeds";
 import ResultsValues from "./ResultsValues";
 import ResultsConsumerPref from "./ResultsConsumerPref";
-import { NavLink } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
 
-//import echarts from "echarts";
+function TabContainer(props) {
+  return (
+    <Typography component="div">
+      {props.children}
+    </Typography>
+  );
+}
 
 class Results extends Component {
   constructor(props) {
@@ -644,19 +653,40 @@ class Results extends Component {
           warning_id: "WORD_COUNT_MESSAGE",
           message: "There were 103 words in the input. We need a minimum of 600, preferably 1,200 or more, to compute statistically significant estimates"
         }]
-      }
+      },
+      value: 0,
     }
   }
 
-  render() {
-    return (
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
+  render() {
+    const summary = <ResultsSummary resultData={this.state.resultData} />;
+    const bigFive = <ResultsBigFive resultData={this.state.resultData["personality"]} />;
+    const resultNeeds = <ResultsNeeds resultData={this.state.resultData["needs"]} />;
+    const resultValues = <ResultsValues resultData={this.state.resultData["values"]} />;
+    const consumerPrefs = <ResultsConsumerPref resultData={this.state.resultData["consumption_preferences"]} />;
+
+    const { value } = this.state;
+
+    return (
       <React.Fragment>
-      <ResultsSummary resultData={this.state.resultData} />
-      <ResultsBigFive resultData={this.state.resultData["personality"]} />
-      <ResultsNeeds resultData={this.state.resultData["needs"]} />
-      <ResultsValues resultData={this.state.resultData["values"]} />
-      <ResultsConsumerPref resultData={this.state.resultData["consumption_preferences"]}/>
+      <AppBar position="static">
+      <Tabs value={value} onChange={this.handleChange} variant="scrollable" scrollButtons="off">
+          <Tab label="Summary" />
+          <Tab label="Big Five" />
+          <Tab label="Needs" />
+          <Tab label="Values" />
+          <Tab label="Consumer Preferences" />
+        </Tabs>
+      </AppBar>
+      {value === 0 && <TabContainer>{summary}</TabContainer>}
+      {value === 1 && <TabContainer>{bigFive}</TabContainer>}
+      {value === 2 && <TabContainer>{resultNeeds}</TabContainer>}
+      {value === 3 && <TabContainer>{resultValues}</TabContainer>}
+      {value === 4 && <TabContainer>{consumerPrefs}</TabContainer>}
       </ React.Fragment>
     );
   }
