@@ -1,17 +1,16 @@
-import React, { Component } from "react";
-import { Col, Row } from "reactstrap";
-
-import ReactEcharts from "echarts-for-react";
-import { convertToPercentage } from "./utlis/helper";
+import React, { Component } from 'react';
+import { Col, Row } from 'reactstrap';
+import ReactEcharts from 'echarts-for-react';
+import { convertToPercentage } from './utils/helper';
 
 class ResultsNeeds extends Component {
   constructor(props) {
     super(props);
 
-    this.getOtion = this.getOtion.bind(this);
+    this.getOption = this.getOption.bind(this);
   }
 
-  getOtion() {
+  getOption() {
     const option = {
       tooltip: {},
       scale: false,
@@ -82,7 +81,7 @@ class ResultsNeeds extends Component {
           <Col lg="12" md="12" sm="12" xs="12">
             <h1 className="text-center">Needs</h1>
             <ReactEcharts
-              option={this.getOtion()}
+              option={this.getOption()}
               style={{ width: "100%", height: 600 }}
               className="react_for_echarts"
             />

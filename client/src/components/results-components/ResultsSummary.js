@@ -1,20 +1,23 @@
-import React, { Component } from "react";
-import { Col, Container } from "reactstrap";
-import PersonalityTextSummaries from "personality-text-summary";
+import React, { Component } from 'react';
+import { Col, Container } from 'reactstrap';
+import PersonalityTextSummaries from 'personality-text-summary';
 
 class ResultsSummary extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      summary: ""
+      summary: '',
     };
   }
 
   componentWillMount() {
     let v3EnglishTextSummaries = new PersonalityTextSummaries({
-      version: "v3"
+      version: 'v3'
     });
+
     let textSummary = v3EnglishTextSummaries.getSummary(this.props.resultData);
+
     this.setState({
       summary: textSummary
     });

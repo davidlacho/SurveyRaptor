@@ -2,7 +2,7 @@ body {
   width: 100%;
   font-family: $font-body;
   font-size: $font-body-size;
-  background: $color-light-tan;
+  background-color: $color-light-tan;
 }
 
 .App {
@@ -16,6 +16,11 @@ body {
 .site-content {
   flex: 1 0 auto;
   padding: $space-x-large;
+}
+
+.site-content--results {
+  flex: 1 0 auto;
+  background-color: $color-light-tan;
 }
 
 h1,

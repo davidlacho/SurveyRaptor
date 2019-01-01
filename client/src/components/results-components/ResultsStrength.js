@@ -1,16 +1,19 @@
-import React, { Component } from "react";
-import { Container, Tooltip, Badge, Alert } from "reactstrap";
+import React, { Component } from 'react';
+import { Container, Tooltip, Badge, Alert } from 'reactstrap';
 
 class ResultStrength extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       tooltipOpen: false,
-      strengthClass: "",
-      strengthLabel: ""
+      strengthClass: '',
+      strengthLabel: '',
     };
+
     this.toggleTooltip = this.toggleTooltip.bind(this);
   }
+
   toggleTooltip() {
     this.setState({
       tooltipOpen: !this.state.tooltipOpen

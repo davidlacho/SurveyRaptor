@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import ReactEcharts from "echarts-for-react";
-import { convertToPercentage } from "./utlis/helper";
+import React, { Component } from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { convertToPercentage } from './utils/helper';
 
 class ResultsBigFiveFacet extends Component {
   constructor(props) {
     super(props);
 
-    this.getOtion = this.getOtion.bind(this);
+    this.getOption = this.getOption.bind(this);
   }
 
-  getOtion() {
+  getOption() {
     const option = {
       tooltip: {},
       scale: false,
@@ -65,7 +65,7 @@ class ResultsBigFiveFacet extends Component {
     return (
       <div>
         <ReactEcharts
-          option={this.getOtion()}
+          option={this.getOption()}
           style={{ width: "100%", height: 400 }}
           className="react_for_echarts"
         />

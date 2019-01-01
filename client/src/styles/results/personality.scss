@@ -1,0 +1,177 @@
+.icon-brain-container {
+  position: relative;
+  z-index: 1;
+  max-width: 100px;
+  margin: auto;
+}
+
+.icon-brain {
+  position: relative;
+  max-width: 150px;
+  margin: $space-xx-large auto 0;
+}
+
+.results-container {
+  position: relative;
+  max-width: 800px;
+  padding: $space-x-large;
+  margin: auto;
+}
+
+.result-strength-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.summary-text {
+  line-height: 1.6;
+}
+
+.analysis-strength {
+  position: absolute;
+  top: 37%;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  margin: auto;
+  text-align: center;
+
+  .badge {
+    padding: $space-xxx-small $space-small;
+    font-weight: 600;
+    color: $color-white;
+    background: $color-black;
+  }
+
+  .analysis-weak {
+    background: #dc3545;
+  }
+
+  .analysis-moderate {
+    background: #f4c242;
+  }
+
+  .analysis-strong {
+    background: #27a81e;
+  }
+
+  .analysis-very-strong {
+    background: #055b00;
+  }
+}
+
+.analysis-strength-toolip {
+  font-size: $font-body-size-smaller - 2;
+}
+
+.result-msg {
+  margin-top: $space-small;
+}
+
+.plot-wrapper {
+  padding: $space-x-large;
+  color: $color-white;
+  background: linear-gradient(
+    to right,
+    #c06c84,
+    #6c5b7b,
+    #355c7d
+  );
+}
+
+.plot-wrapper-needs {
+  background: linear-gradient(
+    to right,
+    #67b26f,
+    #4ca2cd
+  );
+}
+
+.plot-wrapper-values {
+  background: linear-gradient(
+    to right,
+    #8e54e9,
+    #4776e6
+  );
+}
+
+.plot-contents {
+  max-width: 1400px;
+  padding-bottom: $space-x-large;
+  margin: auto;
+
+  h1 {
+    margin: $space-x-large 0;
+    font-family: $font-fun;
+    font-size: $space-xxx-large;
+  }
+
+  small {
+    display: block;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  ol,
+  ul {
+    padding-left: $space-small;
+  }
+}
+
+.plot-description {
+  max-width: 800px;
+  margin: auto;
+}
+
+.plot-facets {
+  justify-content: center;
+}
+
+.plot-facet {
+  margin-bottom: $space-xx-large;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.plot-description-facet {
+  max-width: 800px;
+  margin: auto;
+
+  ul {
+    margin-top: $space-small;
+  }
+
+  li {
+    margin-bottom: $space-small;
+  }
+}
+
+.wrapper-consumer-pref {
+  max-width: 800px;
+  padding: $space-x-large;
+  margin: auto;
+
+  table {
+    margin: $space-small 0;
+
+    tr {
+      border: $space-xxx-small solid $color-white;
+    }
+  }
+}
+
+.score {
+  text-align: right;
+
+  .fa {
+    font-size: $space-x-medium;
+  }
+}
+
+.text-center {
+  text-align: center;
+}

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Icon from "react-fontawesome";
-import { Container, Table } from "reactstrap";
+import React, { Component } from 'react';
+import Icon from 'react-fontawesome';
+import { Container, Table } from 'reactstrap';
 
 class ResultsConsumerPref extends Component {
   constructor(props) {
