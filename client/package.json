@@ -16,6 +16,7 @@
     "personality-text-summary": "^2.2.0",
     "react": "^16.6.3",
     "react-axios": "^2.0.3",
+    "react-chartjs-2": "^2.7.4",
     "react-cookies": "^0.1.0",
     "react-dom": "^16.6.3",
     "react-fontawesome": "^1.6.1",

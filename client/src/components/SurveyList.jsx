@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import cookie from 'react-cookies';
 
@@ -23,19 +23,21 @@ class SurveyList extends Component {
 
   componentDidMount() {
     axios.get('/api/user/surveys', {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${cookie.load('jwt')}`
-        }
-      })
-      .then(res => {
-        this.setState({
-          surveys: res.data,
-        });
-      })
-      .catch((err) => {
-        console.error(`There was an error retrieving surveys: ${err}`)
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.load('jwt')}`
+      }
+    })
+    .then(res => {
+      this.setState({
+        surveys: res.data,
+      });
+    })
+    .catch((err) => {
+      console.error(`There was an error retrieving surveys: ${err}`)
+    });
+
+    console.log(this.props);
   }
 
   render() {
@@ -49,12 +51,14 @@ class SurveyList extends Component {
       const listDate = list.createdAt.split('T')[0];
 
       return (
-        <TableRow key={list.surveyID}>
-          <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
-          <TableCell data-table-label="Name">{list.name}</TableCell>
-          <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
-          <TableCell data-table-label="Date">{listDate}</TableCell>
-        </TableRow>
+        <NavLink to={`/user/surveys/${list.surveyID}`}>
+          <TableRow key={list.surveyID}>
+            <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
+            <TableCell data-table-label="Name">{list.name}</TableCell>
+            <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
+            <TableCell data-table-label="Date">{listDate}</TableCell>
+          </TableRow>
+        </NavLink>
       )
     });
 
@@ -78,7 +82,7 @@ class SurveyList extends Component {
           </Table>
         </Paper>
 
-        <Button className="form-button" color="primary" variant="contained" component={Link} to="/build-survey">New Survey</Button>
+        <Button className="form-button" color="primary" variant="contained" component={Link} to="/build-survey">Build Survey</Button>
       </div>
     );
   }
