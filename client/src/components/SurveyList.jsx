@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import cookie from 'react-cookies';
 
@@ -47,18 +47,22 @@ class SurveyList extends Component {
         return false;
       }
 
+      this.displaySurveyChart = () => {
+        this.props.history.push({
+          pathname: `/user/surveys/${list.surveyID}`,
+        });
+      }
+
       // Remove time from the created at date value
       const listDate = list.createdAt.split('T')[0];
 
       return (
-        <NavLink to={`/user/surveys/${list.surveyID}`}>
-          <TableRow key={list.surveyID}>
-            <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
-            <TableCell data-table-label="Name">{list.name}</TableCell>
-            <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
-            <TableCell data-table-label="Date">{listDate}</TableCell>
-          </TableRow>
-        </NavLink>
+        <TableRow key={list.surveyID} onClick={() => this.displaySurveyChart()}>
+          <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
+          <TableCell data-table-label="Name">{list.name}</TableCell>
+          <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
+          <TableCell data-table-label="Date">{listDate}</TableCell>
+        </TableRow>
       )
     });
 

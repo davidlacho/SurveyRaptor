@@ -12,7 +12,9 @@ class SurveyResults extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/user/surveys/:id', {}, {
+    const {id} = this.props.match.params;
+
+    axios.get(`/api/user/surveys/${id}/responses`, {}, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${cookie.load('jwt')}`
@@ -22,7 +24,6 @@ class SurveyResults extends Component {
       this.setState({
         surveys: res.data,
       });
-      console.log(this.state.surveys.history.location.pathname);
     })
     .catch((err) => {
       console.error(`There was an error retrieving surveys: ${err}`)
@@ -30,6 +31,7 @@ class SurveyResults extends Component {
   }
 
   render() {
+    console.log(this.state.surveys);
     return (
       <div className="site-content">
         <h2>SurveyResults</h2>

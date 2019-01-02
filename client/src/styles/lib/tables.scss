@@ -67,6 +67,14 @@
 }
 
 .table-wrapper {
+  tr {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   @include media($max: $bp-small) {
     box-shadow: none !important;
   }

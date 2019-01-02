@@ -137,6 +137,11 @@
       .table-container td:last-child {
         border-bottom: 0; } }
 
+.table-wrapper tr {
+  cursor: pointer; }
+  .table-wrapper tr:hover {
+    text-decoration: underline; }
+
 @media screen and (max-width: 719px) {
   .table-wrapper {
     box-shadow: none !important; } }

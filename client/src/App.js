@@ -16,7 +16,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/build-survey" component={SurveyBuilder} />
-        <Route path="/user/surveys" component={SurveyResults} />
+        <Route path="/user/surveys/:id" component={SurveyResults} />
         <Route path="/values/:slackID" component={Results} />
         <Route component={NotFound} />
       </Switch>
