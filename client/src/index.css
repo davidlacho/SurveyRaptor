@@ -106,17 +106,46 @@
       margin: 1rem 0; } }
   .table-container thead {
     background-color: #002661; }
-    .table-container thead tr {
-      cursor: auto; }
   .table-container th {
+    padding-right: 0;
     color: #ffffff; }
     .table-container th:not(:first-child) {
       text-align: right; }
+  @media screen and (max-width: 719px) {
+    .table-container tr {
+      background: #ffffff; } }
   @media screen and (min-width: 720px) {
     .table-container tr:nth-of-type(even) {
-      background-color: #F4F4F4; } }
-  .table-container td:not(:first-child) {
-    text-align: right; }
+      background-color: #F4F4F4; }
+    .table-container tr:hover td {
+      border-bottom: 1px solid #002661; } }
+  .table-container td {
+    position: relative; }
+    @media screen and (min-width: 720px) {
+      .table-container td {
+        transition: border-bottom 0.2s linear; }
+        .table-container td:first-child a {
+          justify-content: flex-start;
+          padding-left: 24px; }
+        .table-container td:last-child a {
+          left: -24px;
+          padding-right: 24px; }
+        .table-container td:not(:first-child) {
+          padding-right: 56px; } }
+  .table-container a {
+    width: 100%;
+    color: #002661;
+    text-decoration: none; }
+    @media screen and (min-width: 720px) {
+      .table-container a {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; } }
   @media screen and (max-width: 719px) {
     .table-container thead {
       display: none; }
@@ -139,15 +168,9 @@
       .table-container td:last-child {
         border-bottom: 0; } }
 
-.table-wrapper tr {
-  cursor: pointer; }
-  .table-wrapper tr td {
-    transition: border-bottom 0.2s linear; }
-  .table-wrapper tr:hover td {
-    border-bottom: 1px solid #002661; }
-
 @media screen and (max-width: 719px) {
   .table-wrapper {
+    background: transparent;
     box-shadow: none !important; } }
 
 body {

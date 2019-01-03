@@ -9,13 +9,10 @@
 
   thead {
     background-color: $color-dark-blue;
-
-    tr {
-      cursor: auto;
-    }
   }
 
   th {
+    padding-right: 0;
     color: $color-white;
 
     &:not(:first-child) {
@@ -24,16 +21,63 @@
   }
 
   tr {
+    @include media($max: $bp-small) {
+      background: $color-white;
+    }
+
     @include media($min: $bp-small) {
       &:nth-of-type(even) {
         background-color: $color-light-gray;
+      }
+
+      &:hover {
+        td {
+          border-bottom: 1px solid $color-dark-blue;
+        }
       }
     }
   }
 
   td {
-    &:not(:first-child) {
-      text-align: right;
+    position: relative;
+
+    @include media($min: $bp-small) {
+      transition: border-bottom 0.2s linear;
+
+      &:first-child {
+        a {
+          justify-content: flex-start;
+          padding-left: 24px;
+        }
+      }
+
+      &:last-child {
+        a {
+          left: -24px;
+          padding-right: 24px;
+        }
+      }
+
+      &:not(:first-child) {
+        padding-right: 56px;
+      }
+    }
+  }
+
+  a {
+    width: 100%;
+    color: $color-dark-blue;
+    text-decoration: none;
+
+    @include media($min: $bp-small) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
   }
 
@@ -71,21 +115,8 @@
 }
 
 .table-wrapper {
-  tr {
-    cursor: pointer;
-
-    td {
-      transition: border-bottom 0.2s linear;
-    }
-
-    &:hover {
-      td {
-        border-bottom: 1px solid $color-dark-blue;
-      }
-    }
-  }
-
   @include media($max: $bp-small) {
+    background: transparent;
     box-shadow: none !important;
   }
 }

@@ -45,21 +45,31 @@ class SurveyList extends Component {
         return false;
       }
 
-      this.displaySurveyChart = () => {
-        this.props.history.push({
-          pathname: `/user/surveys/${list.surveyID}`,
-        });
-      }
-
       // Remove time from the created at date value
       const listDate = list.createdAt.split('T')[0];
 
       return (
-        <TableRow key={list.surveyID} onClick={() => this.displaySurveyChart()}>
-          <TableCell data-table-label="Survey ID">{list.surveyID}</TableCell>
-          <TableCell data-table-label="Name">{list.name}</TableCell>
-          <TableCell data-table-label="Respondents">{list.respondentCount}</TableCell>
-          <TableCell data-table-label="Date">{listDate}</TableCell>
+        <TableRow key={list.surveyID}>
+          <TableCell data-table-label="Survey ID">
+            <Link to={`/user/surveys/${list.surveyID}`}>
+              {list.surveyID}
+            </Link>
+          </TableCell>
+          <TableCell data-table-label="Name">
+            <Link to={`/user/surveys/${list.surveyID}`}>
+              {list.name}
+            </Link>
+          </TableCell>
+          <TableCell data-table-label="Respondents">
+            <Link to={`/user/surveys/${list.surveyID}`}>
+              {list.respondentCount}
+            </Link>
+          </TableCell>
+          <TableCell data-table-label="Date">
+            <Link to={`/user/surveys/${list.surveyID}`}>
+              {listDate}
+            </Link>
+          </TableCell>
         </TableRow>
       )
     });
