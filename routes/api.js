@@ -107,6 +107,23 @@ module.exports = (knex, slapp) => {
       });
   });
 
+  router.get('/team/users/:id', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
+    const bot = new SlackBot({
+      token: req.user.bot_access_token,
+      name: 'Survey Raptor',
+    });
+    bot.getUserById(req.params.id)
+      .then((users) => {
+        console.log(users);
+        res.status(200).json(users.members);
+      })
+      .catch((err) => {
+        res.status(500).send('Error occured when getting list of users from Slack:', err);
+      });
+  });
+
   router.get('/users/personality/:slackID', (req, res) => {
     personality(knex, req.params.slackID, (err, resp) => {
       if (err) {
@@ -260,7 +277,6 @@ module.exports = (knex, slapp) => {
               resp.forEach((question) => {
                 response[resp[0].id].possible_answers.push(question.possible_answers);
               });
-              console.log(response);
               res.status(200).json(response);
             })
             .catch((err) => {

@@ -6,6 +6,7 @@ import ReactEcharts from 'echarts-for-react/lib/core';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
+import QualitativeChart from './QualitativeChart';
 
 class SurveyResults extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class SurveyResults extends Component {
     .catch((err) => {
       console.error(`There was an error retrieving survey responses: ${err}`)
     });
+
   }
 
   getOption() {
@@ -86,10 +88,6 @@ class SurveyResults extends Component {
   }
 
   render() {
-
-    console.log('this.state.surveyResponses', this.state.surveyResponses);
-
-
     return (
       <div className="site-content">
         <h2>SurveyResults</h2>
@@ -102,6 +100,7 @@ class SurveyResults extends Component {
           theme={'light'}
           onChartReady={this.onChartReadyCallback}
         />
+
       </div>
     );
   }
