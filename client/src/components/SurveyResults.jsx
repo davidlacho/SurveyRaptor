@@ -13,7 +13,6 @@ class SurveyResults extends Component {
 
     this.state = {
       surveyResponses: {},
-      surveyQuestions: [],
     };
 
     this.getOption = this.getOption.bind(this);
@@ -29,28 +28,30 @@ class SurveyResults extends Component {
       }
     })
     .then(res => {
-      console.log(res.data);
+      const answers = {};
+      for (let key in res.data) {
+        answers[key] = {};
+        answers[key].responses = res.data[key].responses;
+        if (res.data[key].responses[0].question_type === "quantitative") {
+          axios.get(`/api/user/surveys/${id}/questions/${key}`, {}, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${cookie.load('jwt')}`
+            }
+          })
+          .then((response) => {
+            answers[key].possible_answers = response.data[key].possible_answers;
+          })
+        }
+      }
       this.setState({
-        surveyResponses: res.data,
-      });
+        surveyResponses: answers,
+      })
+
+
     })
     .catch((err) => {
       console.error(`There was an error retrieving survey responses: ${err}`)
-    });
-
-    axios.get(`/api/user/surveys/${id}/questions`, {}, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cookie.load('jwt')}`
-      }
-    })
-    .then(res => {
-      this.setState({
-        surveyQuestions: res.data,
-      });
-    })
-    .catch((err) => {
-      console.error(`There was an error retrieving survey questions: ${err}`)
     });
   }
 
@@ -85,29 +86,9 @@ class SurveyResults extends Component {
   }
 
   render() {
-    console.log('this.state.surveyQuestions', this.state.surveyQuestions);
+
     console.log('this.state.surveyResponses', this.state.surveyResponses);
 
-    this.state.surveyQuestions.forEach((question) => {
-      if (question.question_type === 'quantitative') {
-        axios.get(`/api/user/surveys/${question.survey_id}/questions/${question.id}`, {}, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${cookie.load('jwt')}`
-          }
-        })
-        .then(res => {
-          const answerArr = []
-          res.data.forEach((possibleAnswer) => {
-            answerArr.push(possibleAnswer.possible_answers);
-          });
-          console.log('!!!', answerArr)
-        })
-        .catch((err) => {
-          console.error(`There was an error retrieving survey questions: ${err}`)
-        });
-      }
-    });
 
     return (
       <div className="site-content">
