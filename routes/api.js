@@ -245,9 +245,10 @@ module.exports = (knex, slapp) => {
       .then((resp) => {
         if (resp.length >= 1) {
           knex('questions')
-            .select('*')
+            .select('questions.id', 'questions.survey_id', 'questions.question_type', 'questions.question', 'quantiative_possible_answers.possible_answers')
+            .leftJoin('quantiative_possible_answers', 'quantiative_possible_answers.question_id', 'questions.id')
             .where('survey_id', req.params.id)
-            .andWhere('id', req.params.qid)
+            .andWhere('questions.id', req.params.qid)
             .then((resp) => {
               res.status(200).json(resp);
             })
