@@ -250,7 +250,18 @@ module.exports = (knex, slapp) => {
             .where('survey_id', req.params.id)
             .andWhere('questions.id', req.params.qid)
             .then((resp) => {
-              res.status(200).json(resp);
+              const response = {};
+              response[resp[0].id] = {
+                id: resp[0].id,
+                survey_id: resp[0].survey_id,
+                question_type: resp[0].question_type,
+                possible_answers: [],
+              };
+              resp.forEach((question) => {
+                response[resp[0].id].possible_answers.push(question.possible_answers);
+              });
+              console.log(response);
+              res.status(200).json(response);
             })
             .catch((err) => {
               res.status(500).json(err);
@@ -300,20 +311,34 @@ module.exports = (knex, slapp) => {
                 res.status(403).send('Unauthorized');
               } else {
                 const answerObject = {}
+                const possibleAnswerPromises = [];
                 values[0].forEach((answer) => {
                   if (!answerObject[answer.question_id]) {
                     answerObject[answer.question_id] = [];
                   }
                   answerObject[answer.question_id].push(answer);
                 })
+
+
                 values[1].forEach((answer) => {
+
+                  answer.possible_answers = [];
                   if (!answerObject[answer.question_id]) {
                     answerObject[answer.question_id] = [];
                   }
+
                   answerObject[answer.question_id].push(answer);
+
                 })
 
-                res.status(200).json(answerObject);
+                const newObject = {};
+
+                Object.keys(answerObject).forEach((questionID) => {
+                  newObject[questionID] = {};
+                  newObject[questionID].responses = answerObject[questionID];
+                })
+
+                res.status(200).json(newObject);
               }
             })
             .catch((err) => {
@@ -326,6 +351,7 @@ module.exports = (knex, slapp) => {
 
 
   });
+
 
   router.get('/user/surveys/:id/responses/:questionid', passport.authenticate('jwt', {
     session: false,
@@ -376,7 +402,6 @@ module.exports = (knex, slapp) => {
                   }
                   answerObject[answer.question_id].push(answer);
                 })
-
                 res.status(200).json(answerObject);
               }
             })
