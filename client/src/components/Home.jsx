@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import SurveyList from './SurveyList.jsx';
+import TeamSelector from './team-values/TeamSelector.jsx';
+
+// Material-UI Components
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
-import SurveyList from './SurveyList.jsx';
-import TeamSelector from './team-values/TeamSelector.jsx'
 
 function TabContainer(props) {
   return (
