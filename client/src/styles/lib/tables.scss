@@ -9,6 +9,10 @@
 
   thead {
     background-color: $color-dark-blue;
+
+    tr {
+      cursor: auto;
+    }
   }
 
   th {
@@ -70,8 +74,14 @@
   tr {
     cursor: pointer;
 
+    td {
+      transition: border-bottom 0.2s linear;
+    }
+
     &:hover {
-      text-decoration: underline;
+      td {
+        border-bottom: 1px solid $color-dark-blue;
+      }
     }
   }
 

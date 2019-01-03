@@ -36,8 +36,6 @@ class SurveyList extends Component {
     .catch((err) => {
       console.error(`There was an error retrieving surveys: ${err}`)
     });
-
-    console.log(this.props);
   }
 
   render() {

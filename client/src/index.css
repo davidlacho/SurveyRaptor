@@ -106,6 +106,8 @@
       margin: 1rem 0; } }
   .table-container thead {
     background-color: #002661; }
+    .table-container thead tr {
+      cursor: auto; }
   .table-container th {
     color: #ffffff; }
     .table-container th:not(:first-child) {
@@ -139,8 +141,10 @@
 
 .table-wrapper tr {
   cursor: pointer; }
-  .table-wrapper tr:hover {
-    text-decoration: underline; }
+  .table-wrapper tr td {
+    transition: border-bottom 0.2s linear; }
+  .table-wrapper tr:hover td {
+    border-bottom: 1px solid #002661; }
 
 @media screen and (max-width: 719px) {
   .table-wrapper {

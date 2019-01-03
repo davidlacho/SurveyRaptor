@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
 
+import ReactEcharts from 'echarts-for-react/lib/core';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
+
 class SurveyResults extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      surveys: [],
+      surveyResponses: '',
     };
+
+    this.getOption = this.getOption.bind(this);
   }
 
   componentDidMount() {
@@ -22,7 +29,7 @@ class SurveyResults extends Component {
     })
     .then(res => {
       this.setState({
-        surveys: res.data,
+        surveyResponses: res.data,
       });
     })
     .catch((err) => {
@@ -30,11 +37,56 @@ class SurveyResults extends Component {
     });
   }
 
+  getOption() {
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: [
+          'A',
+          'B',
+          'C',
+          'D',
+        ]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [
+            120,
+            250,
+            150,
+            80,
+          ],
+          type: 'bar'
+        }
+      ]
+    };
+
+    return option;
+  }
+
   render() {
-    console.log(this.state.surveys);
+    console.log(this.state.surveyResponses);
+    // const xData = [];
+    // const yData = [];
+    // for (let question in this.state.surveyResponses) {
+
+    // }
+
     return (
       <div className="site-content">
         <h2>SurveyResults</h2>
+
+        <ReactEcharts
+          echarts={echarts}
+          option={this.getOption()}
+          notMerge={true}
+          lazyUpdate={true}
+          theme={'light'}
+          onChartReady={this.onChartReadyCallback}
+        />
       </div>
     );
   }
