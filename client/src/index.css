@@ -154,7 +154,7 @@ body {
   width: 100%;
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
-  background-color: #FFFDF9; }
+  background: linear-gradient(135deg, #FFFDF9 0%, #E2D1C3 100%); }
 
 .App {
   position: relative;
@@ -169,7 +169,7 @@ body {
 
 .site-content--results {
   flex: 1 0 auto;
-  background-color: #FFFDF9; }
+  background: linear-gradient(135deg, #FFFDF9 0%, #E2D1C3 100%); }
 
 h1,
 h2,
@@ -262,6 +262,32 @@ h5 {
 
 .copyright-char {
   font-family: "Open Sans", sans-serif; }
+
+.selectable-users {
+  padding: 2rem;
+  text-align: center; }
+  .selectable-users a {
+    margin-right: 1.25rem; }
+    @media screen and (max-width: 719px) {
+      .selectable-users a {
+        margin-right: 0; } }
+    .selectable-users a:last-child {
+      margin-right: 0; }
+
+.selectable-users--card {
+  display: inline-block;
+  max-width: 300px; }
+  @media screen and (max-width: 719px) {
+    .selectable-users--card {
+      margin-bottom: 1.25rem; } }
+  .selectable-users--card img {
+    max-height: 250px;
+    object-fit: cover; }
+
+.selectable-users--name {
+  font-family: "Roboto Mono", monospace;
+  color: #002661;
+  text-align: center; }
 
 /*!
  * animate.css -http://daneden.me/animate
@@ -1384,19 +1410,32 @@ h5 {
 
 .plot-description {
   max-width: 800px;
-  margin: auto; }
+  margin: auto;
+  font-size: 16px; }
 
 .plot-facets {
-  justify-content: center; }
+  text-align: center; }
 
 .plot-facet {
-  margin-bottom: 3.125rem; }
+  display: inline-block;
+  width: calc(50% - 2rem);
+  padding-right: 2rem;
+  margin-bottom: 3.125rem;
+  text-align: left;
+  vertical-align: top; }
+  @media screen and (max-width: 1023px) {
+    .plot-facet {
+      display: block;
+      width: 100%;
+      padding: 0; } }
   .plot-facet:last-child {
+    padding-right: 0;
     margin-bottom: 0; }
 
 .plot-description-facet {
   max-width: 800px;
-  margin: auto; }
+  margin: auto;
+  font-size: 16px; }
   .plot-description-facet ul {
     margin-top: 1rem; }
   .plot-description-facet li {
@@ -1405,16 +1444,21 @@ h5 {
 .wrapper-consumer-pref {
   max-width: 800px;
   padding: 2rem;
-  margin: auto; }
-  .wrapper-consumer-pref table {
-    margin: 1rem 0; }
-    .wrapper-consumer-pref table tr {
-      border: 0.25rem solid #ffffff; }
+  margin: auto;
+  font-size: 16px; }
+  .wrapper-consumer-pref ul {
+    margin: 1rem 0 2rem; }
+    .wrapper-consumer-pref ul li {
+      margin-bottom: 0.5rem; }
 
-.score {
-  text-align: right; }
-  .score .fa {
-    font-size: 1.5rem; }
+.consumer-pref-success {
+  font-weight: 600; }
+
+.consumer-pref-warning {
+  font-weight: 400; }
+
+.consumer-pref-danger {
+  text-decoration: line-through; }
 
 .text-center {
   text-align: center; }

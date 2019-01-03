@@ -28,9 +28,9 @@ const theme = createMuiTheme({
 });
 
 class Home extends Component {
-
   constructor(props) {
     super(props);
+
     this.state = {
       value: 0,
     }

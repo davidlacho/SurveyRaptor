@@ -123,16 +123,29 @@
 .plot-description {
   max-width: 800px;
   margin: auto;
+  font-size: $font-body-size;
 }
 
 .plot-facets {
-  justify-content: center;
+  text-align: center;
 }
 
 .plot-facet {
+  display: inline-block;
+  width: calc(50% - #{$space-x-large});
+  padding-right: $space-x-large;
   margin-bottom: $space-xx-large;
+  text-align: left;
+  vertical-align: top;
+
+  @include media($max: $bp-large) {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
 
   &:last-child {
+    padding-right: 0;
     margin-bottom: 0;
   }
 }
@@ -140,6 +153,7 @@
 .plot-description-facet {
   max-width: 800px;
   margin: auto;
+  font-size: $font-body-size;
 
   ul {
     margin-top: $space-small;
@@ -154,22 +168,27 @@
   max-width: 800px;
   padding: $space-x-large;
   margin: auto;
+  font-size: $font-body-size;
 
-  table {
-    margin: $space-small 0;
+  ul {
+    margin: $space-small 0 $space-x-large;
 
-    tr {
-      border: $space-xxx-small solid $color-white;
+    li {
+      margin-bottom: $space-xx-small;
     }
   }
 }
 
-.score {
-  text-align: right;
+.consumer-pref-success {
+  font-weight: 600;
+}
 
-  .fa {
-    font-size: $space-x-medium;
-  }
+.consumer-pref-warning {
+  font-weight: 400;
+}
+
+.consumer-pref-danger {
+  text-decoration: line-through;
 }
 
 .text-center {

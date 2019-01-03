@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'reactstrap';
 import ReactEcharts from 'echarts-for-react';
 import { convertToPercentage } from './utils/helper';
 import ResultsBigFiveFacet from './ResultsBigFiveFacet';
@@ -64,8 +63,8 @@ class ResultsBigFive extends Component {
   render() {
     return (
       <div className="plot-wrapper">
-        <Row className="plot-contents">
-          <Col lg="12" md="12" sm="12" xs="12">
+        <div className="plot-contents">
+          <div lg="12" md="12" sm="12" xs="12">
             <h1 className="text-center">The Big 5</h1>
             <ReactEcharts
               option={this.getOption()}
@@ -106,10 +105,10 @@ class ResultsBigFive extends Component {
                 characterize an individual according to the dimension.
               </p>
             </div>
-          </Col>
-        </Row>
-        <Row className="plot-contents plot-facets">
-          <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
+          </div>
+        </div>
+        <div className="plot-contents plot-facets">
+          <div className="plot-facet">
             <h2 className="text-center">Agreeableness</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[3]["name"]}
@@ -149,8 +148,8 @@ class ResultsBigFive extends Component {
                 </li>
               </ul>
             </div>
-          </Col>
-          <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
+          </div>
+          <div className="plot-facet">
             <h2 className="text-center">Conscientiousness</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[1]["name"]}
@@ -186,8 +185,8 @@ class ResultsBigFive extends Component {
                 </li>
               </ul>
             </div>
-          </Col>
-          <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
+          </div>
+          <div className="plot-facet">
             <h2 className="text-center">Extraversion</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[2]["name"]}
@@ -223,8 +222,8 @@ class ResultsBigFive extends Component {
                 </li>
               </ul>
             </div>
-          </Col>
-          <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
+          </div>
+          <div className="plot-facet">
             <h2 className="text-center">Emotional range</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[4]["name"]}
@@ -266,8 +265,8 @@ class ResultsBigFive extends Component {
                 </li>
               </ul>
             </div>
-          </Col>
-          <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
+          </div>
+          <div className="plot-facet">
             <h2 className="text-center">Openness</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[0]["name"]}
@@ -309,8 +308,8 @@ class ResultsBigFive extends Component {
                 </li>
               </ul>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     );
   }

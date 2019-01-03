@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Tooltip, Badge, Alert } from 'reactstrap';
+import { Tooltip, Badge, Alert } from 'reactstrap';
 
 class ResultStrength extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class ResultStrength extends Component {
 
   render() {
     return (
-      <Container className="result-strength-container">
+      <div className="result-strength-container">
         <div className="icon-brain">
           <div className="icon-brain-container">
             <img src={IconBrain} alt="The Human Brain" />
@@ -78,7 +78,7 @@ class ResultStrength extends Component {
             </Alert>
           );
         })}
-      </Container>
+      </div>
     );
   }
 }

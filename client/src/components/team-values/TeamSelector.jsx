@@ -1,28 +1,18 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { NavLink } from 'react-router-dom';
 
-
-const styles = {
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    objectFit: 'cover',
-  },
-};
+// Material-UI Components
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 class TeamSelector extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       team: [],
     };
@@ -30,25 +20,23 @@ class TeamSelector extends Component {
 
   componentDidMount() {
     axios.get('/api/team', {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${cookie.load('jwt')}`
-        }
-      })
-      .then(res => {
-        this.setState({
-          team: res.data,
-        });
-      })
-      .catch((err) => {
-        console.error('There was an error retrieving team.')
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.load('jwt')}`
+      }
+    })
+    .then(res => {
+      this.setState({
+        team: res.data,
+      });
+    })
+    .catch((err) => {
+      console.error('There was an error retrieving team.')
+    });
   }
 
   render() {
-
     const team = this.state.team;
-
     const selectableUsers = team.map((user) => {
       if (user.name === 'slackbot' || user.name === 'survey_raptor') {
         return false;
@@ -60,20 +48,16 @@ class TeamSelector extends Component {
 
       return (
         <NavLink to={`/values/${user.id}`} key={user.id}>
-          <Card className={this.props.classes.card}>
+          <Card className="selectable-users--card">
             <CardActionArea>
               <CardMedia
                 component="img"
                 alt={user.name}
-                className={this.props.classes.media}
-                height="250"
                 image={user.profile.image_512}
                 title={user.name}
               />
               <CardContent>
-                <Typography>
-                  <h2>{user.name}</h2>
-                </Typography>
+                <h2 className="selectable-users--name">{user.name}</h2>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -81,17 +65,13 @@ class TeamSelector extends Component {
       )
     });
 
-
-
     return (
-      <div className="selectable-users"> {selectableUsers} </div>
+      <div className="selectable-users">
+        {selectableUsers}
+      </div>
     );
   }
 
 }
 
-TeamSelector.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(TeamSelector);
+export default TeamSelector;

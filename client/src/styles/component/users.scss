@@ -1,0 +1,36 @@
+.selectable-users {
+  padding: $space-x-large;
+  text-align: center;
+
+  a {
+    margin-right: $space-medium;
+
+    @include media($max: $bp-small) {
+      margin-right: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.selectable-users--card {
+  display: inline-block;
+  max-width: 300px;
+
+  @include media($max: $bp-small) {
+    margin-bottom: $space-medium;
+  }
+
+  img {
+    max-height: 250px;
+    object-fit: cover;
+  }
+}
+
+.selectable-users--name {
+  font-family: $font-heading;
+  color: $color-dark-blue;
+  text-align: center;
+}

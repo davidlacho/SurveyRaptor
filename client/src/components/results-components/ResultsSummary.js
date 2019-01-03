@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Col, Container } from 'reactstrap';
 import PersonalityTextSummaries from 'personality-text-summary';
 
 class ResultsSummary extends Component {
@@ -25,12 +24,10 @@ class ResultsSummary extends Component {
 
   render() {
     return (
-      <Container className="results-container">
-        <Col lg="12">
-          <h1 className="text-center">Result Summary</h1>
-          <p className="lead summary-text">{this.state.summary}</p>
-        </Col>
-      </Container>
+      <div className="results-container">
+        <h1 className="text-center">Result Summary</h1>
+        <p className="lead summary-text">{this.state.summary}</p>
+      </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'reactstrap';
 import ReactEcharts from 'echarts-for-react';
 import { convertToPercentage } from './utils/helper';
 
@@ -63,46 +62,44 @@ class ResultsValues extends Component {
   render() {
     return (
       <div className="plot-wrapper plot-wrapper-values">
-        <Row className="plot-contents">
-          <Col lg="12" md="12" sm="12" xs="12">
-            <h1 className="text-center">Values</h1>
-            <ReactEcharts
-              option={this.getOption()}
-              style={{ width: "100%", height: 600 }}
-              className="react_for_echarts"
-            />
-            <div className="plot-description">
-              <p className="lead">
-                Values describe motivating factors that influence the author's
-                decision-making. The following table describes the five values
-                that the service infers.
-              </p>
-              <ul>
-                <li>
-                  <strong>Self-transcendence</strong> Show concern for the
-                  welfare and interests of others.
-                </li>
-                <li>
-                  <strong>Conservation</strong> Emphasize self-restriction,
-                  order, and resistance to change.
-                </li>
-                <li>
-                  <strong>Hedonism</strong> Seek pleasure and sensuous
-                  gratification for themselves.
-                </li>
-                <li>
-                  <strong>Self-enhancement</strong> Seek personal success for
-                  themselves.
-                </li>
-                <li>
-                  <strong>Open to change</strong> Emphasize independent action,
-                  thought, and feeling, as well as a readiness for new
-                  experiences.
-                </li>
-              </ul>
-            </div>
-          </Col>
-        </Row>
+        <div className="plot-contents">
+          <h1 className="text-center">Values</h1>
+          <ReactEcharts
+            option={this.getOption()}
+            style={{ width: "100%", height: 600 }}
+            className="react_for_echarts"
+          />
+          <div className="plot-description">
+            <p className="lead">
+              Values describe motivating factors that influence the author's
+              decision-making. The following table describes the five values
+              that the service infers.
+            </p>
+            <ul>
+              <li>
+                <strong>Self-transcendence</strong> Show concern for the
+                welfare and interests of others.
+              </li>
+              <li>
+                <strong>Conservation</strong> Emphasize self-restriction,
+                order, and resistance to change.
+              </li>
+              <li>
+                <strong>Hedonism</strong> Seek pleasure and sensuous
+                gratification for themselves.
+              </li>
+              <li>
+                <strong>Self-enhancement</strong> Seek personal success for
+                themselves.
+              </li>
+              <li>
+                <strong>Open to change</strong> Emphasize independent action,
+                thought, and feeling, as well as a readiness for new
+                experiences.
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }
