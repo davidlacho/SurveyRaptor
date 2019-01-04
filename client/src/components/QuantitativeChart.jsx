@@ -42,10 +42,6 @@ class QuantitativeChart extends Component {
     return {x, y};
   }
 
-  componentDidMount() {
-    console.log(this.getAnswers());
-  }
-
   getOption() {
     const axis = this.getAnswers();
     const option = {

@@ -94,17 +94,17 @@ module.exports = (knex, slapp) => {
   router.get('/team', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-    const bot = new SlackBot({
-      token: req.user.bot_access_token,
-      name: 'Survey Raptor',
-    });
-    bot.getUsers()
-      .then((users) => {
-        res.status(200).json(users.members);
-      })
-      .catch((err) => {
-        res.status(500).send('Error occured when getting list of users from Slack:', err);
+      const bot = new SlackBot({
+        token: req.user.bot_access_token,
+        name: 'Survey Raptor',
       });
+      bot.getUsers()
+        .then((users) => {
+          res.status(200).json(users.members);
+        })
+        .catch((err) => {
+          res.status(500).send('Error occured when getting list of users from Slack:', err);
+        });
   });
 
   router.get('/team/users/:id', passport.authenticate('jwt', {
@@ -119,7 +119,7 @@ module.exports = (knex, slapp) => {
         console.log(users);
         res.status(200).json(users.members);
       })
-      .catch((err) => {
+      .fail((err) => {
         res.status(500).send('Error occured when getting list of users from Slack:', err);
       });
   });
