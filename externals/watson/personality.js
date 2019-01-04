@@ -1,5 +1,5 @@
 var PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3');
-
+const wordcount = require('wordcount');
 var personalityInsights = new PersonalityInsightsV3({
   iam_apikey: process.env.PERSONALITY_API_KEY,
   version: '2019-01-01',
@@ -29,7 +29,12 @@ module.exports = (knex, slackID, callback) => {
       values[1].forEach((answer) => {
         userAnswers.push(answer.answer);
       });
-      return userAnswers.join('. ')
+      let userString = userAnswers.join('. ');
+      while (wordcount(userString) < 100) {
+        userString = userString + userString;
+      }
+      console.log(userString);
+      return userString;
     })
     .then((answerString) => {
       personalityInsights.profile(
@@ -40,6 +45,7 @@ module.exports = (knex, slackID, callback) => {
         },
         function(err, response) {
           if (err) {
+            console.log(err);
             callback(err);
           } else {
             callback(null, response);

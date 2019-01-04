@@ -127,8 +127,10 @@ module.exports = (knex, slapp) => {
   router.get('/users/personality/:slackID', (req, res) => {
     personality(knex, req.params.slackID, (err, resp) => {
       if (err) {
-        res.status(500).send(err);
+        console.log(err);
+        res.status(500).json(err);
       } else {
+        console.log(resp);
         res.status(200).json(resp);
       }
     });
