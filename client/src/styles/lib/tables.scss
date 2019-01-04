@@ -47,14 +47,14 @@
       &:first-child {
         a {
           justify-content: flex-start;
-          padding-left: 24px;
+          padding-left: $space-x-medium;
         }
       }
 
       &:last-child {
         a {
-          left: -24px;
-          padding-right: 24px;
+          left: -$space-x-medium;
+          padding-right: $space-x-medium;
         }
       }
 
@@ -65,6 +65,7 @@
   }
 
   a {
+    display: block;
     width: 100%;
     color: $color-dark-blue;
     text-decoration: none;
@@ -91,7 +92,7 @@
       height: 100%;
       margin-bottom: $space-small;
       border: 1px solid $color-medium-gray;
-      border-bottom: 3px solid $color-medium-gray;
+      border-bottom: $space-xxx-small solid $color-medium-gray;
     }
 
     td {
@@ -116,7 +117,7 @@
 
 .table-wrapper {
   @include media($max: $bp-small) {
-    background: transparent;
+    background-color: transparent !important;
     box-shadow: none !important;
   }
 }

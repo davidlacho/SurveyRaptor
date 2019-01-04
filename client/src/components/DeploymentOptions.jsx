@@ -20,19 +20,19 @@ class DeploymentOptions extends Component {
 
   componentDidMount() {
     axios.get('/api/team', {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${cookie.load('jwt')}`
-        }
-      })
-      .then(res => {
-        this.setState({
-          team: res.data,
-        });
-      })
-      .catch((err) => {
-        console.error('There was an error retrieving team.')
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookie.load('jwt')}`
+      }
+    })
+    .then(res => {
+      this.setState({
+        team: res.data,
+      });
+    })
+    .catch((err) => {
+      console.error('There was an error retrieving team.')
+    });
   }
 
   render() {

@@ -126,13 +126,14 @@
         transition: border-bottom 0.2s linear; }
         .table-container td:first-child a {
           justify-content: flex-start;
-          padding-left: 24px; }
+          padding-left: 1.5rem; }
         .table-container td:last-child a {
-          left: -24px;
-          padding-right: 24px; }
+          left: -1.5rem;
+          padding-right: 1.5rem; }
         .table-container td:not(:first-child) {
           padding-right: 56px; } }
   .table-container a {
+    display: block;
     width: 100%;
     color: #002661;
     text-decoration: none; }
@@ -154,7 +155,7 @@
       height: 100%;
       margin-bottom: 1rem;
       border: 1px solid #DDDDDD;
-      border-bottom: 3px solid #DDDDDD; }
+      border-bottom: 0.25rem solid #DDDDDD; }
     .table-container td {
       display: block;
       padding-right: 1.5rem;
@@ -170,7 +171,7 @@
 
 @media screen and (max-width: 719px) {
   .table-wrapper {
-    background: transparent;
+    background-color: transparent !important;
     box-shadow: none !important; } }
 
 body {
