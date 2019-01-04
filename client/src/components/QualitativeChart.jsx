@@ -15,7 +15,6 @@ class QualitativeChart extends Component {
 
     this.state = {
       data: {},
-      team: {},
     }
   }
 
@@ -39,13 +38,16 @@ class QualitativeChart extends Component {
 
   render() {
     const responseCards = (this.state.team ?
-      this.state.data.responses.map((response, i) => {
-        const tone = JSON.parse(response.tone).tones[0];
+      this.props.data.responses.map((response, i) => {
+        const tone = JSON.parse(response.tone);
+        const toneChip = tone.length >=1 ?
+          <Typography component="p">
+          <Chip label={`${tone.tones[0].tone_name}: ${(tone.tones[0].score * 100).toFixed(2)}%`} variant="outlined" />
+          </Typography> : null;
 
         return(
           <div key={response.id}>
             <h2>{response.question}</h2>
-
             <Paper elevation={1}>
               <NavLink to={`/values/${response.slack_id}`}>
                 <div>
@@ -53,13 +55,10 @@ class QualitativeChart extends Component {
                   <h3>{response.name}</h3>
                 </div>
               </NavLink>
-
+                {toneChip}
               <div>
                 <Typography variant="h5" component="h3">
                   {response.answer}
-                </Typography>
-                <Typography component="p">
-                  <Chip label={`${tone.tone_name}: ${(tone.score * 100).toFixed(2)}%`} variant="outlined" />
                 </Typography>
               </div>
             </Paper>

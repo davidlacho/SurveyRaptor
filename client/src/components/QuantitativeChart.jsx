@@ -11,64 +11,7 @@ class QuantitativeChart extends Component {
     super(props);
 
     this.state = {
-      quantitativeData:
-      {
-        "responses":
-        [
-          {
-            "id":45,
-            "respondent_id":45,
-            "quantiative_possible_answers_id":261,
-            "answer":"A",
-            "question_id":472,
-            "tone":"{\"tones\":[]}",
-            "survey_id":281,
-            "question_type":"quantitative",
-            "question":"hey there",
-            "created_at":null,
-            "updated_at":null,
-            "slack_id":"UEW656J4A",
-            "name":"david.lacho",
-
-          },
-          {
-            "id":46,
-            "respondent_id":46,
-            "quantiative_possible_answers_id":262,
-            "answer":"B",
-            "question_id":472,
-            "tone":"{\"tones\":[]}",
-            "survey_id":281,
-            "question_type":"quantitative",
-            "question":"hey there",
-            "created_at":null,
-            "updated_at":null,
-            "slack_id":"UEW6B4CJE",
-            "name":"jskawinters",
-          },
-          {
-            "id":46,
-            "respondent_id":46,
-            "quantiative_possible_answers_id":262,
-            "answer":"B",
-            "question_id":472,
-            "tone":"{\"tones\":[]}",
-            "survey_id":281,
-            "question_type":"quantitative",
-            "question":"hey there",
-            "created_at":null,
-            "updated_at":null,
-            "slack_id":"UEW6B4CJE",
-            "name":"jskawinters",
-          },
-        ],
-        "possible_answers":
-        [
-          "A",
-          "B",
-          "C",
-        ],
-      },
+      quantitativeData: {},
     };
 
     this.getOption = this.getOption.bind(this);
@@ -76,8 +19,8 @@ class QuantitativeChart extends Component {
   }
 
   getAnswers() {
-    const possibleAnswers = this.state.quantitativeData.possible_answers;
-    const responses = this.state.quantitativeData.responses;
+    const possibleAnswers = this.props.quantitativeData.possible_answers;
+    const responses = this.props.quantitativeData.responses;
     let countAnswers = {};
 
     possibleAnswers.forEach((answer) =>{

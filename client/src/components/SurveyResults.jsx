@@ -9,7 +9,7 @@ class SurveyResults extends Component {
     super(props);
 
     this.state = {
-      surveyResponses: {},
+
     };
   }
 
@@ -28,23 +28,25 @@ class SurveyResults extends Component {
       for (let key in res.data) {
         answers[key] = {};
         answers[key].responses = res.data[key].responses;
-
-        if (res.data[key].responses[0].question_type === 'quantitative') {
-          axios.get(`/api/user/surveys/${id}/questions/${key}`, {}, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${cookie.load('jwt')}`
-            }
-          })
-          .then((response) => {
-            answers[key].possible_answers = response.data[key].possible_answers;
+        this.setState({
+          surveyResponses: answers,
+        });
+      if (res.data[key].responses[0].question_type === 'quantitative') {
+        axios.get(`/api/user/surveys/${id}/questions/${key}`, {}, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cookie.load('jwt')}`
+          }
+        })
+        .then((response) => {
+          const newState = this.state.surveyResponses;
+          newState[key].possible_answers = response.data[key].possible_answers;
+          this.setState({
+            surveyResponses: newState,
           });
-        }
+        });
       }
-
-      this.setState({
-        surveyResponses: answers,
-      });
+    }
     })
     .catch((err) => {
       console.error(`There was an error retrieving survey responses: ${err}`)
@@ -52,9 +54,28 @@ class SurveyResults extends Component {
   }
 
   render() {
+    const resultCharts = this.state.surveyResponses ?
+    Object.keys(this.state.surveyResponses).map((key) => {
+      if(this.state.surveyResponses[key].responses[0].question_type === 'quantitative' && this.state.surveyResponses[key].possible_answers) {
+        console.log('this worked. render quantitative chart');
+        const dataObject = this.state.surveyResponses[key];
+        return <QuantitativeChart quantitativeData={dataObject} key={this.state.surveyResponses[key].responses.id} />;
+      }
+
+      if(this.state.surveyResponses[key].responses[0].question_type === 'qualitative') {
+        const dataObject = this.state.surveyResponses[key];
+        return <QualitativeChart data={dataObject} key={this.state.surveyResponses[key].responses.id} />;
+      }
+
+      return '';
+    })
+    :
+    '';
+
     return (
       <div className="site-content">
         <h2>SurveyResults</h2>
+        {resultCharts}
       </div>
     );
   }
