@@ -1,63 +1,60 @@
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 64px;
-  height: 64px;
-}
-
-.lds-ellipsis div {
+.app-loader {
   position: absolute;
-  top: 27px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: $color-dark-green;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  top: calc(50% - $space-medium);
+  left: calc(50% - $space-medium);
+  width: 41px;
+  height: 40px;
+  animation: loader 5s cubic-bezier(.8,0,.2,1) infinite;
 }
 
-.lds-ellipsis div:nth-child(1) {
-  left: 6px;
-  animation: lds-ellipsis1 0.6s infinite;
+@keyframes loader {
+  90% { transform: rotate(0deg); }
+  100% { transform: rotate(180deg); }
 }
 
-.lds-ellipsis div:nth-child(2) {
-  left: 6px;
-  animation: lds-ellipsis2 0.6s infinite;
+.app-loader--top {
+  width: 1px;
+  height: 0;
+  border-top: $space-medium solid $color-dark-green;
+  border-right: $space-medium solid transparent;
+  border-left: $space-medium solid transparent;
+  transform-origin: 50% 100%;
+  animation: top 5s linear infinite;
 }
 
-.lds-ellipsis div:nth-child(3) {
-  left: 26px;
-  animation: lds-ellipsis2 0.6s infinite;
+@keyframes top {
+  90% { transform: scale(0); }
+  100% { transform: scale(0);}
 }
 
-.lds-ellipsis div:nth-child(4) {
-  left: 45px;
-  animation: lds-ellipsis3 0.6s infinite;
+.app-loader--bottom {
+  width: 1px;
+  height: 0;
+  border-right: $space-medium solid transparent;
+  border-bottom: $space-medium solid $color-dark-green;
+  border-left: $space-medium solid transparent;
+  transform: scale(0);
+  transform-origin: 50% 100%;
+  animation: bottom 5s linear infinite;
 }
 
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
+@keyframes bottom {
+  10% { transform: scale(0); }
+  90% { transform: scale(1); }
+  100% { transform: scale(1); }
 }
 
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
+.app-loader--line {
+  position: absolute;
+  top: $space-medium;
+  left: $space-medium;
+  width: 0;
+  height: 0;
+  border-left: 1px dotted $color-dark-green;
+  animation: line 5s linear infinite;
 }
 
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(19px, 0);
-  }
+@keyframes line {
+  10% { height: $space-medium; }
+  100% { height: $space-medium; }
 }

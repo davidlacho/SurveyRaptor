@@ -25,6 +25,10 @@
   background: rgba($color-white, 0.5);
   border-radius: $space-small;
 
+  h1 {
+    font-family: $font-fun;
+  }
+
   @include media($max: $bp-small) {
     padding: $space-small;
   }
@@ -200,6 +204,10 @@
     @include media($max: $bp-small) {
       padding: $space-small;
     }
+  }
+
+  h2 {
+    font-family: $font-fun;
   }
 
   ul {

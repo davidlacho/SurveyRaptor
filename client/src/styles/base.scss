@@ -35,3 +35,7 @@ h5 {
     text-align: center;
   }
 }
+
+.site-loading {
+  @include centerer;
+}

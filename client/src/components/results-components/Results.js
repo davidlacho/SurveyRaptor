@@ -101,7 +101,15 @@ class Results extends Component {
         </MuiThemeProvider>
       </div>
       :
-      <div className="site-content--results">Loading...</div>
+      <div className="site-content--results">
+        <div className="site-loading">
+          <div className="app-loader">
+            <div className="app-loader--top"></div>
+            <div className="app-loader--bottom"></div>
+            <div className="app-loader--line"></div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
