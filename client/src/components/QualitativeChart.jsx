@@ -63,7 +63,6 @@ class QualitativeChart extends Component {
 
         return(
           <div key={response.id}>
-            <h2>{response.question}</h2>
             <Paper elevation={1}>
               <NavLink to={`/values/${response.slack_id}`}>
                 <div>
