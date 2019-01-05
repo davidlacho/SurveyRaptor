@@ -24,7 +24,9 @@ class QuantitativeChart extends Component {
   }
 
   handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+    this.setState({
+      [name]: event.target.checked
+    });
   };
 
   getAxis() {
@@ -56,21 +58,65 @@ class QuantitativeChart extends Component {
 
   getBarOption() {
     const axis = this.getAxis();
-    const option = {
-      xAxis: {
+    return {
+      color: new echarts.graphic.LinearGradient(
+        0, 0, 0, 1,
+        [{
+            offset: 0,
+            color: 'rgba(254,215,102, 0.8)'
+          },
+          {
+            offset: 1,
+            color: '#FD9F82'
+          }
+        ]
+      ),
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+          shadowStyle: {
+            color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: 'rgba(109,224,226, 0.8)' 
+                }, {
+                    offset: 1, color: '#3EA3D8'
+                }],
+                globalCoord: false
+            },
+            opacity: 0.1,
+          },
+        },
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true,
+        width: '80%',
+      },
+      xAxis: [{
         type: 'category',
         data: axis.x,
-      },
-      yAxis: {
-        type: 'value',
-      },
+        axisTick: {
+          alignWithLabel: true,
+        }
+      }],
+      yAxis: [{
+        type: 'value'
+      }],
       series: [{
-        data: axis.y,
+        name: 'Results:',
         type: 'bar',
-      }, ],
+        barWidth: '80%',
+        data: axis.y
+      }]
     };
-
-    return option;
   }
 
   getPieOption() {
@@ -150,6 +196,7 @@ class QuantitativeChart extends Component {
       </React.Fragment>
     );
   }
+
 }
 
 export default QuantitativeChart;
