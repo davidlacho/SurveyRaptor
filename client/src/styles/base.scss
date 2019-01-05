@@ -2,7 +2,7 @@ body {
   width: 100%;
   font-family: $font-body;
   font-size: $font-body-size;
-  background: linear-gradient(135deg, $color-light-tan 0%, $color-tan 100%);
+  background: $color-light-tan;
 }
 
 .App {
@@ -20,7 +20,7 @@ body {
 
 .site-content--results {
   flex: 1 0 auto;
-  background: linear-gradient(135deg, $color-light-tan 0%, $color-tan 100%);
+  background: $color-light-tan;
 }
 
 h1,

@@ -25,8 +25,10 @@ class ResultsSummary extends Component {
   render() {
     return (
       <div className="results-container">
-        <h1 className="text-center">Result Summary</h1>
-        <p className="lead summary-text">{this.state.summary}</p>
+        <div className="results-summary">
+          <h1 className="text-center">Result Summary</h1>
+          <p className="lead summary-text">{this.state.summary}</p>
+        </div>
       </div>
     );
   }

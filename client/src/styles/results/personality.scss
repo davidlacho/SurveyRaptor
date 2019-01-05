@@ -13,9 +13,21 @@
 
 .results-container {
   position: relative;
+  min-height: calc(100vh - 269px);
+  padding: $space-x-large;
+  background: linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E);
+}
+
+.results-summary {
   max-width: 800px;
   padding: $space-x-large;
-  margin: auto;
+  margin: 0 auto;
+  background: rgba($color-white, 0.5);
+  border-radius: $space-small;
+
+  @include media($max: $bp-small) {
+    padding: $space-small;
+  }
 }
 
 .result-strength-container {
@@ -165,10 +177,30 @@
 }
 
 .wrapper-consumer-pref {
-  max-width: 800px;
   padding: $space-x-large;
-  margin: auto;
   font-size: $font-body-size;
+  background: linear-gradient(to right, #ffd194, #70e1f5);
+
+  .consumer-pref {
+    max-width: 800px;
+    padding: $space-x-large;
+    margin: 0 auto;
+    background: rgba($color-white, 0.5);
+
+    &:first-child {
+      border-top-right-radius: $space-small;
+      border-top-left-radius: $space-small;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: $space-small;
+      border-bottom-left-radius: $space-small;
+    }
+
+    @include media($max: $bp-small) {
+      padding: $space-small;
+    }
+  }
 
   ul {
     margin: $space-small 0 $space-x-large;
