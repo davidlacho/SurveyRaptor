@@ -50,14 +50,24 @@ class QualitativeChart extends Component {
         const tone = JSON.parse(response.tone);
         const toneChips = tone && tone.tones[0] ? <div key={response.id}><Typography component="p"><Chip label={`${tone.tones[0].tone_name}: ${(tone.tones[0].score * 100).toFixed(2)}%`} variant="outlined" /></Typography></div> : null;
 
+    const userAvatar = (this.state.team[response.slack_id] ?
+      <React.Fragment>
+        <Avatar alt={`${response.name}'s Avatar`} src={this.state.team[response.slack_id].profile.image_72} />
+        <h3>{response.name}</h3>
+      </React.Fragment>
+    :
+      <React.Fragment>
+        <h3>{response.name}</h3>
+      </React.Fragment>
+    );
+
         return(
           <div key={response.id}>
             <h2>{response.question}</h2>
             <Paper elevation={1}>
               <NavLink to={`/values/${response.slack_id}`}>
                 <div>
-                  <Avatar alt={`${response.name}'s Avatar`} src={this.state.team[response.slack_id].profile.image_72} />
-                  <h3>{response.name}</h3>
+                  {userAvatar}
                 </div>
               </NavLink>
               <div>

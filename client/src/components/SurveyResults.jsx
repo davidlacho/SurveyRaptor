@@ -49,6 +49,11 @@ class SurveyResults extends Component {
     }
     })
     .catch((err) => {
+      if (err.response.status === 404) {
+        this.setState({
+          noResponses: true
+        });
+      }
       console.error(`There was an error retrieving survey responses: ${err}`)
     });
   }
@@ -66,11 +71,14 @@ class SurveyResults extends Component {
         const dataObject = this.state.surveyResponses[key];
         return <QualitativeChart data={dataObject} key={this.state.surveyResponses[key].responses.id} />;
       }
-
       return '';
     })
     :
-    '';
+    this.state.noResponses ?
+      'There are no responses'
+      :
+    null;
+    ;
 
     return (
       <div className="site-content">

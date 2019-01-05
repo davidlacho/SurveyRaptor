@@ -3,7 +3,6 @@ const passport = require('passport');
 const SlackBot = require('slackbots');
 const personality = require('../externals/watson/personality');
 
-
 const deploySurvey = require('../slapp/surveyHelper');
 
 const router = express.Router();
@@ -94,17 +93,17 @@ module.exports = (knex, slapp) => {
   router.get('/team', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-      const bot = new SlackBot({
-        token: req.user.bot_access_token,
-        name: 'Survey Raptor',
+    const bot = new SlackBot({
+      token: req.user.bot_access_token,
+      name: 'Survey Raptor',
+    });
+    bot.getUsers()
+      .then((users) => {
+        res.status(200).json(users.members);
+      })
+      .catch((err) => {
+        res.status(500).send('Error occured when getting list of users from Slack:', err);
       });
-      bot.getUsers()
-        .then((users) => {
-          res.status(200).json(users.members);
-        })
-        .catch((err) => {
-          res.status(500).send('Error occured when getting list of users from Slack:', err);
-        });
   });
 
   router.get('/team/users/:id', passport.authenticate('jwt', {
@@ -116,7 +115,6 @@ module.exports = (knex, slapp) => {
     });
     bot.getUserById(req.params.id)
       .then((users) => {
-        console.log(users);
         res.status(200).json(users.members);
       })
       .fail((err) => {
@@ -127,10 +125,8 @@ module.exports = (knex, slapp) => {
   router.get('/users/personality/:slackID', (req, res) => {
     personality(knex, req.params.slackID, (err, resp) => {
       if (err) {
-        console.log(err);
         res.status(500).json(err);
       } else {
-        console.log(resp);
         res.status(200).json(resp);
       }
     });
@@ -218,7 +214,6 @@ module.exports = (knex, slapp) => {
               });
           });
         }
-
       })
       .catch((err) => {
         res.status(500).json(err);
@@ -238,8 +233,8 @@ module.exports = (knex, slapp) => {
           knex('questions')
             .select('*')
             .where('survey_id', req.params.id)
-            .then((resp) => {
-              res.status(200).json(resp);
+            .then((response) => {
+              res.status(200).json(response);
             })
             .catch((err) => {
               res.status(500).json(err);
@@ -296,7 +291,6 @@ module.exports = (knex, slapp) => {
   router.get('/user/surveys/:id/responses', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-
     knex('surveys')
       .select('surveys.id', 'surveys.created_at', 'surveys.name')
       .join('users', 'surveys.user_id', 'users.id')
@@ -304,77 +298,57 @@ module.exports = (knex, slapp) => {
       .andWhere('surveys.id', req.params.id)
       .then((resp) => {
         if (resp.length >= 1) {
-          const getQualitativeAnswers = () => {
-            return knex('qualitative_answers')
-              .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
-              .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
-              .where('questions.survey_id', req.params.id)
-              .then((data) => {
-                return data;
-              });
-          }
-          const getQuantitativeAnswers = () => {
-            return knex('quantiative_answers')
-              .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
-              .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
-              .where('questions.survey_id', req.params.id)
-              .then((data) => {
-                return data;
-              });
-          }
+          const getQualitativeAnswers = () => (knex('qualitative_answers')
+            .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
+            .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
+            .where('questions.survey_id', req.params.id)
+            .then(data => data));
+          const getQuantitativeAnswers = () => (knex('quantiative_answers')
+            .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
+            .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
+            .where('questions.survey_id', req.params.id)
+            .then(data => data));
+
 
           Promise.all([getQualitativeAnswers(), getQuantitativeAnswers()])
             .then((values) => {
               if (values[0].length === 0 && values[1].length === 0) {
-                res.status(403).send('Unauthorized');
+                res.status(404).send({});
               } else {
-                const answerObject = {}
-                const possibleAnswerPromises = [];
+                const answerObject = {};
                 values[0].forEach((answer) => {
                   if (!answerObject[answer.question_id]) {
                     answerObject[answer.question_id] = [];
                   }
                   answerObject[answer.question_id].push(answer);
-                })
-
-
+                });
                 values[1].forEach((answer) => {
-
                   answer.possible_answers = [];
                   if (!answerObject[answer.question_id]) {
                     answerObject[answer.question_id] = [];
                   }
-
                   answerObject[answer.question_id].push(answer);
-
-                })
-
+                });
                 const newObject = {};
-
                 Object.keys(answerObject).forEach((questionID) => {
                   newObject[questionID] = {};
                   newObject[questionID].responses = answerObject[questionID];
-                })
-
+                });
                 res.status(200).json(newObject);
               }
             })
             .catch((err) => {
               res.status(500).json(err);
-            })
+            });
         } else {
           res.status(403).send('Unauthorized');
         }
-      })
-
-
+      });
   });
-
 
   router.get('/user/surveys/:id/responses/:questionid', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-
     knex('surveys')
       .select('surveys.id', 'surveys.created_at', 'surveys.name')
       .join('users', 'surveys.user_id', 'users.id')
@@ -382,59 +356,51 @@ module.exports = (knex, slapp) => {
       .andWhere('surveys.id', req.params.id)
       .then((resp) => {
         if (resp.length >= 1) {
-          const getQualitativeAnswers = () => {
-            return knex('qualitative_answers')
-              .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
-              .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
-              .where('questions.id', req.params.questionid)
-              .then((data) => {
-                return data;
-              });
-          }
+          const getQualitativeAnswers = () => (knex('qualitative_answers')
+            .leftJoin('questions', 'qualitative_answers.question_id', 'questions.id')
+            .leftJoin('respondents', 'qualitative_answers.respondent_id', 'respondents.id')
+            .where('questions.id', req.params.questionid)
+            .then(data => data));
 
-          const getQuantitativeAnswers = () => {
-            return knex('quantiative_answers')
-              .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
-              .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
-              .where('questions.id', req.params.questionid)
-              .then((data) => {
-                return data;
-              });
-          }
+          const getQuantitativeAnswers = () => (knex('quantiative_answers')
+            .leftJoin('questions', 'quantiative_answers.question_id', 'questions.id')
+            .leftJoin('respondents', 'quantiative_answers.respondent_id', 'respondents.id')
+            .where('questions.id', req.params.questionid)
+            .then(data => data));
 
           Promise.all([getQualitativeAnswers(), getQuantitativeAnswers()])
             .then((values) => {
               if (values[0].length === 0 && values[1].length === 0) {
                 res.status(403).send('Unauthorized');
               } else {
-                const answerObject = {}
+                const answerObject = {};
                 values[0].forEach((answer) => {
                   if (!answerObject[answer.question_id]) {
                     answerObject[answer.question_id] = [];
                   }
                   answerObject[answer.question_id].push(answer);
-                })
+                });
                 values[1].forEach((answer) => {
                   if (!answerObject[answer.question_id]) {
                     answerObject[answer.question_id] = [];
                   }
                   answerObject[answer.question_id].push(answer);
-                })
+                });
                 res.status(200).json(answerObject);
               }
             })
             .catch((err) => {
               res.status(500).json(err);
-            })
+            });
         } else {
           res.status(403).send('Unauthorized');
         }
-      })
+      });
   });
 
   router.get('*', (req, res) => {
     res.status(404).send('Not Found');
-  })
+  });
 
   return router;
 };
