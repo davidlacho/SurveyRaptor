@@ -62,7 +62,6 @@ class SurveyResults extends Component {
     const resultCharts = this.state.surveyResponses ?
     Object.keys(this.state.surveyResponses).map((key) => {
       if(this.state.surveyResponses[key].responses[0].question_type === 'quantitative' && this.state.surveyResponses[key].possible_answers) {
-        console.log('this worked. render quantitative chart');
         const dataObject = this.state.surveyResponses[key];
         return (<React.Fragment><h2>{dataObject.responses[0].question}</h2><QuantitativeChart quantitativeData={dataObject} key={this.state.surveyResponses[key].responses.id} /></React.Fragment>);
       }
