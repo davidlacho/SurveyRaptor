@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import SurveyList from './SurveyList.jsx';
+import SurveyList from './surveys/SurveyList.jsx';
 import TeamSelector from './team-values/TeamSelector.jsx';
 
 // Material-UI Components
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,18 +15,6 @@ function TabContainer(props) {
     </Typography>
   );
 }
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#008552',
-    },
-    secondary: {
-      main: '#512DA8',
-    }
-  },
-  typography: { useNextVariants: true },
-});
 
 class Home extends Component {
   constructor(props) {
@@ -47,16 +34,14 @@ class Home extends Component {
 
     return (
       <div className="site-content--results">
-        <MuiThemeProvider theme={theme}>
-          <AppBar position="static" color="primary">
-            <Tabs value={value} onChange={this.handleChange} scrollable={true} scrollButtons="off">
-              <Tab label="My Surveys" />
-              <Tab label="Team Values" />
-            </Tabs>
-          </AppBar>
-          {value === 0 && <TabContainer><SurveyList /></TabContainer>}
-          {value === 1 && <TabContainer><TeamSelector /></TabContainer>}
-        </MuiThemeProvider>
+        <AppBar position="static" color="primary">
+          <Tabs value={value} onChange={this.handleChange} scrollable={true} scrollButtons="off">
+            <Tab label="My Surveys" />
+            <Tab label="Team Values" />
+          </Tabs>
+        </AppBar>
+        {value === 0 && <TabContainer><SurveyList /></TabContainer>}
+        {value === 1 && <TabContainer><TeamSelector /></TabContainer>}
       </div>
     )
   }

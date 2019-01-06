@@ -8,25 +8,10 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 
 // Material-UI Components
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#008552',
-    },
-    secondary: {
-      main: '#512DA8',
-    }
-  },
-  typography: {
-    useNextVariants: true
-  },
-});
 
 function TabContainer(props) {
   return (
@@ -83,22 +68,20 @@ class Results extends Component {
     return (
       this.state.resultData ?
       <div className="site-content--results">
-        <MuiThemeProvider theme={theme}>
-          <AppBar position="static" color="primary">
-            <Tabs value={value} onChange={this.handleChange} scrollable={true} scrollButtons="off">
-              <Tab label="Summary" />
-              <Tab label="Big Five" />
-              <Tab label="Needs" />
-              <Tab label="Values" />
-              <Tab label="Consumer Preferences" />
-            </Tabs>
-          </AppBar>
-          {value === 0 && <TabContainer>{summary}</TabContainer>}
-          {value === 1 && <TabContainer>{bigFive}</TabContainer>}
-          {value === 2 && <TabContainer>{resultNeeds}</TabContainer>}
-          {value === 3 && <TabContainer>{resultValues}</TabContainer>}
-          {value === 4 && <TabContainer>{consumerPrefs}</TabContainer>}
-        </MuiThemeProvider>
+        <AppBar position="static" color="primary">
+          <Tabs value={value} onChange={this.handleChange} scrollable={true} scrollButtons="off">
+            <Tab label="Summary" />
+            <Tab label="Big Five" />
+            <Tab label="Needs" />
+            <Tab label="Values" />
+            <Tab label="Consumer Preferences" />
+          </Tabs>
+        </AppBar>
+        {value === 0 && <TabContainer>{summary}</TabContainer>}
+        {value === 1 && <TabContainer>{bigFive}</TabContainer>}
+        {value === 2 && <TabContainer>{resultNeeds}</TabContainer>}
+        {value === 3 && <TabContainer>{resultValues}</TabContainer>}
+        {value === 4 && <TabContainer>{consumerPrefs}</TabContainer>}
       </div>
       :
       <div className="site-content--results">

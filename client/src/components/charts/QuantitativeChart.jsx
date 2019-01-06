@@ -1,14 +1,15 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 
 // Echarts
 import ReactEcharts from 'echarts-for-react/lib/core';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
-import Switch from '@material-ui/core/Switch';
 
+// Material-UI Components
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Paper from '@material-ui/core/Paper';
+import Switch from '@material-ui/core/Switch';
 
 class QuantitativeChart extends Component {
   constructor(props) {
@@ -50,24 +51,23 @@ class QuantitativeChart extends Component {
       y.push(countAnswers[key]);
     });
 
-    return {
-      x,
-      y
-    };
+    return {x, y};
   }
 
   getBarOption() {
     const axis = this.getAxis();
+
     return {
       color: new echarts.graphic.LinearGradient(
         0, 0, 0, 1,
-        [{
+        [
+          {
             offset: 0,
-            color: 'rgba(254,215,102, 0.8)'
+            color: 'rgba(254,215,102, 0.8)',
           },
           {
             offset: 1,
-            color: '#FD9F82'
+            color: '#FD9F82',
           }
         ]
       ),
@@ -77,17 +77,17 @@ class QuantitativeChart extends Component {
           type: 'shadow',
           shadowStyle: {
             color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [{
-                    offset: 0, color: 'rgba(109,224,226, 0.8)' 
-                }, {
-                    offset: 1, color: '#3EA3D8'
-                }],
-                globalCoord: false
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops:
+                [
+                  {offset: 0, color: 'rgba(109,224,226, 0.8)'},
+                  {offset: 1, color: '#3EA3D8'},
+                ],
+              globalCoord: false,
             },
             opacity: 0.1,
           },
@@ -100,34 +100,35 @@ class QuantitativeChart extends Component {
         containLabel: true,
         width: '80%',
       },
-      xAxis: [{
-        type: 'category',
-        data: axis.x,
-        axisTick: {
-          alignWithLabel: true,
+      xAxis: [
+        {
+          type: 'category',
+          data: axis.x,
+          axisTick: {
+            alignWithLabel: true,
+          },
         }
-      }],
-      yAxis: [{
-        type: 'value'
-      }],
-      series: [{
-        name: 'Results:',
-        type: 'bar',
-        barWidth: '80%',
-        data: axis.y
-      }]
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        }
+      ],
+      series: [
+        {
+          name: 'Results:',
+          type: 'bar',
+          barWidth: '80%',
+          data: axis.y,
+        }
+      ]
     };
   }
 
   getPieOption() {
-    const possibleAnswers = this.props.quantitativeData.possible_answers;
-    const responses = this.props.quantitativeData.responses;
-    const {
-      x,
-      y
-    } = this.getAxis();
-
+    const {x, y} = this.getAxis();
     const values = [];
+
     x.forEach((name, i) => {
       values.push({
         value: y[i],
@@ -145,38 +146,55 @@ class QuantitativeChart extends Component {
         x: 'left',
         data: x,
       },
-      series: [{
-        name: 'Results',
-        type: 'pie',
-        radius: ['50%', '70%'],
-        avoidLabelOverlap: false,
-        label: {
-          normal: {
-            show: false,
-            position: 'center'
-          },
-          emphasis: {
-            show: true,
-            textStyle: {
-              fontSize: '30',
-              fontWeight: 'bold'
+      series: [
+        {
+          name: 'Results',
+          type: 'pie',
+          radius: ['70%', '90%'],
+          avoidLabelOverlap: false,
+          label: {
+            normal: {
+              show: false,
+              position: 'center',
+            },
+            emphasis: {
+              show: true,
+              textStyle: {
+                fontSize: '24',
+                fontWeight: 'bold',
+              }
             }
-          }
-        },
-        labelLine: {
-          normal: {
-            show: false
-          }
-        },
-        data: values
-      }]
+          },
+          labelLine: {
+            normal: {
+              show: false,
+            },
+          },
+          data: values,
+        }
+      ]
     };
   }
 
   render() {
     const chartOptions = this.state.checkedA ? this.getPieOption() : this.getBarOption();
+
     return (
       <React.Fragment>
+        <Paper elevation={1} className="survey-response--chart-switch">
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked
+                onChange={this.handleChange('checkedA')}
+                value="checkedB"
+                color="primary"
+              />
+            }
+            label="Change chart"
+          />
+        </Paper>
+
         <ReactEcharts
           echarts={echarts}
           option={chartOptions}
@@ -184,14 +202,6 @@ class QuantitativeChart extends Component {
           lazyUpdate={true}
           theme={'light'}
           onChartReady={this.onChartReadyCallback}
-        />
-        <Switch
-          defaultChecked
-          value="checkedF"
-          color="default"
-          onChange={this.handleChange('checkedA')}
-          value="checkedB"
-          color="primary"
         />
       </React.Fragment>
     );

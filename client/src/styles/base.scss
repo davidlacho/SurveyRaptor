@@ -36,6 +36,10 @@ h5 {
   }
 }
 
+h1 {
+  font-family: $font-fun;
+}
+
 .site-loading {
   @include centerer;
 }

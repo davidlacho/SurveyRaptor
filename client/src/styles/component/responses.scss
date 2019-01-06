@@ -1,0 +1,79 @@
+.survey-response--container {
+  margin-top: $space-small;
+  vertical-align: top;
+
+  @include media($min: $bp-small) {
+    display: inline-block;
+    width: calc(50% - #{$space-x-large});
+    margin-top: 0;
+
+    &:nth-child(odd) {
+      padding-right: $space-x-large;
+      padding-bottom: $space-x-large;
+    }
+  }
+}
+
+.survey-response--wrapper {
+  min-height: 150px;
+  padding: $space-small;
+}
+
+.survey-response--question {
+  margin: $space-xx-large 0 $space-medium;
+
+  @include media($max: $bp-small) {
+    margin-top: $space-x-large;
+  }
+}
+
+.survey-response--results-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  &:hover {
+    h3 {
+      color: lighten($color-dark-blue, 30%);
+    }
+  }
+
+  div,
+  h3 {
+    display: inline-block;
+  }
+
+  div {
+    margin-right: $space-xx-small;
+  }
+
+  h3 {
+    width: auto;
+    color: $color-dark-blue;
+    transition: ease 0.2s;
+  }
+}
+
+.survey-response--answer {
+  span {
+    display: block;
+    margin: $space-xx-small 0;
+  }
+
+  div {
+    margin-top: $space-xx-small;
+    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+  }
+}
+
+.survey-response--chart-switch {
+  margin-bottom: $space-x-large;
+
+  @include media($min: $bp-small) {
+    max-width: 15%;
+  }
+
+  label {
+    margin: 0;
+  }
+}

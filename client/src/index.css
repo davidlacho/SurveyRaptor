@@ -146,6 +146,8 @@
         .table-container td:not(:first-child) {
           padding-right: 56px; } }
   .table-container a {
+    position: relative;
+    z-index: 1;
     display: block;
     width: 100%;
     color: #002661;
@@ -223,6 +225,9 @@ h5 {
     h5 {
       text-align: center; } }
 
+h1 {
+  font-family: "Major Mono Display", monospace; }
+
 .site-loading {
   position: absolute;
   top: 50%;
@@ -275,6 +280,7 @@ h5 {
 .header-link {
   display: block;
   padding: 0.75rem;
+  margin-right: 0.75rem;
   font-size: 14px;
   color: #00eb91;
   font-weight: 600;
@@ -282,14 +288,17 @@ h5 {
   border: 1px solid #00eb91;
   border-radius: 0.25rem;
   transition: 0.2s ease; }
+  @media screen and (max-width: 679px) {
+    .header-link {
+      display: none; } }
   .header-link:hover {
     color: #52ffbd;
     border-color: #52ffbd; }
-  .header-link:first-child {
-    margin-right: 0.75rem; }
+  .header-link:last-child {
+    margin-right: 0; }
     @media screen and (max-width: 679px) {
-      .header-link:first-child {
-        display: none; } }
+      .header-link:last-child {
+        display: block; } }
 
 .site-footer {
   flex-shrink: 0;
@@ -330,6 +339,60 @@ h5 {
   font-family: "Roboto Mono", monospace;
   color: #002661;
   text-align: center; }
+
+.survey-response--container {
+  margin-top: 1rem;
+  vertical-align: top; }
+  @media screen and (min-width: 720px) {
+    .survey-response--container {
+      display: inline-block;
+      width: calc(50% - 2rem);
+      margin-top: 0; }
+      .survey-response--container:nth-child(odd) {
+        padding-right: 2rem;
+        padding-bottom: 2rem; } }
+
+.survey-response--wrapper {
+  min-height: 150px;
+  padding: 1rem; }
+
+.survey-response--question {
+  margin: 3.125rem 0 1.25rem; }
+  @media screen and (max-width: 719px) {
+    .survey-response--question {
+      margin-top: 2rem; } }
+
+.survey-response--results-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none; }
+  .survey-response--results-link:hover h3 {
+    color: #0062fa; }
+  .survey-response--results-link div,
+  .survey-response--results-link h3 {
+    display: inline-block; }
+  .survey-response--results-link div {
+    margin-right: 0.5rem; }
+  .survey-response--results-link h3 {
+    width: auto;
+    color: #002661;
+    transition: ease 0.2s; }
+
+.survey-response--answer span {
+  display: block;
+  margin: 0.5rem 0; }
+
+.survey-response--answer div {
+  margin-top: 0.5rem;
+  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%); }
+
+.survey-response--chart-switch {
+  margin-bottom: 2rem; }
+  @media screen and (min-width: 720px) {
+    .survey-response--chart-switch {
+      max-width: 15%; } }
+  .survey-response--chart-switch label {
+    margin: 0; }
 
 /*!
  * animate.css -http://daneden.me/animate

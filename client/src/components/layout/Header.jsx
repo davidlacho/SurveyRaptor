@@ -11,6 +11,10 @@ class Header extends Component {
         </NavLink>
 
         <div className="site-header--nav">
+          <NavLink className="header-link" to="/">
+            Survey List
+          </NavLink>
+
           <NavLink className="header-link" to="/build-survey">
             Build Survey
           </NavLink>

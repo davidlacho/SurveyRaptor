@@ -4,10 +4,9 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 
 // Material-UI Components
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
 
 class QualitativeChart extends Component {
   constructor(props) {
@@ -48,7 +47,7 @@ class QualitativeChart extends Component {
     const responseCards = (this.state.team ?
       this.props.data.responses.map((response, i) => {
         const tone = JSON.parse(response.tone);
-        const toneChips = tone && tone.tones[0] ? <div key={response.id}><Typography component="p"><Chip label={`${tone.tones[0].tone_name}: ${(tone.tones[0].score * 100).toFixed(2)}%`} variant="outlined" /></Typography></div> : null;
+        const toneChips = tone && tone.tones[0] ? <Chip key={response.id} label={`${tone.tones[0].tone_name}: ${(tone.tones[0].score * 100).toFixed(2)}%`} variant="outlined" /> : null;
 
     const userAvatar = (this.state.team[response.slack_id] ?
       <React.Fragment>
@@ -62,18 +61,16 @@ class QualitativeChart extends Component {
     );
 
         return(
-          <div key={response.id}>
-            <Paper elevation={1}>
-              <NavLink to={`/values/${response.slack_id}`}>
-                <div>
-                  {userAvatar}
-                </div>
+          <div key={response.id} className="survey-response--container">
+            <Paper elevation={1} className="survey-response--wrapper">
+              <NavLink to={`/values/${response.slack_id}`} className="survey-response--results-link">
+                {userAvatar}
               </NavLink>
-              <div>
-                <Typography variant="h5" component="h3">
+              <div className="survey-response--answer">
+                <span>
                   {response.answer}
-                </Typography>
-                  {toneChips}
+                </span>
+                {toneChips}
               </div>
             </Paper>
           </div>

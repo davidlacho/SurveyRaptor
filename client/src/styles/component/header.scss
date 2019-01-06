@@ -25,6 +25,7 @@
 .header-link {
   display: block;
   padding: $space-x-small;
+  margin-right: $space-x-small;
   font-size: $font-body-size-smaller;
   color: lighten($color-dark-green, 20%);
   font-weight: 600;
@@ -33,16 +34,20 @@
   border-radius: $space-xxx-small;
   transition: 0.2s ease;
 
+  @include media($max: $bp-smaller) {
+    display: none;
+  }
+
   &:hover {
     color: lighten($color-dark-green, 40%);
     border-color: lighten($color-dark-green, 40%);
   }
 
-  &:first-child {
-    margin-right: $space-x-small;
+  &:last-child {
+    margin-right: 0;
 
     @include media($max: $bp-smaller) {
-      display: none;
+      display: block;
     }
   }
 }
