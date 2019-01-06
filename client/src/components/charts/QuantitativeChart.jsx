@@ -178,21 +178,20 @@ class QuantitativeChart extends Component {
 
   render() {
     const chartOptions = this.state.checkedA ? this.getPieOption() : this.getBarOption();
+    const barSelected = this.state.checkedA ? 'chart-label' : 'chart-label selected';
+    const pieSelected = this.state.checkedA ? 'chart-label selected' : 'chart-label';
 
     return (
       <React.Fragment>
         <Paper elevation={1} className="survey-response--chart-switch">
-          <FormControlLabel
-            control={
+          <span className={barSelected}>Bar</span>
               <Switch
                 defaultChecked
                 onChange={this.handleChange('checkedA')}
                 value="checkedB"
-                color="primary"
+                color="default"
               />
-            }
-            label="Change chart"
-          />
+          <span className={pieSelected}>Pie</span>
         </Paper>
 
         <ReactEcharts

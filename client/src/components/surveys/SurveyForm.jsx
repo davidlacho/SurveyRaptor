@@ -3,6 +3,8 @@ import cookie from 'react-cookies';
 import axios from 'axios';
 import QuestionField from './QuestionField';
 import DeploymentOptions from './DeploymentOptions.jsx';
+import SurveyList from './SurveyList.jsx';
+
 
 // Material-UI Components
 import Button from '@material-ui/core/Button';
@@ -178,7 +180,7 @@ class SurveyForm extends Component {
           {submitButton}
         </form>
       ) :
-      <p>Submitted!</p>
+      <React.Fragment><SurveyList /></React.Fragment>
     );
   }
 }

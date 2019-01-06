@@ -156,6 +156,9 @@ module.exports = (knex, slapp) => {
       .where('slack_id', req.user.creator_id)
       .then((resp) => {
         const returnArray = [];
+        if (resp.length === 0) {
+          res.status(400).json('no data');
+        }
         resp.forEach((response, i) => {
           knex('respondents')
             .select('*')
