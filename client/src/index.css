@@ -118,7 +118,7 @@
     .table-container {
       margin: 1rem 0; } }
   .table-container thead {
-    background-color: #002661; }
+    background-color: #005233; }
   .table-container th {
     padding-right: 0;
     color: #ffffff; }
@@ -131,7 +131,7 @@
     .table-container tr:nth-of-type(even) {
       background-color: #F4F4F4; }
     .table-container tr:hover td {
-      border-bottom: 1px solid #002661; } }
+      border-bottom: 1px solid #008552; } }
   .table-container td {
     position: relative; }
     @media screen and (min-width: 720px) {
@@ -150,7 +150,7 @@
     z-index: 1;
     display: block;
     width: 100%;
-    color: #002661;
+    color: #001f13;
     text-decoration: none; }
     @media screen and (min-width: 720px) {
       .table-container a {

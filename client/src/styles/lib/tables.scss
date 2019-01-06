@@ -8,7 +8,7 @@
   }
 
   thead {
-    background-color: $color-dark-blue;
+    background-color: darken($color-dark-green, 10%);
   }
 
   th {
@@ -32,7 +32,7 @@
 
       &:hover {
         td {
-          border-bottom: 1px solid $color-dark-blue;
+          border-bottom: 1px solid $color-dark-green;
         }
       }
     }
@@ -69,7 +69,7 @@
     z-index: 1;
     display: block;
     width: 100%;
-    color: $color-dark-blue;
+    color: darken($color-dark-green, 20%);
     text-decoration: none;
 
     @include media($min: $bp-small) {
