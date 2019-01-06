@@ -1,5 +1,7 @@
 const PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3');
 const wordcount = require('wordcount');
+const txtgen = require('txtgen');
+
 
 const personalityInsights = new PersonalityInsightsV3({
   iam_apikey: process.env.PERSONALITY_API_KEY,
@@ -30,6 +32,9 @@ module.exports = (knex, slackID, callback) => {
       values[1].forEach((answer) => {
         userAnswers.push(answer.answer);
       });
+      if (values[0].length === 0 && values[1].length === 0) {
+        userAnswers.push(txtgen.article())
+      }
       let userString = userAnswers.join('. ');
       while (wordcount(userString) < 100) {
         userString += userString;
