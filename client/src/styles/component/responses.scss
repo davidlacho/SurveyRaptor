@@ -70,10 +70,20 @@
   margin-bottom: $space-x-large;
 
   @include media($min: $bp-small) {
-    max-width: 15%;
+    max-width: 10%;
+    padding: 0 $space-small;
   }
 
-  label {
-    margin: 0;
+  @include media($max: $bp-small) {
+    text-align: center;
+  }
+
+  .chart-label {
+    font-size: $font-body-size-smaller;
+    color: $color-dark-green;
+
+    &.selected {
+      font-weight: 600;
+    }
   }
 }

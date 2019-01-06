@@ -390,9 +390,16 @@ h1 {
   margin-bottom: 2rem; }
   @media screen and (min-width: 720px) {
     .survey-response--chart-switch {
-      max-width: 15%; } }
-  .survey-response--chart-switch label {
-    margin: 0; }
+      max-width: 10%;
+      padding: 0 1rem; } }
+  @media screen and (max-width: 719px) {
+    .survey-response--chart-switch {
+      text-align: center; } }
+  .survey-response--chart-switch .chart-label {
+    font-size: 14px;
+    color: #008552; }
+    .survey-response--chart-switch .chart-label.selected {
+      font-weight: 600; }
 
 /*!
  * animate.css -http://daneden.me/animate
