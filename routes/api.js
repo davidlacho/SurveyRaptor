@@ -151,34 +151,33 @@ module.exports = (knex, slapp) => {
   router.get('/user/surveys', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
+    const getRespondentsAndBuildReturn = response => knex('respondents')
+      .select('*')
+      .where('survey_id', response.id)
+      .then(respondents => ({
+        surveyID: response.id,
+        name: response.name,
+        createdAt: response.created_at,
+        respondentCount: respondents.length,
+      }));
+
     knex('surveys')
       .select('surveys.id', 'surveys.created_at', 'surveys.name')
       .join('users', 'surveys.user_id', 'users.id')
       .where('slack_id', req.user.creator_id)
       .then((resp) => {
-        const returnArray = [];
         if (resp.length === 0) {
           res.status(400).json('no data');
         }
-        resp.forEach((response, i) => {
-          knex('respondents')
-            .select('*')
-            .where('survey_id', response.id)
-            .then((respondents) => {
-              returnArray[i] = {
-                surveyID: response.id,
-                name: response.name,
-                createdAt: response.created_at,
-                respondentCount: respondents.length,
-              };
-              if (returnArray.length === resp.length) {
-                res.status(200).json(returnArray);
-              }
-            })
-            .catch((err) => {
-              res.status(500).json(err);
-            });
+        const responseObjects = [];
+        resp.forEach((response) => {
+          responseObjects.push((getRespondentsAndBuildReturn(response)));
         });
+        Promise.all(responseObjects)
+          .then((values) => {
+            res.status(200).json(values);
+          })
+          .catch(err => err);
       })
       .catch((err) => {
         res.status(500).json(err);
@@ -188,6 +187,16 @@ module.exports = (knex, slapp) => {
   router.get('/user/surveys/:id', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
+    const getRespondentsAndBuildReturn = response => knex('respondents')
+      .select('*')
+      .where('survey_id', response.id)
+      .then(respondents => ({
+        surveyID: response.id,
+        name: response.name,
+        createdAt: response.created_at,
+        respondentCount: respondents.length,
+      }));
+
     knex('surveys')
       .select('surveys.id', 'surveys.created_at', 'surveys.name')
       .join('users', 'surveys.user_id', 'users.id')
@@ -198,25 +207,14 @@ module.exports = (knex, slapp) => {
           res.status(403).send('Unauthorized');
         } else {
           const returnArray = [];
-          resp.forEach((response, i) => {
-            knex('respondents')
-              .select('*')
-              .where('survey_id', response.id)
-              .then((respondents) => {
-                returnArray[i] = {
-                  surveyID: response.id,
-                  name: response.name,
-                  createdAt: response.created_at,
-                  respondentCount: respondents.length,
-                };
-                if (returnArray.length === resp.length) {
-                  res.status(200).json(returnArray);
-                }
-              })
-              .catch((err) => {
-                res.status(500).json(err);
-              });
+          resp.forEach((response) => {
+            returnArray.push(getRespondentsAndBuildReturn(response));
           });
+          Promise.all(returnArray)
+            .then((values) => {
+              res.status(200).json(values);
+            })
+            .catch(err => err);
         }
       })
       .catch((err) => {
