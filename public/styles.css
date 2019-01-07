@@ -1,7 +1,36 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
 @import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
+
+/* CircularStd @font-face kit */
+@font-face {
+  font-family: 'CircularStd-Book';
+  src: url('./fonts/CircularStd-Book.eot');
+  src: url('./fonts/CircularStd-Book.eot?#iefix') format('embedded-opentype'), url('./fonts/CircularStd-Book.woff') format('woff'), url('./fonts/CircularStd-Book.ttf') format('truetype'), url('./fonts/CircularStd-Book.svg#bcc26993292869431e54c666aafa8fcd') format('svg');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'CircularStd-BookItalic';
+  src: url('./fonts/CircularStd-BookItalic.eot');
+  src: url('./fonts/CircularStd-BookItalic.eot?#iefix') format('embedded-opentype'), url('./fonts/CircularStd-BookItalic.woff') format('woff'), url('./fonts/CircularStd-BookItalic.ttf') format('truetype'), url('./fonts/CircularStd-BookItalic.svg#bcc26993292869431e54c666aafa8fcd') format('svg');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CircularStd-Bold';
+  src: url('./fonts/CircularStd-Bold.eot');
+  src: url('./fonts/CircularStd-Bold.eot?#iefix') format('embedded-opentype'), url('./fonts/CircularStd-Bold.woff') format('woff'), url('./fonts/CircularStd-Bold.ttf') format('truetype'), url('./fonts/CircularStd-Bold.svg#bcc26993292869431e54c666aafa8fcd') format('svg');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'CircularStd-BoldItalic';
+  src: url('./fonts/CircularStd-BoldItalic.eot');
+  src: url('./fonts/CircularStd-BoldItalic.eot?#iefix') format('embedded-opentype'), url('./fonts/CircularStd-BoldItalic.woff') format('woff'), url('./fonts/CircularStd-BoldItalic.ttf') format('truetype'), url('./fonts/CircularStd-BoldItalic.svg#bcc26993292869431e54c666aafa8fcd') format('svg');
+  font-weight: 600;
+  font-style: italic;
+}
 
 /* Normalize */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css');
@@ -12,7 +41,8 @@ body {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  font-family: 'CircularStd-Book';
   font-size: 1rem;
   background: #FFFDF9;
 }
@@ -23,7 +53,7 @@ h3,
 h4,
 h5 {
   width: 100%;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'CircularStd-Bold';
 }
 
 p {
@@ -186,8 +216,7 @@ p {
 .site-footer {
   flex-shrink: 0;
   width: 100%;
-  border-top: 1px solid #daa250;
-  background: linear-gradient(90deg, #ffd700 0%, #3ad59f 100%);
+  background-image: linear-gradient(-20deg, #008552 0%, #50cc7f 100%);
 }
 
 .copyright {
@@ -197,7 +226,7 @@ p {
 }
 
 .copyright-char {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'CircularStd-Book';
 }
 
 @media screen and (max-width: 720px) {

@@ -17,7 +17,7 @@
 
 .selectable-users--card {
   display: inline-block;
-  max-width: 300px;
+  max-width: calc(300px - #{$space-x-large});
 
   @include media($max: $bp-small) {
     margin-bottom: $space-medium;

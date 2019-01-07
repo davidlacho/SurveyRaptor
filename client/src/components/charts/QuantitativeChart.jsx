@@ -7,7 +7,6 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
 
 // Material-UI Components
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
 import Switch from '@material-ui/core/Switch';
 
@@ -185,12 +184,12 @@ class QuantitativeChart extends Component {
       <React.Fragment>
         <Paper elevation={1} className="survey-response--chart-switch">
           <span className={barSelected}>Bar</span>
-              <Switch
-                defaultChecked
-                onChange={this.handleChange('checkedA')}
-                value="checkedB"
-                color="default"
-              />
+          <Switch
+            defaultChecked
+            onChange={this.handleChange('checkedA')}
+            value="checkedB"
+            color="default"
+          />
           <span className={pieSelected}>Pie</span>
         </Paper>
 

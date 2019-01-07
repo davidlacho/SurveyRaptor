@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // Main components
 import Header from './components/layout/Header.jsx';
-import Footer from './components/layout/Footer.jsx';
 import Home from './components/Home.jsx';
 import NotFound from './components/NotFound';
 
@@ -39,7 +38,6 @@ const App = () => (
           <Route path="/values/:slackID" component={Results} />
           <Route component={NotFound} />
         </Switch>
-        <Footer />
       </div>
     </MuiThemeProvider>
   </BrowserRouter>

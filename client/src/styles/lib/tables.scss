@@ -2,6 +2,7 @@
 
 .table-container {
   margin: $space-x-large 0;
+  font-family: $font-body !important;
 
   @include media($max: $bp-small) {
     margin: $space-small 0;

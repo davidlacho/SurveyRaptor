@@ -49,6 +49,7 @@
 
 .form-button {
   display: block;
+  font-family: $font-body !important;
   background: $color-dark-green !important;
 
   &:hover {

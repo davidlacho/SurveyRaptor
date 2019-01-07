@@ -1,8 +1,33 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,700");
 @import url("https://fonts.googleapis.com/css?family=Major+Mono+Display");
+@font-face {
+  font-family: 'CircularStd-Book';
+  src: url("./fonts/CircularStd-Book.eot");
+  src: url("./fonts/CircularStd-Book.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-Book.woff") format("woff"), url("./fonts/CircularStd-Book.ttf") format("truetype"), url("./fonts/CircularStd-Book.svg#bcc26993292869431e54c666aafa8fcd") format("svg");
+  font-weight: 400; }
+
+@font-face {
+  font-family: 'CircularStd-BookItalic';
+  src: url("./fonts/CircularStd-BookItalic.eot");
+  src: url("./fonts/CircularStd-BookItalic.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-BookItalic.woff") format("woff"), url("./fonts/CircularStd-BookItalic.ttf") format("truetype"), url("./fonts/CircularStd-BookItalic.svg#bcc26993292869431e54c666aafa8fcd") format("svg");
+  font-weight: 400;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'CircularStd-Bold';
+  src: url("./fonts/CircularStd-Bold.eot");
+  src: url("./fonts/CircularStd-Bold.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-Bold.woff") format("woff"), url("./fonts/CircularStd-Bold.ttf") format("truetype"), url("./fonts/CircularStd-Bold.svg#bcc26993292869431e54c666aafa8fcd") format("svg");
+  font-weight: 600; }
+
+@font-face {
+  font-family: 'CircularStd-BoldItalic';
+  src: url("./fonts/CircularStd-BoldItalic.eot");
+  src: url("./fonts/CircularStd-BoldItalic.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-BoldItalic.woff") format("woff"), url("./fonts/CircularStd-BoldItalic.ttf") format("truetype"), url("./fonts/CircularStd-BoldItalic.svg#bcc26993292869431e54c666aafa8fcd") format("svg");
+  font-weight: 600;
+  font-style: italic; }
+
 .app-loader {
   position: absolute;
   top: calc(50% - 20px);
@@ -100,6 +125,7 @@
 
 .form-button {
   display: block;
+  font-family: "CircularStd-Book" !important;
   background: #008552 !important; }
   .form-button:hover {
     background: #00b871 !important; }
@@ -113,7 +139,8 @@
   margin-right: auto !important; }
 
 .table-container {
-  margin: 2rem 0; }
+  margin: 2rem 0;
+  font-family: "CircularStd-Book" !important; }
   @media screen and (max-width: 719px) {
     .table-container {
       margin: 1rem 0; } }
@@ -191,7 +218,7 @@
 
 body {
   width: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: "CircularStd-Book";
   font-size: 16px;
   background: #FFFDF9; }
 
@@ -216,7 +243,7 @@ h3,
 h4,
 h5 {
   width: 100%;
-  font-family: "Roboto Mono", monospace; }
+  font-family: "CircularStd-Bold"; }
   @media screen and (max-width: 719px) {
     h1,
     h2,
@@ -282,37 +309,23 @@ h1 {
   padding: 0.75rem;
   margin-right: 0.75rem;
   font-size: 14px;
-  color: #00eb91;
+  color: #ffffff;
   font-weight: 600;
   text-decoration: none;
-  border: 1px solid #00eb91;
+  border: 1px solid #85ffd0;
   border-radius: 0.25rem;
   transition: 0.2s ease; }
   @media screen and (max-width: 679px) {
     .header-link {
       display: none; } }
   .header-link:hover {
-    color: #52ffbd;
+    color: #b8ffe4;
     border-color: #52ffbd; }
   .header-link:last-child {
     margin-right: 0; }
     @media screen and (max-width: 679px) {
       .header-link:last-child {
         display: block; } }
-
-.site-footer {
-  flex-shrink: 0;
-  width: 100%;
-  border-top: 1px solid #DAA250;
-  background: linear-gradient(90deg, #FFD700 0%, #50cc7f 100%); }
-
-.copyright {
-  padding: 0.5rem 2rem;
-  font-family: "Major Mono Display", monospace;
-  font-size: 12px; }
-
-.copyright-char {
-  font-family: "Open Sans", sans-serif; }
 
 .selectable-users {
   padding: 2rem;
@@ -327,7 +340,7 @@ h1 {
 
 .selectable-users--card {
   display: inline-block;
-  max-width: 300px; }
+  max-width: calc(300px - 2rem); }
   @media screen and (max-width: 719px) {
     .selectable-users--card {
       margin-bottom: 1.25rem; } }
@@ -336,7 +349,7 @@ h1 {
     object-fit: cover; }
 
 .selectable-users--name {
-  font-family: "Roboto Mono", monospace;
+  font-family: "CircularStd-Bold";
   color: #002661;
   text-align: center; }
 
@@ -380,7 +393,8 @@ h1 {
 
 .survey-response--answer span {
   display: block;
-  margin: 0.5rem 0; }
+  margin: 0.5rem 0;
+  font-family: "CircularStd-Book" !important; }
 
 .survey-response--answer div {
   margin-top: 0.5rem;
