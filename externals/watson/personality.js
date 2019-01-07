@@ -36,7 +36,7 @@ module.exports = (knex, slackID, callback) => {
         userAnswers.push(txtgen.article())
       }
       let userString = userAnswers.join('. ');
-      while (wordcount(userString) < 100) {
+      while (wordcount(userString) <= 200) {
         userString += userString;
       }
       return userString;
