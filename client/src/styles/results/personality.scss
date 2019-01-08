@@ -13,8 +13,9 @@
 
 .results-container {
   position: relative;
-  min-height: calc(100vh - 269px);
+  min-height: calc(100vh - 215px);
   padding: $space-x-large;
+  font-family: $font-body;
   background: linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E);
 }
 
@@ -40,6 +41,7 @@
 }
 
 .summary-text {
+  font-size: $font-body-size;
   line-height: 1.6;
 }
 
@@ -86,6 +88,7 @@
 
 .plot-wrapper {
   padding: $space-x-large;
+  font-family: $font-body;
   color: $color-white;
   background: linear-gradient(
     to right,
@@ -182,6 +185,7 @@
 
 .wrapper-consumer-pref {
   padding: $space-x-large;
+  font-family: $font-body;
   font-size: $font-body-size;
   background: linear-gradient(to right, #ffd194, #70e1f5);
 

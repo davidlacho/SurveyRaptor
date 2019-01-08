@@ -1,9 +1,33 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Logo from './Logo';
 
+// Material-UI Components
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 class Header extends Component {
+  state = {
+    anchorEl: null,
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  whatevermethod = (value) => {
+    console.log('value', value);
+  }
+
+
   render() {
+    const { anchorEl } = this.state;
+
     return (
       <header className="site-header">
         <NavLink className="logo" to="/">
@@ -11,17 +35,26 @@ class Header extends Component {
         </NavLink>
 
         <div className="site-header--nav">
-          <NavLink className="header-link" to="/">
-            Survey List
-          </NavLink>
+          <Button
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            className="site-header--menu"
+            onClick={this.handleClick}
+          >
+            Menu
+          </Button>
 
-          <NavLink className="header-link" to="/build-survey">
-            Build Survey
-          </NavLink>
-
-          <a href="/logout" className="header-link">
-            Logout
-          </a>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose} className="header-link" component={Link} to="/surveys">My Surveys</MenuItem>
+            <MenuItem onClick={this.handleClose} className="header-link" component={Link} to="/values">Team Values</MenuItem>
+            <MenuItem onClick={this.handleClose} className="header-link" component={Link} to="/build-survey">Build Survey</MenuItem>
+            <MenuItem onClick={this.handleClose} className="header-link" component="a" href="/logout">Logout</MenuItem>
+          </Menu>
         </div>
       </header>
     );

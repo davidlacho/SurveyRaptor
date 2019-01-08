@@ -1,6 +1,5 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://fonts.googleapis.com/css?family=Major+Mono+Display");
 @font-face {
   font-family: 'CircularStd-Book';
@@ -304,28 +303,17 @@ h1 {
   display: flex;
   align-items: center; }
 
+.site-header--menu {
+  font-family: "CircularStd-Book" !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  border: 1px solid #85ffd0 !important; }
+
 .header-link {
-  display: block;
-  padding: 0.75rem;
-  margin-right: 0.75rem;
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 600;
-  text-decoration: none;
-  border: 1px solid #85ffd0;
-  border-radius: 0.25rem;
-  transition: 0.2s ease; }
-  @media screen and (max-width: 679px) {
-    .header-link {
-      display: none; } }
+  font-family: "CircularStd-Book" !important;
+  font-size: 14px !important; }
   .header-link:hover {
-    color: #b8ffe4;
-    border-color: #52ffbd; }
-  .header-link:last-child {
-    margin-right: 0; }
-    @media screen and (max-width: 679px) {
-      .header-link:last-child {
-        display: block; } }
+    color: #008552; }
 
 .selectable-users {
   padding: 2rem;
@@ -1468,8 +1456,9 @@ h1 {
 
 .results-container {
   position: relative;
-  min-height: calc(100vh - 269px);
+  min-height: calc(100vh - 215px);
   padding: 2rem;
+  font-family: "CircularStd-Book";
   background: linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E); }
 
 .results-summary {
@@ -1489,6 +1478,7 @@ h1 {
   margin: auto; }
 
 .summary-text {
+  font-size: 16px;
   line-height: 1.6; }
 
 .analysis-strength {
@@ -1521,6 +1511,7 @@ h1 {
 
 .plot-wrapper {
   padding: 2rem;
+  font-family: "CircularStd-Book";
   color: #ffffff;
   background: linear-gradient(to right, #c06c84, #6c5b7b, #355c7d); }
 
@@ -1581,6 +1572,7 @@ h1 {
 
 .wrapper-consumer-pref {
   padding: 2rem;
+  font-family: "CircularStd-Book";
   font-size: 16px;
   background: linear-gradient(to right, #ffd194, #70e1f5); }
   .wrapper-consumer-pref .consumer-pref {

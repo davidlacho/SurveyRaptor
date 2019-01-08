@@ -16,7 +16,8 @@ class ResultsValues extends Component {
       radar: {
         name: {
           textStyle: {
-            color: "#fff",
+            color: '#fff',
+            fontFamily: 'CircularStd-Book',
             fontSize: 16
           }
         },

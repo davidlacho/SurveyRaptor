@@ -16,11 +16,11 @@ class ResultsBigFiveFacet extends Component {
       radar: {
         name: {
           textStyle: {
-            color: "#fff",
+            color: '#fff',
+            fontFamily: 'CircularStd-Book',
             fontSize: 13
           }
         },
-        //shape: "circle",
         indicator: [
           {
             name: this.props.resultData[0]["name"],

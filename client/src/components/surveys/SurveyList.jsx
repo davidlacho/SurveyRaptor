@@ -19,6 +19,7 @@ class SurveyList extends Component {
     this.state = {
       surveys: [],
     };
+
   }
 
   componentDidMount() {
