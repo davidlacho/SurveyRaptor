@@ -290,7 +290,7 @@ h1 {
   justify-content: space-between;
   width: calc(100% - 4rem);
   padding: 0 2rem;
-  background-image: linear-gradient(-20deg, #008552 0%, #50cc7f 100%); }
+  background-image: linear-gradient(-20deg, #118637 0%, #50cc7f 100%); }
 
 .logo {
   transform: scaleX(-1);
@@ -305,9 +305,7 @@ h1 {
 
 .site-header--menu {
   font-family: "CircularStd-Book" !important;
-  font-weight: 600 !important;
-  color: #ffffff !important;
-  border: 1px solid #85ffd0 !important; }
+  font-weight: 600 !important; }
 
 .header-link {
   font-family: "CircularStd-Book" !important;
@@ -338,7 +336,7 @@ h1 {
 
 .selectable-users--name {
   font-family: "CircularStd-Bold";
-  color: #002661;
+  color: #005233;
   text-align: center; }
 
 .survey-response--container {

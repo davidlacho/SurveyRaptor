@@ -38,8 +38,10 @@ class Header extends Component {
           <Button
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
+            color="primary"
             className="site-header--menu"
             onClick={this.handleClick}
+            variant="contained"
           >
             Menu
           </Button>
