@@ -33,5 +33,6 @@
 
   &:hover {
     color: $color-dark-green;
+    background-color: lighten($color-light-green, 40%) !important;
   }
 }

@@ -311,7 +311,8 @@ h1 {
   font-family: "CircularStd-Book" !important;
   font-size: 14px !important; }
   .header-link:hover {
-    color: #008552; }
+    color: #008552;
+    background-color: #eefaf3 !important; }
 
 .selectable-users {
   padding: 2rem;
