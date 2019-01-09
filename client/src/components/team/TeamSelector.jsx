@@ -66,8 +66,12 @@ class TeamSelector extends Component {
     });
 
     return (
-      <div className="selectable-users">
-        {selectableUsers}
+      <div className="site-content">
+        <h1>Team Values</h1>
+
+        <div className="selectable-users">
+          {selectableUsers}
+        </div>
       </div>
     );
   }

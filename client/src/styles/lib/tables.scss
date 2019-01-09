@@ -14,6 +14,7 @@
 
   th {
     padding-right: 0;
+    font-size: $font-body-size;
     color: $color-white;
 
     &:not(:first-child) {
@@ -41,6 +42,7 @@
 
   td {
     position: relative;
+    font-size: $font-body-size;
 
     @include media($min: $bp-small) {
       transition: border-bottom 0.2s linear;

@@ -144,7 +144,7 @@ class SurveyForm extends Component {
 
     const questionButton = (this.state.questionKey <= 3) && (this.state.questions[this.state.questionKey - 1]) ? <Button className="form-button" color="primary" variant="contained" onClick={() => this.addAQuestionToSurvey()}>Add A New Question</Button> : '';
 
-    const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) && this.state.surveyName ? <Button className="form-button" color="primary" variant="contained" onClick={this.submitQuestions}>Send <Icon>send</Icon></Button> : '';
+    const submitButton = (this.state.questions[this.state.questionKey - 1] && this.state.selectedUsers.length >= 1) && this.state.surveyName ? <Button className="form-button survey-builder--submit" color="primary" variant="contained" onClick={this.submitQuestions}>Send <Icon>send</Icon></Button> : '';
 
     const firstQuestionField =
       <QuestionField key={0} number={0} saveQuestion={this.saveQuestion} saveAnswer={this.saveAnswer} value={this.state.questions[0] ? this.state.questions[0].question : ''} possibleAnswers={this.state.questions[0] ?
@@ -156,7 +156,7 @@ class SurveyForm extends Component {
       !this.state.submitted ?
       (
         <form className="form-container" autoComplete="off">
-          <h2>SurveyBuilder</h2>
+          <h1>SurveyBuilder</h1>
 
           <TextField
             label="Survey name"

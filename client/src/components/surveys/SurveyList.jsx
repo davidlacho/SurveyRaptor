@@ -77,7 +77,7 @@ class SurveyList extends Component {
 
     return (
       <div className="site-content">
-        <h2>SurveyList</h2>
+        <h1>SurveyList</h1>
 
         <Paper className="table-wrapper">
           <Table className="table-container">
