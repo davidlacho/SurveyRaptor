@@ -1,5 +1,9 @@
 .selectable-users {
-  text-align: center;
+  margin-top: $space-xx-large;
+
+  @include media($max: $bp-large) {
+    text-align: center;
+  }
 
   a {
     margin-right: $space-medium;
@@ -18,7 +22,7 @@
   display: inline-block;
   max-width: calc(300px - #{$space-x-large});
 
-  @include media($max: $bp-small) {
+  @include media($max: $bp-large) {
     margin-bottom: $space-medium;
   }
 

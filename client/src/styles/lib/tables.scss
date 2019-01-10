@@ -13,12 +13,12 @@
   }
 
   th {
-    padding-right: 0;
+    padding-left: 0;
     font-size: $font-body-size;
     color: $color-white;
 
-    &:not(:first-child) {
-      text-align: right;
+    &:first-child {
+      padding-left: $space-x-medium;
     }
   }
 
@@ -48,6 +48,8 @@
       transition: border-bottom 0.2s linear;
 
       &:first-child {
+        width: 15%;
+
         a {
           justify-content: flex-start;
           padding-left: $space-x-medium;
@@ -57,12 +59,20 @@
       &:last-child {
         a {
           left: -$space-x-medium;
-          padding-right: $space-x-medium;
+          padding-left: $space-x-medium;
         }
       }
 
-      &:not(:first-child) {
-        padding-right: 56px;
+      &:nth-child(2) {
+        width: 60%;
+      }
+
+      &:nth-child(3) {
+        width: 10%;
+      }
+
+      &:nth-child(4) {
+        width: 15%;
       }
     }
   }
@@ -83,7 +93,6 @@
       left: 0;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
     }
   }
 

@@ -137,6 +137,9 @@
 .form-button--answer {
   margin-right: auto !important; }
 
+.survey-builder--submit {
+  margin-top: 1.5rem !important; }
+
 .table-container {
   margin: 2rem 0;
   font-family: "CircularStd-Book" !important; }
@@ -146,10 +149,11 @@
   .table-container thead {
     background-color: #005233; }
   .table-container th {
-    padding-right: 0;
+    padding-left: 0;
+    font-size: 16px;
     color: #ffffff; }
-    .table-container th:not(:first-child) {
-      text-align: right; }
+    .table-container th:first-child {
+      padding-left: 1.5rem; }
   @media screen and (max-width: 719px) {
     .table-container tr {
       background: #ffffff; } }
@@ -159,18 +163,25 @@
     .table-container tr:hover td {
       border-bottom: 1px solid #008552; } }
   .table-container td {
-    position: relative; }
+    position: relative;
+    font-size: 16px; }
     @media screen and (min-width: 720px) {
       .table-container td {
         transition: border-bottom 0.2s linear; }
-        .table-container td:first-child a {
-          justify-content: flex-start;
-          padding-left: 1.5rem; }
+        .table-container td:first-child {
+          width: 15%; }
+          .table-container td:first-child a {
+            justify-content: flex-start;
+            padding-left: 1.5rem; }
         .table-container td:last-child a {
           left: -1.5rem;
-          padding-right: 1.5rem; }
-        .table-container td:not(:first-child) {
-          padding-right: 56px; } }
+          padding-left: 1.5rem; }
+        .table-container td:nth-child(2) {
+          width: 60%; }
+        .table-container td:nth-child(3) {
+          width: 10%; }
+        .table-container td:nth-child(4) {
+          width: 15%; } }
   .table-container a {
     position: relative;
     z-index: 1;
@@ -186,8 +197,7 @@
         bottom: 0;
         left: 0;
         display: flex;
-        align-items: center;
-        justify-content: flex-end; } }
+        align-items: center; } }
   @media screen and (max-width: 719px) {
     .table-container thead {
       display: none; }
@@ -315,8 +325,10 @@ h1 {
     background-color: #eefaf3 !important; }
 
 .selectable-users {
-  padding: 2rem;
-  text-align: center; }
+  margin-top: 3.125rem; }
+  @media screen and (max-width: 1023px) {
+    .selectable-users {
+      text-align: center; } }
   .selectable-users a {
     margin-right: 1.25rem; }
     @media screen and (max-width: 719px) {
@@ -328,7 +340,7 @@ h1 {
 .selectable-users--card {
   display: inline-block;
   max-width: calc(300px - 2rem); }
-  @media screen and (max-width: 719px) {
+  @media screen and (max-width: 1023px) {
     .selectable-users--card {
       margin-bottom: 1.25rem; } }
   .selectable-users--card img {
