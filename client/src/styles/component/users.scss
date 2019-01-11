@@ -20,11 +20,8 @@
 
 .selectable-users--card {
   display: inline-block;
-  max-width: calc(300px - #{$space-x-large});
-
-  @include media($max: $bp-large) {
-    margin-bottom: $space-medium;
-  }
+  max-width: calc(340px - #{$space-x-large});
+  margin-bottom: $space-medium;
 
   img {
     max-height: 250px;
