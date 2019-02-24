@@ -1,6 +1,20 @@
-# Survey Raptor
+# SurveyRaptor
 
-## Getting Started
+We're a polling tool for Slack that helps you gauge decisions that will affect your team by building personality profiles that adjust and evolve over time.
+
+www.surveyraptor.com
+
+### Final Product
+
+!["SurveyRaptor GIF"](https://github.com/fiveache/SurveyRaptor/blob/master/docs/SurveyRaptor-Screens.gif)
+
+### Technical Specifications
+
+- Front-End: React, React Router, Material UI, ECharts, JSX, SASS
+
+- Back-End: NodeJS, Express, JSON Web Tokens with Passport, PostgreSQL, KNEX.JS, Slack API, IBM Watson API, Heroku
+
+### Getting Started
 
 -   Clone this repository
     `git clone https://github.com/fiveache/SurveyRaptor.git`
